@@ -4,17 +4,18 @@
  */
 package connect.hub;
 
-/**
- *
- * @author Salma Eid
- */
+import connect.hub.Backend.PasswordHashing;
+
+
 public class ConnectHub {
 
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String[] args) {
         // TODO code application logic here
+        String pass="abc123";
+        PasswordHashing passhash=new PasswordHashing();
+        String pass2=passhash.hashPassword(pass);
+        System.out.println(pass2);
     }
     
 }

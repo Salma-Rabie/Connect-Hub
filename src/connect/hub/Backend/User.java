@@ -5,10 +5,10 @@ import java.time.LocalDate;
 
 public class User implements Cloneable {
     private final String userId;
-    private final String email;
-    private final String username;
-    private final String passwordHash;
-    private final LocalDate dateOfBirth;
+    private String email;
+    private String username;
+    private String passwordHash;
+    private LocalDate dateOfBirth;
     private String status;
 
     private User(UserBuilder builder) {
