@@ -17,7 +17,7 @@ public class User implements Cloneable {
         this.username = builder.username;
         this.passwordHash = builder.passwordHash;
         this.dateOfBirth = builder.dateOfBirth;
-        this.status = "offline"; // Default
+        this.status = "offline";
     }
 
     public static class UserBuilder {
@@ -26,12 +26,13 @@ public class User implements Cloneable {
         private String username;
         private String passwordHash;
         private LocalDate dateOfBirth;
+         private String status;
 
         public UserBuilder userId(String userId) {
             this.userId = userId;
             return this;
         }
-
+        
         public UserBuilder email(String email) {
             this.email = email;
             return this;
@@ -39,6 +40,10 @@ public class User implements Cloneable {
 
         public UserBuilder username(String username) {
             this.username = username;
+            return this;
+        }
+        public UserBuilder status(String status) {
+            this.status = status;
             return this;
         }
 
@@ -81,9 +86,6 @@ public class User implements Cloneable {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     @Override
     public User clone() {
