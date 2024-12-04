@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Assignment%205/Connect%20Hub/src/connect/hub/ConnectHub.java</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/connect/hub/Backend/PasswordHashing.java</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/connect/hub/Backend/User.java</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/connect/hub/Backend/UserManager.java</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/connect/hub/Backend/UserDataBase.java</file>
         </group>
     </open-files>
 </project-private>
