@@ -185,9 +185,7 @@ private ProfileManagement profileManager ;
           choose.setVisible(true);
           File profile=choose.getProfileFile();
           File cover= choose.getCoverFile();
-          if (profile == null || cover == null ) {
-                    JOptionPane.showMessageDialog(this, "Choose profile and cover photos", "Signup error", JOptionPane.ERROR_MESSAGE);
-                }
+          
           
        
        profileManager.changeProfilePhoto(user.getUserId(),profile );
