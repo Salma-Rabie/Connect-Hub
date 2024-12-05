@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Frontend;
 
 import Backend.*;
@@ -9,16 +6,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
-public class Login extends SuperJFrame {
+public class Login extends javax.swing.JFrame {
+private final  UserManager manager;
+    private JFrame previousWindow;
 
-    public Login(JFrame previousWindow, UserManager manager) {
-        super(previousWindow, manager);
+    public Login(JFrame previousWindow ,UserManager manager) {
+        this.manager = manager;
+        this.previousWindow = previousWindow;
          initComponents();
          setLocationRelativeTo(null);
          setTitle("Login");
     }
-
-   
    
 
     /**
@@ -126,7 +124,7 @@ public class Login extends SuperJFrame {
             return;
         }
         
-            User user= super.getManager().login(userId, pass);
+            User user= manager.login(userId, pass);
         
         if (user!=null) {  
             this.setVisible(false);
@@ -148,7 +146,7 @@ public class Login extends SuperJFrame {
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
          this.setVisible(false);
-        super.back();
+        previousWindow.setVisible(true);
     }//GEN-LAST:event_BackActionPerformed
 
     /**
