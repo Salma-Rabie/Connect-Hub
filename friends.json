@@ -1,0 +1,8 @@
+{
+     "user456": {"user123": true},
+     "user123:user456": {
+          "friendId": "user456",
+          "userId": "user123"
+     },
+     "user123": {"user456": true}
+}
