@@ -1,13 +1,23 @@
 {
+     "ahmed": {
+          "profilePhotoPath": "C:\\Users\\sarar\\Downloads\\quran.jpeg",
+          "Email": "ahmed@example.com",
+          "bio": "This is Ahmed's profile bio.",
+          "dateOfBirth": "1995-03-10",
+          "passwordHash": "3051f8ad13c1f1a61b96141dd61c1e183d6298c64c081bafc8a08a9476351483",
+          "username": "ahmed",
+          "status": "offline"
+     },
      "john_doe": {
           "Email": "john@example.com",
           "bio": "This is my updated bio!",
           "dateOfBirth": "1990-05-15",
-          "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+          "passwordHash": "b7d7eaabf114f8df14251108354723277bfdd01264da8f6751d5d9fc55a0e222",
           "username": "john_doe",
           "status": "offline"
      },
      "sara": {
+          "profilePhotoPath": "user_data/profile_photos/sara_profile.jpg",
           "Email": "sara@example.com",
           "bio": "Default bio",
           "dateOfBirth": "1992-08-25",

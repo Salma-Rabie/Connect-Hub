@@ -16,41 +16,59 @@ public class ConnectHub {
 
    
     public static void main(String[] args) {
-        // TODO code application logic here
-//        String pass="abc123";
-//        PasswordHashing passhash=new PasswordHashing();
-//        String pass2=passhash.hashPassword(pass);
-//        System.out.println(pass2);
-   // Initialize UserDataBase with the file path to the JSON database
-        UserDataBase database = UserDataBase.getInstance("users.json");
+        // UserDataBase database = UserDataBase.getInstance("users.json");
 
         // Initialize ProfileManagement with the UserDataBase instance
-        ProfileManagement profileManager = new ProfileManagement(database);
-
-        // Create new users using the User Builder and save them to the database
-        User user1 = createNewUser("john_doe", "john@example.com", "password123", LocalDate.of(1990, 5, 15));
-        database.saveUser(user1);  // Save to the database (JSON)
-
-        User user2 = createNewUser("sara", "sara@example.com", "password456", LocalDate.of(1992, 8, 25));
-        database.saveUser(user2);  // Save to the database (JSON)
-
-        // Now that users are created, we can test updating their profile details.
-
-        // Example 1: Change the bio for user with ID "john_doe"
-       profileManager.changeBio("john_doe", "This is my updated bio!");
-
-        // Example 2: Change the password for user with ID "john_doe"
-//        profileManager.changePassword("john_doe", "newSecurePassword123");
+//        ProfileManagement profileManager = new ProfileManagement(database);
 //
-//        // Example 3: Change the profile photo for user with ID "john_doe"
-//        File newProfilePhoto = new File("path/to/new/photo.jpg");
-//        profileManager.changeProfilePhoto("john_doe", newProfilePhoto);
+//        // Step 1: Create and save the user "sara" if not already in the database
+//        User sara = database.getUserById("sara");
+//        if (sara == null) {
+//            sara = createNewUser("sara", "sara@example.com", "password456", LocalDate.of(1992, 8, 25));
+//            database.saveUser(sara); // Save to the database
+//            System.out.println("User 'sara' created.");
+//        } else {
+//            System.out.println("User 'sara' already exists.");
+//        }
 //
-//        // Example 4: Change the cover photo for user with ID "john_doe"
-//        File newCoverPhoto = new File("path/to/new/cover_photo.jpg");
-//        profileManager.changeCoverPhoto("john_doe", newCoverPhoto);
+//        // Step 2: Assign the profile photo for sara
+//        File newProfilePhoto = new File("C:\\Users\\sarar\\Downloads\\quran.jpeg");
+//        if (newProfilePhoto.exists()) {
+//            profileManager.changeProfilePhoto("sara", newProfilePhoto);
+//        } else {
+//            System.err.println("Profile photo file does not exist: " + newProfilePhoto.getPath());
+//        }
+//
+//        // Step 3: Verify the photo path in the JSON file
+//        sara = database.getUserById("sara");
+//        if (sara != null) {
+//            System.out.println("Updated profile photo path in database: " + sara.getProfilePhotoPath());
+//        } else {
+//            System.err.println("Failed to retrieve user 'sara' from the database.");
+//        }
+UserDataBase database = UserDataBase.getInstance("users.json");
 
-        // Output success messages will be printed within each method after they run.
+        // Path to Ahmed's profile photo
+        String ahmedPhotoPath = "C:\\Users\\sarar\\Downloads\\quran.jpeg";
+
+        // Create the user "Ahmed" with his profile photo
+        User ahmed = new User.UserBuilder()
+                .userId("ahmed")  // Assign Ahmed's ID
+                .username("ahmed")
+                .email("ahmed@example.com")
+                .passwordHash(PasswordHashing.hashPassword("ahmed_password"))  // Hash Ahmed's password
+                .dateOfBirth(LocalDate.of(1995, 3, 10))  // Ahmed's date of birth
+                .status("offline")  // Default status
+                .bio("This is Ahmed's profile bio.")  // Assign Ahmed's bio
+                .profilePhotoPath(ahmedPhotoPath)  // Assign Ahmed's profile photo path
+                .coverPhotoPath(null)  // No cover photo initially
+                .build();
+
+        // Save Ahmed to the database
+        database.saveUser(ahmed);
+
+        // Print confirmation
+        System.out.println("User 'ahmed' has been added with the profile photo: " + ahmedPhotoPath);
     }
 
     // Helper method to create a new user using the UserBuilder
@@ -65,10 +83,14 @@ public class ConnectHub {
                 .passwordHash(hashedPassword)
                 .dateOfBirth(dateOfBirth)
                 .status("offline")  // Default status
-                .userId(username)  // Use username as userId (can be replaced with a unique ID generator if needed)
+                .userId(username)  // Use username as userId
                 .bio("Default bio")  // Set the bio to a default value
                 .build();
     }
+
     }
+
+    
+    
     
 
