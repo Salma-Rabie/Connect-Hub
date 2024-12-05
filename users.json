@@ -1,0 +1,18 @@
+{
+     "john_doe": {
+          "Email": "john@example.com",
+          "bio": "This is my updated bio!",
+          "dateOfBirth": "1990-05-15",
+          "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+          "username": "john_doe",
+          "status": "offline"
+     },
+     "sara": {
+          "Email": "sara@example.com",
+          "bio": "Default bio",
+          "dateOfBirth": "1992-08-25",
+          "passwordHash": "c6ba91b90d922e159893f46c387e5dc1b3dc5c101a5a4522f03b987177a24a91",
+          "username": "sara",
+          "status": "offline"
+     }
+}
