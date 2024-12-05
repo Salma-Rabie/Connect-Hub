@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package Backend;
 
+import Frontend.MainWindow;
 import java.time.LocalDate;
 
 
@@ -30,8 +28,10 @@ public class ConnectHub {
 
         // Step 4: Save the user to the JSON file
         UserDataBase userDataBase = UserDataBase.getInstance(filePath);
+        
         userDataBase.saveUser(user);
-
+MainWindow main=new MainWindow(userDataBase);
+main.setVisible(true);
         // Confirming that the user has been saved
         System.out.println("User saved to JSON file: " + filePath);
         
