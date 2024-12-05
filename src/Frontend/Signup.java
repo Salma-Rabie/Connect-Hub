@@ -12,14 +12,18 @@ import javax.swing.*;
  *
  * @author Salma Eid
  */
-public class Signup extends SuperJFrame {
+public class Signup extends javax.swing.JFrame {
+private final  UserManager manager;
+    private JFrame previousWindow;
 
-    public Signup(JFrame previousWindow, UserManager manager) {
-        super(previousWindow, manager);
-         initComponents();
+    public Signup( JFrame previousWindow,UserManager manager) {
+        this.manager = manager;
+        this.previousWindow = previousWindow;
+        initComponents();
          setLocationRelativeTo(null);
          setTitle("Signup");
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -167,7 +171,6 @@ public class Signup extends SuperJFrame {
             JOptionPane.showMessageDialog(this, "Please enter all fields!", "Signup error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        UserManager manager=super.getManager();
         if(!manager.isValidEmail(email))
         {
             JOptionPane.showMessageDialog(this, "Enter a valid email", "Signup error", JOptionPane.ERROR_MESSAGE);
@@ -196,7 +199,7 @@ public class Signup extends SuperJFrame {
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        super.back();
+           previousWindow.setVisible(true);
     }//GEN-LAST:event_BackActionPerformed
 
     /**
