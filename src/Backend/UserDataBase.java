@@ -1,4 +1,4 @@
-package connect.hub.Backend;
+package Backend;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -73,37 +73,35 @@ public class UserDataBase {
     }
 
     public User getUserById(String userId) {
-    try {
-        File file = new File(filePath);
-        if (file.exists()) {
-            String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
-            if (!content.trim().isEmpty()) { // If file is not empty ignoring white spaces
-                JSONObject database = new JSONObject(content); // Parse content of file to a JSON object
-                if (database.has(userId)) {
-                    // Get the user's JSON object by userId
-                    JSONObject jsonObject = database.getJSONObject(userId);
+        try {
 
-                    // Use the builder to create and return a User object
-                    return new User.UserBuilder()
-                            .userId(userId)
-                            .email(jsonObject.getString("Email"))
-                            .username(jsonObject.getString("username"))
-                            .passwordHash(jsonObject.getString("passwordHash"))
-                            .status(jsonObject.getString("status"))
-                            .dateOfBirth(LocalDate.parse(jsonObject.getString("dateOfBirth")))
-                            .bio(jsonObject.optString("bio", "Default bio")) // Retrieve bio, use default if missing
-                            .profilePhotoPath(jsonObject.optString("profilePhotoPath", null)) // Retrieve profile photo path
-                            .coverPhotoPath(jsonObject.optString("coverPhotoPath", null)) // Retrieve cover photo path
-                            .build();
+            File file = new File(filePath);
+            if (file.exists()) {
+                String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+                if (!content.trim().isEmpty()) {//if file is not empty ignoring white spaces 
+                    JSONObject database = new JSONObject(content);    //parse content of file to a json object 
+                    if (database.has(userId)) {
+                        // Get the user's JSON object by userid
+                        JSONObject jsonObject = database.getJSONObject(userId);
+
+                        // Use the builder to create and return a User object
+                        return new User.UserBuilder()
+                                .userId(userId)
+                                .email(jsonObject.getString("Email"))
+                                .username(jsonObject.getString("username"))
+                                .passwordHash(jsonObject.getString("passwordHash"))
+                                .status(jsonObject.getString("status"))
+                                .dateOfBirth(LocalDate.parse(jsonObject.getString("dateOfBirth")))
+                                .build();
+                    }
                 }
             }
+        } catch (IOException | JSONException e) {
+            System.err.println("Error retrieving user: " + e.getMessage());
         }
-    } catch (IOException | JSONException e) {
-        System.err.println("Error retrieving user: " + e.getMessage());
+        // Return null if user not found or error occurs
+        return null;
     }
-    // Return null if user not found or error occurs
-    return null;
-}
 
     public void updateUser(User updatedUser) {
     try {
@@ -126,6 +124,7 @@ public class UserDataBase {
         } else {
             database = new JSONObject(); // File does not exist, create a new JSON object
         }
+        if(database.has(updatedUser.getUserId())){
 
         // Update the existing user in the database
         database.put(updatedUser.getUserId(), new JSONObject() {{
@@ -144,7 +143,8 @@ public class UserDataBase {
             writer.write(database.toString(5)); // Indented JSON output
             System.out.println("User updated successfully.");
         }
-
+    }
+        
     } catch (IOException e) {
         System.err.println("Error updating user: " + e.getMessage());
     }

@@ -1,5 +1,4 @@
-
-package connect.hub.Backend;
+package Backend;
 
 import java.time.LocalDate;
 

@@ -1,5 +1,5 @@
 
-package connect.hub.Backend;
+package Backend;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -10,7 +10,6 @@ public class PasswordHashing {
             byte[] hash = md.digest(password.getBytes());
             StringBuilder hexString = new StringBuilder();
 
-            // Using a normal for-loop instead of an enhanced for-loop
             for (int i = 0; i < hash.length; i++) {
                 byte b = hash[i];
                 hexString.append(String.format("%02x", b));
@@ -22,4 +21,3 @@ public class PasswordHashing {
         }
     }
 }
-
