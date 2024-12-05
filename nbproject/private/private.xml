@@ -3,15 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/connect/hub/Backend/UserDataBase.java</file>
-            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/connect/hub/Backend/User.java</file>
-            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/connect/hub/ConnectHub.java</file>
-            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/connect/hub/frontend/MainWindow.java</file>
-            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/connect/hub/frontend/ProfileManagement.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/NewsFeed.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/MainWindow.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/ProfileWindow.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/Login.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/Signup.java</file>
             <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/users.json</file>
-            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/connect/hub/Backend/ProfileManagement.java</file>
-            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/connect/hub/frontend/pp.java</file>
-            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/connect/hub/Backend/UserManager.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/ProfileManagement.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/UserDataBase.java</file>
         </group>
     </open-files>
 </project-private>

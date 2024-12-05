@@ -1,15 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Frontend;
 
 import Backend.*;
 
 public class MainWindow extends javax.swing.JFrame {
-UserManager manager;
-    public MainWindow(UserDataBase database ) {
-        manager=new UserManager(database);
+private UserManager userManager;
+private ProfileManagement profileManager ;
+    public MainWindow(UserDataBase database) {
+        userManager=new UserManager(database);
+        profileManager= new ProfileManagement(database);
          initComponents();
          setLocationRelativeTo(null);
          setTitle("Main Window");
@@ -72,14 +71,14 @@ UserManager manager;
 
     private void SignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupActionPerformed
         // TODO add your handling code here:
-        Signup signup=new Signup(this,manager);
+        Signup signup=new Signup(this,userManager,profileManager);
         signup.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_SignupActionPerformed
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
-        Login login=new Login(this,manager);
+        Login login=new Login(this,userManager);
         login.setVisible(true);
         this.setVisible(false);
         
@@ -89,35 +88,8 @@ UserManager manager;
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new MainWindow().setVisible(true);
-//            }
-//        });
+     
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
