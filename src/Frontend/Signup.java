@@ -5,6 +5,7 @@
 package Frontend;
 
 import Backend.*;
+import java.io.File;
 import java.time.*;
 import java.util.Date;
 import javax.swing.*;
@@ -13,12 +14,13 @@ import javax.swing.*;
  * @author Salma Eid
  */
 public class Signup extends javax.swing.JFrame {
-private final  UserManager manager;
+private final  UserManager userManager;
     private JFrame previousWindow;
-
-    public Signup( JFrame previousWindow,UserManager manager) {
-        this.manager = manager;
+private ProfileManagement profileManager ;
+    public Signup( JFrame previousWindow,UserManager userManager,ProfileManagement profileManager) {
+        this.userManager =userManager;
         this.previousWindow = previousWindow;
+        this.profileManager= profileManager;
         initComponents();
          setLocationRelativeTo(null);
          setTitle("Signup");
@@ -116,7 +118,7 @@ private final  UserManager manager;
                                     .addComponent(Email))))))
                 .addGap(43, 43, 43))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 97, Short.MAX_VALUE)
+                .addGap(0, 98, Short.MAX_VALUE)
                 .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Signup, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,7 +145,7 @@ private final  UserManager manager;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DateOfBirth, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Signup, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -171,17 +173,27 @@ private final  UserManager manager;
             JOptionPane.showMessageDialog(this, "Please enter all fields!", "Signup error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if(!manager.isValidEmail(email))
+        if(!userManager.isValidEmail(email))
         {
             JOptionPane.showMessageDialog(this, "Enter a valid email", "Signup error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-      User user=  manager.sigup(email, username, pass, dateofbirth);
-        manager.getDatabase().saveUser(user);
-         JOptionPane.showMessageDialog(this, "Signed up successfuly!", "Message", JOptionPane.INFORMATION_MESSAGE);
-          this.setVisible(false);
-       // go to the new profile
-        
+      User user=  userManager.sigup(email, username, pass, dateofbirth);
+         userManager.getDatabase().saveUser(user);
+         
+          ChoosePhotos choose=new ChoosePhotos(this,true);
+          choose.setVisible(true);
+          File profile=choose.getProfileFile();
+          File cover= choose.getCoverFile();
+          if (profile == null || cover == null ) {
+                    JOptionPane.showMessageDialog(this, "Choose profile and cover photos", "Signup error", JOptionPane.ERROR_MESSAGE);
+                }
+          
+       
+       profileManager.changeProfilePhoto(user.getUserId(),profile );
+        profileManager.changeCoverPhoto(user.getUserId(),cover);
+       userManager.getDatabase().saveUser(user);
+        JOptionPane.showMessageDialog(this, "Signed up successfuly!", "Message", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_SignupActionPerformed
 
     private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed
@@ -206,35 +218,7 @@ private final  UserManager manager;
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Signup().setVisible(true);
-//            }
-//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
