@@ -78,7 +78,7 @@ private ProfileManagement profileManager ;
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
-        Login login=new Login(this,userManager);
+        Login login=new Login(this,userManager,profileManager);
         login.setVisible(true);
         this.setVisible(false);
         

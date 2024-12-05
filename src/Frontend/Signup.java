@@ -17,6 +17,7 @@ public class Signup extends javax.swing.JFrame {
 private final  UserManager userManager;
     private JFrame previousWindow;
 private ProfileManagement profileManager ;
+
     public Signup( JFrame previousWindow,UserManager userManager,ProfileManagement profileManager) {
         this.userManager =userManager;
         this.previousWindow = previousWindow;
@@ -186,12 +187,17 @@ private ProfileManagement profileManager ;
           File profile=choose.getProfileFile();
           File cover= choose.getCoverFile();
           
-          
-       
+          if(profile==null)
+        profileManager.changeProfilePhoto(user.getUserId(),null);
+          if(cover==null)
+               profileManager.changeCoverPhoto(user.getUserId(),null);
        profileManager.changeProfilePhoto(user.getUserId(),profile );
         profileManager.changeCoverPhoto(user.getUserId(),cover);
        userManager.getDatabase().saveUser(user);
         JOptionPane.showMessageDialog(this, "Signed up successfuly!", "Message", JOptionPane.INFORMATION_MESSAGE);
+        ProfileWindow profilewindow=new ProfileWindow(previousWindow,user,userManager,profileManager);
+        this.setVisible(false);
+        profilewindow.setVisible(true);
     }//GEN-LAST:event_SignupActionPerformed
 
     private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed

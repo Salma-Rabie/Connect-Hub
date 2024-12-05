@@ -6,7 +6,6 @@ package Frontend;
 
 import Backend.*;
 import java.awt.Image;
-import java.io.File;
 import java.time.LocalDate;
 import javax.swing.*;
 
@@ -29,7 +28,9 @@ private JFrame previousWindow;
         initComponents();
         setLocationRelativeTo(null);
         setTitle(user.getUsername()+"'s Profile");
- ImageIcon icon = new ImageIcon("ss.jpg"); // Replace with your image path
+        Bio.setText(user.getBio());
+        System.out.println("User Bio: " + user.getBio());
+        ImageIcon icon = new ImageIcon("ss.jpg"); // Replace with your image path
     Image originalImage = icon.getImage();
     Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
     jLabel2.setIcon(new ImageIcon(scaledImage));
@@ -38,7 +39,9 @@ private JFrame previousWindow;
     jLabel1.setIcon(new ImageIcon(scaledImage2));
     
     }
-
+public void updateuser(String text){
+   Bio.setText(text);
+}
 
   
     /**
@@ -55,7 +58,7 @@ private JFrame previousWindow;
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        Bio = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         Logout = new javax.swing.JButton();
         EditProfile = new javax.swing.JButton();
@@ -70,7 +73,7 @@ private JFrame previousWindow;
 
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Bio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel7.setText("Bio");
 
@@ -107,7 +110,7 @@ private JFrame previousWindow;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Bio, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,7 +137,7 @@ private JFrame previousWindow;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Bio, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
@@ -199,6 +202,7 @@ ProfileWindow profile=new ProfileWindow(new MainWindow(userDataBase),user,userMa
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Bio;
     private javax.swing.JButton EditProfile;
     private javax.swing.JButton Logout;
     private javax.swing.JLabel jLabel1;
@@ -206,7 +210,6 @@ ProfileWindow profile=new ProfileWindow(new MainWindow(userDataBase),user,userMa
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }
