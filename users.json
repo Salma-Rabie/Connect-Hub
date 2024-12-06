@@ -1,16 +1,10 @@
-{
-     "johndoe@example.com": {
-          "dateOfBirth": "1990-05-15",
-          "userId": "12345",
-          "passwordHash": "4dbd5e49147b5102ee2731ac03dd0db7decc3b8715c3df3c1f3ddc62dcbcf86d",
-          "username": "JohnDoe",
-          "status": "offline"
-     },
-     "12345": {
-          "Email": "johndoe@example.com",
-          "dateOfBirth": "1990-05-15",
-          "passwordHash": "4dbd5e49147b5102ee2731ac03dd0db7decc3b8715c3df3c1f3ddc62dcbcf86d",
-          "username": "JohnDoe",
-          "status": "online"
-     }
-}
+{"12345": {
+     "profilePhotoPath": "",
+     "Email": "johndoe@example.com",
+     "bio": "sjfxsghgxdwkwdhew",
+     "dateOfBirth": "1990-05-15",
+     "coverPhotoPath": "",
+     "passwordHash": "a949f46230748d3f7496809b82cec6daa6ec8a671d17ac1ca03a17173cbcb2d6",
+     "username": "JohnDoe",
+     "status": "online"
+}}

@@ -7,12 +7,13 @@ import javax.swing.JOptionPane;
 
 
 public class Login extends javax.swing.JFrame {
-private final  UserManager manager;
+private final  UserManager userManager;
     private JFrame previousWindow;
-
-    public Login(JFrame previousWindow ,UserManager manager) {
-        this.manager = manager;
+private ProfileManagement profileManager;
+    public Login(JFrame previousWindow ,UserManager userManager,ProfileManagement profileManager) {
+        this.userManager = userManager;
         this.previousWindow = previousWindow;
+        this.profileManager=profileManager;
          initComponents();
          setLocationRelativeTo(null);
          setTitle("Login");
@@ -124,11 +125,14 @@ private final  UserManager manager;
             return;
         }
         
-            User user= manager.login(userId, pass);
+            User user= userManager.login(userId, pass);
         
         if (user!=null) {  
             this.setVisible(false);
-            //go to the user profile
+             ProfileWindow profilewindow=new ProfileWindow(previousWindow,user,userManager,profileManager);
+        this.setVisible(false);
+        profilewindow.setVisible(true);
+           
         } else {
             JOptionPane.showMessageDialog(this, "Wrong ID or password!", "Login Error", JOptionPane.ERROR_MESSAGE);
         }

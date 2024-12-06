@@ -1,4 +1,17 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Backend;
+
+/**
+ *
+ * @author sarar
+ */
+//see the factory point 
+import Backend.PasswordHashing;
+import Backend.User;
+import Backend.UserDataBase;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -53,7 +66,9 @@ public class ProfileManagement {
             userDataBase.updateUser(updatedUser);
 
             System.out.println("Profile photo updated successfully.");
-            } catch (IOException e) {
+            
+
+        } catch (IOException e) {
             System.err.println("Error updating profile photo: " + e.getMessage());
         }
     }
@@ -126,6 +141,7 @@ public void changePassword(String userId, String newPassword) {
                 .userId(user.getUserId())
                 .username(user.getUsername())
                 .build();
+
         // Save the updated user to the database
         userDataBase.updateUser(updatedUser);
         
@@ -162,3 +178,4 @@ public void changePassword(String userId, String newPassword) {
     System.out.println("Bio updated successfully.");
    }
 }
+

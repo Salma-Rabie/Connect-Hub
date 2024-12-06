@@ -57,9 +57,9 @@ private JFrame previousWindow;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
+                .addGap(133, 133, 133)
                 .addComponent(GoToProfile)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,6 +75,9 @@ private JFrame previousWindow;
     private void GoToProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoToProfileActionPerformed
         // TODO add your handling code here:
         ProfileWindow profile=new ProfileWindow(this,user,userManager,profileManager);
+        
+        this.setVisible(false);
+        profile.setVisible(true);
     }//GEN-LAST:event_GoToProfileActionPerformed
 
     /**

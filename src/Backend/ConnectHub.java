@@ -10,7 +10,7 @@ public class ConnectHub {
    
     public static void main(String[] args) {
         // TODO code application logic here
-       String rawPassword = "securePassword123";
+       String rawPassword = "56789";
         String hashedPassword = PasswordHashing.hashPassword(rawPassword);
 
         // Step 2: Build a User object
@@ -21,6 +21,9 @@ public class ConnectHub {
                 .passwordHash(hashedPassword)
                 .dateOfBirth(LocalDate.of(1990, 5, 15))
                 .status("online")
+                .bio("sjfxsghgxdwkwdhew")
+                .coverPhotoPath("")
+                .profilePhotoPath("")
                 .build();
 
         // Step 3: Specify the JSON file path
