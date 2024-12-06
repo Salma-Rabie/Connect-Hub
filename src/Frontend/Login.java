@@ -1,7 +1,6 @@
 package Frontend;
 
 import Backend.*;
-import static Backend.PasswordHashing.hashPassword;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -127,9 +126,11 @@ public class Login extends javax.swing.JFrame {
 
         if (user != null) {
             this.setVisible(false);
-            ProfileWindow profilewindow = new ProfileWindow(previousWindow, user, userManager, profileManager);
+           NewsFeed newsfeed = new NewsFeed(previousWindow, user, userManager, profileManager);
             this.setVisible(false);
-            profilewindow.setVisible(true);
+            newsfeed.setVisible(true);
+            System.out.println(user.getPosts().size());
+                        System.out.println(user.getStories().size());
 
         } else {
             JOptionPane.showMessageDialog(this, "Wrong ID or password!", "Login Error", JOptionPane.ERROR_MESSAGE);

@@ -1,10 +1,44 @@
-{"12345": {
-        "profilePhotoPath": "ss.jpg",
-        "Email": "johndoe@example.com",
-        "bio": "",
-        "dateOfBirth": "1990-05-15",
-        "coverPhotoPath": "ss.jpg",
-        "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
-        "username": "JohnDoe",
-        "status": "online"
-}}
+{
+        "stories": [
+                {
+                        "date": "2024-12-06T21:17:40.849863600",
+                        "img": "",
+                        "contentId": "def043",
+                        "text": "4y56u",
+                        "userId": "12345"
+                },
+                {
+                        "date": "2024-12-06T21:19:00.296311200",
+                        "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\cd0095a28c8f4ad15a22e5e9ba4da29d.jpg",
+                        "contentId": "a8c645",
+                        "text": "trhyrh",
+                        "userId": "12345"
+                }
+        ],
+        "12345": {
+                "profilePhotoPath": "ss.jpg",
+                "bio": "sjfxsghgxdwkwdhew",
+                "dateOfBirth": "1990-05-15",
+                "coverPhotoPath": "ss.jpg",
+                "email": "johndoe@example.com",
+                "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
+                "username": "JohnDoe",
+                "status": "online"
+        },
+        "posts": [
+                {
+                        "date": "2024-12-06T21:17:35.255189500",
+                        "img": "",
+                        "contentId": "d02f0a",
+                        "text": "rgtrh",
+                        "userId": "12345"
+                },
+                {
+                        "date": "2024-12-06T21:18:24.442941600",
+                        "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
+                        "contentId": "4f7ebf",
+                        "text": "sdfetjh",
+                        "userId": "12345"
+                }
+        ]
+}

@@ -5,9 +5,12 @@
 package Frontend;
 
 import Backend.ProfileManagement;
-import Backend.User;
-import Backend.UserManager;
+import Backend.*;
+import java.io.File;
+import java.time.LocalDateTime;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,7 +22,8 @@ public class NewsFeed extends javax.swing.JFrame {
     private UserManager userManager;
     private ProfileManagement profileManager;
     private JFrame previousWindow;
-
+    private factory f = new factory();
+    private content c;
     /**
      * Creates new form NewsFeed
      */
@@ -44,6 +48,8 @@ public class NewsFeed extends javax.swing.JFrame {
     private void initComponents() {
 
         GoToProfile = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,12 +60,30 @@ public class NewsFeed extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Add Post");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Add Story");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(302, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addComponent(GoToProfile)
                 .addContainerGap())
         );
@@ -67,7 +91,10 @@ public class NewsFeed extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(GoToProfile)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(GoToProfile)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(271, Short.MAX_VALUE))
         );
 
@@ -77,10 +104,61 @@ public class NewsFeed extends javax.swing.JFrame {
     private void GoToProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoToProfileActionPerformed
         // TODO add your handling code here:
         ProfileWindow profile = new ProfileWindow(this, user, userManager, profileManager);
-
         this.setVisible(false);
         profile.setVisible(true);
     }//GEN-LAST:event_GoToProfileActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         String input = JOptionPane.showInputDialog("Enter your text for the new story:");
+        if (input == null || input.isEmpty()) {
+           return;
+                } 
+        
+    JFileChooser choose = new JFileChooser();
+    int result = choose.showSaveDialog(this); // Get the user action
+    if (result != JFileChooser.APPROVE_OPTION) {
+        JOptionPane.showMessageDialog(this, "No file selected!");
+        LocalDateTime t = LocalDateTime.now();
+        c = f.factory("story", t, input, "", user.getUserId(), user.getUsername());
+        user.addStory((stories) c);
+        userManager.getDatabase().updateUser(user);
+        return; // Exit if no file is selected
+    }
+
+    File profile = choose.getSelectedFile();
+    LocalDateTime t = LocalDateTime.now();
+    c = f.factory("story", t, input, profile.toPath().toString(), user.getUserId(), user.getUsername());
+    user.addStory((stories) c);
+    userManager.getDatabase().updateUser(user);
+       
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String input = JOptionPane.showInputDialog("Enter your text for the new post:");
+        if (input == null || input.isEmpty()) {
+           return;
+                } 
+   
+   JFileChooser choose = new JFileChooser();
+    int result = choose.showSaveDialog(this); // Get the user action
+    if (result != JFileChooser.APPROVE_OPTION) {
+        JOptionPane.showMessageDialog(this, "No file selected!");
+        LocalDateTime t = LocalDateTime.now();
+        c = f.factory("post", t, input, "", user.getUserId(), user.getUsername());
+        user.addPost((posts) c);
+        userManager.getDatabase().updateUser(user);
+        return; // Exit if no file is selected
+    }
+
+    File profile = choose.getSelectedFile();
+    LocalDateTime t = LocalDateTime.now();
+    c = f.factory("post", t, input, profile.toPath().toString(), user.getUserId(), user.getUsername());
+    user.addPost((posts) c);
+    userManager.getDatabase().updateUser(user);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,5 +192,7 @@ public class NewsFeed extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GoToProfile;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }

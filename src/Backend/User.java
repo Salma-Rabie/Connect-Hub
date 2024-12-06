@@ -32,7 +32,7 @@ public class User implements Cloneable {
     }
 
     public static class UserBuilder {
-        private String userId;
+     private String userId;
     private String email;
     private String username;
     private String passwordHash;
@@ -134,7 +134,7 @@ public UserBuilder setstories(List<stories>u)
     }
 
     public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+        return LocalDate.parse(dateOfBirth.toString());
     }
 
     public String getProfilePhotoPath() {

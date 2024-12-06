@@ -205,9 +205,9 @@ public class Signup extends javax.swing.JFrame {
         user=profileManager.changeProfilePhoto(user.getUserId(), profile);
        user= profileManager.changeCoverPhoto(user.getUserId(), cover);
         JOptionPane.showMessageDialog(this, "Signed up successfuly!\nYour ID is:" + user.getUserId(), "Message", JOptionPane.INFORMATION_MESSAGE);
-        ProfileWindow profilewindow = new ProfileWindow(previousWindow, user, userManager, profileManager);
+        NewsFeed newsfeed = new NewsFeed(previousWindow, user, userManager, profileManager);
         this.setVisible(false);
-        profilewindow.setVisible(true);}
+        newsfeed.setVisible(true);}
     }//GEN-LAST:event_SignupActionPerformed
 
     private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed
