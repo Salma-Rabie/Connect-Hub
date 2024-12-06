@@ -1,6 +1,7 @@
 package Backend;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,58 +23,74 @@ public class UserDataBase {
         }
         return instance;
     }
-
-    public void saveUser(User user) {
+      public void saveUser(User user) {
+        // Check if the user already exists in the database (assuming getUserById is defined elsewhere)
         if (getUserById(user.getUserId()) != null) {
             return;  // User already exists, no need to save again
         }
-        File defultphoto = new File("ss.jpg");
+
+        File defaultPhoto = new File("ss.jpg");  // Default photo in case the user doesn't have one
+
         // Create a new JSON object to hold the user's data
-        JSONObject jsonObject = new JSONObject();
-          JSONArray storiesArray = new JSONArray();
-                for (stories story : user.getStories()) {
-                    JSONObject storyJson = new JSONObject();
-                    storyJson.put("contentId", story.getContentId());
-                    storyJson.put("date", story.getDate().toString());
-                    storyJson.put("text", story.getText());
-                    storyJson.put("img", story.getImg());
-                    storyJson.put("userId", story.getUserId());
-                    storiesArray.put(storyJson);
-                }
-                 jsonObject.put("stories", storiesArray);
+        JSONObject userJson = new JSONObject();
 
-                JSONArray postsArray = new JSONArray();
-                for (posts post : user.getPosts()) {
-                    JSONObject postJson = new JSONObject();
-                    postJson.put("contentId", post.getContentId());
-                    postJson.put("date", post.getDate().toString());
-                    postJson.put("text", post.getText());
-                    postJson.put("img", post.getImg());
-                    postJson.put("userId", post.getUserId());
-                    postsArray.put(postJson);
-                }
-                 jsonObject.put("posts", postsArray);
-        jsonObject.put("username", user.getUsername());
-        jsonObject.put("Email", user.getEmail());
-        jsonObject.put("passwordHash", user.getPasswordHash());
-        jsonObject.put("dateOfBirth", user.getDateOfBirth().toString());  // Convert LocalDate to String
-        jsonObject.put("status", user.getStatus());
+        // Add user-specific fields
+        userJson.put("username", user.getUsername());
+        userJson.put("email", user.getEmail());
+        userJson.put("passwordHash", user.getPasswordHash());
+        userJson.put("dateOfBirth", user.getDateOfBirth().toString());
+        userJson.put("status", "online");
+
+        // Bio field
         if (user.getBio() == null) {
-            jsonObject.put("bio", "");// Add bio field
+            userJson.put("bio", "");  // Empty string for bio if null
         } else {
-            jsonObject.put("bio", user.getBio());// Add bio field
+            userJson.put("bio", user.getBio());
+        }
 
-        }
+        // Profile photo path (default or user-defined)
         if (user.getProfilePhotoPath() == null) {
-            jsonObject.put("profilePhotoPath", defultphoto);
+            userJson.put("profilePhotoPath", defaultPhoto.getPath());
         } else {
-            jsonObject.put("profilePhotoPath", user.getProfilePhotoPath());// Add profile photo path field
+            userJson.put("profilePhotoPath", user.getProfilePhotoPath());
         }
+
+        // Cover photo path (default or user-defined)
         if (user.getCoverPhotoPath() == null) {
-            jsonObject.put("coverPhotoPath", defultphoto);
+            userJson.put("coverPhotoPath", defaultPhoto.getPath());
         } else {
-            jsonObject.put("coverPhotoPath", user.getCoverPhotoPath());// Add cover photo path field
+            userJson.put("coverPhotoPath", user.getCoverPhotoPath());
         }
+
+        // Add stories array
+        JSONArray storiesArray = new JSONArray();
+        for (stories story : user.getStories()) {
+            JSONObject storyJson = new JSONObject();
+            storyJson.put("contentId", story.getContentId());
+            storyJson.put("date", story.getDate().toString());
+            storyJson.put("text", story.getText());
+            storyJson.put("img", story.getImg());
+            storyJson.put("userId", story.getUserId());
+            storiesArray.put(storyJson);
+        }
+        userJson.put("stories", storiesArray);
+
+        // Add posts array
+        JSONArray postsArray = new JSONArray();
+        for (posts post : user.getPosts()) {
+            JSONObject postJson = new JSONObject();
+            postJson.put("contentId", post.getContentId());
+            postJson.put("date", post.getDate().toString());
+            postJson.put("text", post.getText());
+            postJson.put("img", post.getImg());
+            postJson.put("userId", post.getUserId());
+            postsArray.put(postJson);
+        }
+        userJson.put("posts", postsArray);
+
+        // Now, the user data is directly under their userId key (e.g., "12345")
+        JSONObject finalJson = new JSONObject();
+        finalJson.put(String.valueOf(user.getUserId()), userJson);  // UserId as key, userJson as value
 
         try {
             // Load the existing JSON file or create a new one if it doesn't exist
@@ -81,7 +98,7 @@ public class UserDataBase {
             File file = new File(filePath);
 
             if (file.exists()) {
-                String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+                String content = new String(Files.readAllBytes(file.toPath()));
                 if (content.trim().isEmpty()) {
                     database = new JSONObject();  // Empty file, start fresh
                 } else {
@@ -96,12 +113,12 @@ public class UserDataBase {
                 database = new JSONObject();  // File does not exist, create a new JSON object
             }
 
-            // Use userId as the key and update the user's data in the database
-            database.put(user.getUserId(), jsonObject);
+            // Put the updated user data under the userId key in the database
+            database.put(String.valueOf(user.getUserId()), userJson);
 
             // Write the updated database back to the file
             try (FileWriter writer = new FileWriter(filePath)) {
-                writer.write(database.toString(8));  // Indented JSON output for better readability
+                writer.write(database.toString(4));  // Indented JSON output for better readability
                 System.out.println("User saved successfully.");
             }
 
@@ -109,6 +126,8 @@ public class UserDataBase {
             System.err.println("Error saving user: " + e.getMessage());
         }
     }
+    
+
 
     public User getUserById(String userId) {
         try {
@@ -121,36 +140,39 @@ public class UserDataBase {
                     if (database.has(userId)) {
                         // Get the user's JSON object by userid
                         JSONObject jsonObject = database.getJSONObject(userId);
-JSONArray storiesArray = jsonObject.optJSONArray("stories");
-                    ArrayList<stories> userStories = new ArrayList<>();
-                    if (storiesArray != null) {
-                        for (int i = 0; i < storiesArray.length(); i++) {
-                            JSONObject storyJson = storiesArray.getJSONObject(i);
-                            LocalDateTime date = LocalDateTime.parse(storyJson.getString("date"));
-                            String text = storyJson.getString("text");
-                            String img = storyJson.getString("img");
-                            String userIdForStory = storyJson.getString("userId");
-                            stories userStory = new stories(date, text, img, userIdForStory);
-                            userStories.add(userStory);
+                        JSONArray storiesArray = jsonObject.optJSONArray("stories");
+                        ArrayList<stories> userStories = new ArrayList<>();
+                        if (storiesArray != null) {
+                            for (int i = 0; i < storiesArray.length(); i++) {
+                                JSONObject storyJson = storiesArray.getJSONObject(i);
+                                LocalDateTime date = LocalDateTime.parse(storyJson.getString("date"));
+                                String text = storyJson.getString("text");
+                                String img = storyJson.getString("img");
+                                String userIdForStory = storyJson.getString("userId");
+                                stories userStory = new stories(date, text, img, userIdForStory);
+                                userStories.add(userStory);
+                            }
                         }
-                    }
 
-                    // Extracting posts
-                    JSONArray postsArray = jsonObject.optJSONArray("posts");
-                    ArrayList<posts> userPosts = new ArrayList<>();
-                    if (postsArray != null) {
-                        for (int i = 0; i < postsArray.length(); i++) {
-                            JSONObject postJson = postsArray.getJSONObject(i);
-                            LocalDateTime date = LocalDateTime.parse(postJson.getString("date"));
-                            String text = postJson.getString("text");
-                            String img = postJson.getString("img");
-                            String userIdForPost = postJson.getString("userId");
-                            posts userPost = new posts(date, text, img, userIdForPost);
-                            userPosts.add(userPost);}}
+                        // Extracting posts
+                        JSONArray postsArray = jsonObject.optJSONArray("posts");
+                        ArrayList<posts> userPosts = new ArrayList<>();
+                        if (postsArray != null) {
+                            for (int i = 0; i < postsArray.length(); i++) {
+                                JSONObject postJson = postsArray.getJSONObject(i);
+                                LocalDateTime date = LocalDateTime.parse(postJson.getString("date"));
+                                String text = postJson.getString("text");
+                                String img = postJson.getString("img");
+                                String userIdForPost = postJson.getString("userId");
+                                posts userPost = new posts(date, text, img, userIdForPost);
+                                userPosts.add(userPost);
+                            }
+                        }
                         // Use the builder to create and return a User object
-                        return new User.UserBuilder()
+                        //System.out.println("sdsc"+userStories.size());
+                        User user = new User.UserBuilder()
                                 .userId(userId)
-                                .email(jsonObject.getString("Email"))
+                                .email(jsonObject.getString("email"))
                                 .username(jsonObject.getString("username"))
                                 .passwordHash(jsonObject.getString("passwordHash"))
                                 .status(jsonObject.getString("status"))
@@ -161,6 +183,9 @@ JSONArray storiesArray = jsonObject.optJSONArray("stories");
                                 .setstories(userStories)
                                 .setposts(userPosts)
                                 .build();
+                        //System.out.println(user.getStories().size());
+                       // System.out.println(user.getPosts().size());
+                        return user;
                     }
                 }
             }
@@ -193,7 +218,7 @@ JSONArray storiesArray = jsonObject.optJSONArray("stories");
                 database = new JSONObject(); // File does not exist, create a new JSON object
             }
             if (database.has(updatedUser.getUserId())) {
-  JSONArray storiesArray = new JSONArray();
+                JSONArray storiesArray = new JSONArray();
                 for (stories story : updatedUser.getStories()) {
                     JSONObject storyJson = new JSONObject();
                     storyJson.put("contentId", story.getContentId());
@@ -220,7 +245,7 @@ JSONArray storiesArray = jsonObject.optJSONArray("stories");
                 database.put(updatedUser.getUserId(), new JSONObject() {
                     {
                         put("username", updatedUser.getUsername());
-                        put("Email", updatedUser.getEmail());
+                        put("email", updatedUser.getEmail());
                         put("passwordHash", updatedUser.getPasswordHash());
                         put("dateOfBirth", updatedUser.getDateOfBirth().toString());
                         put("status", updatedUser.getStatus());
@@ -254,7 +279,7 @@ JSONArray storiesArray = jsonObject.optJSONArray("stories");
                         JSONObject jsonObject = database.getJSONObject(userId);
                         User user = new User.UserBuilder()
                                 .userId(userId)
-                                .email(jsonObject.getString("Email"))
+                                .email(jsonObject.getString("email"))
                                 .username(jsonObject.getString("username"))
                                 .passwordHash(jsonObject.getString("passwordHash"))
                                 .status(jsonObject.getString("status"))
