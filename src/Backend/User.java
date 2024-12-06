@@ -1,6 +1,8 @@
 package Backend;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Cloneable {
     private final String userId;
@@ -12,7 +14,9 @@ public class User implements Cloneable {
     private String profilePhotoPath;
     private String coverPhotoPath;
     private String bio;
-
+ private List<stories> stories; 
+    private List<posts> posts; 
+    
     private User(UserBuilder builder) {
         this.userId = builder.userId;
         this.email = builder.email;
@@ -23,6 +27,8 @@ public class User implements Cloneable {
         this.profilePhotoPath = builder.profilePhotoPath;
         this.coverPhotoPath = builder.coverPhotoPath;
         this.bio = builder.bio;
+        this.posts=builder.user_posts;
+        this.stories=builder.user_stories;
     }
 
     public static class UserBuilder {
@@ -35,6 +41,8 @@ public class User implements Cloneable {
     private String profilePhotoPath;
     private String coverPhotoPath;
     private String bio;
+ private List<stories> user_stories = new ArrayList<>();
+    private List<posts> user_posts = new ArrayList<>(); 
 
     public UserBuilder userId(String userId) {
         this.userId = userId;
@@ -80,9 +88,32 @@ public class User implements Cloneable {
         this.bio = bio;
         return this;
     }
+    public UserBuilder story(stories story)
+    {
+       this.user_stories.add(story);
+       return this;
+    }
+      public UserBuilder post(posts post)
+    {
+       this.user_posts.add(post);
+       return this;
+    }
+public UserBuilder setstories(List<stories>u)      
+      {
+          this.user_stories = u;
+          return this;
+      }
+      public UserBuilder setposts(List<posts>p)
+      {
+          this.user_posts=p;
+          return this;
+      }
 
-    public User build() {
-        return new User(this);
+   public User build() {
+        User user = new User(this);
+        user.posts=this.user_posts;
+        user.stories= this.user_stories;
+        return user;
     }
     }
 
@@ -124,7 +155,24 @@ public class User implements Cloneable {
     public void setStatus(String status) {
         this.status = status;
     }
+public List<stories> getStories() {
+        return stories;
+    }
 
+    public void addStory(stories story) {
+        this.stories.add(story);
+    }
+
+    public List<posts> getPosts() {
+        return posts;
+    }
+
+    public void addPost(posts post) {
+        this.posts.add(post);
+    }
+  
+    public void removeExpiredStories() {
+    this.stories.removeIf( user_stories -> user_stories.isExpired());}
 
     @Override
     public User clone() {
