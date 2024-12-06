@@ -1,35 +1,21 @@
 {
     "1000": {
-        "profilePhotoPath": "user_data/profile_photos/1000_profile.jpg",
-        "stories": [],
-        "bio": "",
-        "dateOfBirth": "2024-12-18",
-        "coverPhotoPath": "user_data/cover_photos/1000_cover.jpg",
-        "posts": [],
-        "email": "salma@gmail.com",
-        "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
-        "username": "salma",
+        "profilePhotoPath": "ss.jpg",
+        "email": "malak@example.com",
+        "bio": "malak waled",
+        "dateOfBirth": "1990-09-15",
+        "coverPhotoPath": "ss.jpg",
+        "passwordHash": "fd5f56b40a79a385708428e7b32ab996a681080a166a2206e750eb4819186145",
+        "username": "malak",
         "status": "online"
     },
     "12345": {
         "profilePhotoPath": "ss.jpg",
-        "stories": [{
-            "date": "2024-12-06T21:41:20.059172300",
-            "img": "",
-            "contentId": "3b8b7b",
-            "text": "rthty",
-            "userId": "12345"
-        }],
+        "stories": [],
         "bio": "sjfxsghgxdwkwdhew",
         "dateOfBirth": "1990-05-15",
         "coverPhotoPath": "ss.jpg",
-        "posts": [{
-            "date": "2024-12-06T21:41:08.637711500",
-            "img": "",
-            "contentId": "f1baf1",
-            "text": "tehry",
-            "userId": "12345"
-        }],
+        "posts": [],
         "email": "johndoe@example.com",
         "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
         "username": "JohnDoe",

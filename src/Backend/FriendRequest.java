@@ -9,39 +9,15 @@ import java.time.LocalDate;
 /**
  *
  * @author DELL
- */
-public class FriendRequest {
-    private String requestId;
-    private String senderId;
-    private String receiverId;
-    private String status; 
-    private LocalDate requestDate;
+ */public class FriendRequest {
+    private final String requestId;
+    private final String senderId;
+    private final String receiverId;
 
-    public FriendRequest(String requestId, String senderId, String receiverId, String status, LocalDate requestDate) {
+    public FriendRequest(String requestId, String senderId, String receiverId) {
         this.requestId = requestId;
         this.senderId = senderId;
         this.receiverId = receiverId;
-        this.status = status;
-        this.requestDate = requestDate;
-    }
-// Getters and setters
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
-    }
-
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
-    }
-
-    public void setReceiverId(String receiverId) {
-        this.receiverId = receiverId;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    public void setRequestDate(LocalDate requestDate) {
-        this.requestDate = requestDate;
     }
 
     public String getRequestId() {
@@ -56,13 +32,56 @@ public class FriendRequest {
         return receiverId;
     }
 
-    public String getStatus() {
-        return status;
+    @Override
+    public String toString() {
+        return "Request from: " + senderId;
     }
-
-    public LocalDate getRequestDate() {
-        return requestDate;
-    }
-    
 }
-
+//public class FriendRequest {
+//   
+//    private static int reqID=1; 
+//    private String senderId;
+//    private String receiverId;
+//    private String status; 
+//    private LocalDate requestDate;
+//
+//    public FriendRequest( String senderId, String receiverId) {
+//        this.reqID=reqID++;
+//        this.senderId = senderId;
+//        this.receiverId = receiverId;
+//        this.status = "pending";
+//        this.requestDate = LocalDate.now();
+//    }
+//// Getters and setters
+//   
+//
+//    public void setSenderId(String senderId) {
+//        this.senderId = senderId;
+//    }
+//
+//    public void setReceiverId(String receiverId) {
+//        this.receiverId = receiverId;
+//    }
+//
+//  
+//    public String getRequestId() {
+//        String str=String.valueOf(reqID);
+//        return str;
+//    }
+//
+//    public String getSenderId() {
+//        return senderId;
+//    }
+//
+//    public String getReceiverId() {
+//        return receiverId;
+//    }
+//
+//   
+//
+//    public LocalDate getRequestDate() {
+//        return requestDate;
+//    }
+//    
+//}
+//

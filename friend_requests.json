@@ -1,14 +1,1 @@
-{
-     "req124": {
-          "senderId": "user123",
-          "receiverId": "user789",
-          "requestDate": "2024-12-05",
-          "status": "Pending"
-     },
-     "req123": {
-          "senderId": "user123",
-          "receiverId": "user456",
-          "requestDate": "2024-12-05",
-          "status": "Accepted"
-     }
-}
+[]

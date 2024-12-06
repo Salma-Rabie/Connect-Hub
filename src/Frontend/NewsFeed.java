@@ -24,6 +24,7 @@ public class NewsFeed extends javax.swing.JFrame {
     private JFrame previousWindow;
     private factory f = new factory();
     private content c;
+      private FriendRequestDataBase frienddatabase;
     /**
      * Creates new form NewsFeed
      */
@@ -32,6 +33,9 @@ public class NewsFeed extends javax.swing.JFrame {
         this.user = user;
         this.userManager = userManager;
         this.profileManager = profileManager;
+          String filePath = "friend_requests.json";
+         frienddatabase = FriendRequestDataBase.getInstance(filePath);
+        user.removeExpiredStories();
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Newsfeed");
@@ -50,9 +54,12 @@ public class NewsFeed extends javax.swing.JFrame {
         GoToProfile = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        GoToProfile.setBackground(new java.awt.Color(0, 0, 0));
+        GoToProfile.setForeground(new java.awt.Color(255, 255, 255));
         GoToProfile.setText("Your Profile");
         GoToProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,6 +67,8 @@ public class NewsFeed extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Add Post");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,10 +76,21 @@ public class NewsFeed extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Add Story");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setBackground(new java.awt.Color(0, 0, 0));
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Friend Requests");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -83,7 +103,9 @@ public class NewsFeed extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GoToProfile)
                 .addContainerGap())
         );
@@ -94,7 +116,8 @@ public class NewsFeed extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(GoToProfile)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap(271, Short.MAX_VALUE))
         );
 
@@ -160,6 +183,13 @@ public class NewsFeed extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        friendRequest friend=new friendRequest(this,user,frienddatabase,userManager);
+        this.setVisible(false);
+        friend.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -194,5 +224,6 @@ public class NewsFeed extends javax.swing.JFrame {
     private javax.swing.JButton GoToProfile;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     // End of variables declaration//GEN-END:variables
 }

@@ -71,9 +71,11 @@ private JFrame previousWindow;
         jLabel1.setIcon(new ImageIcon(scaledImage2));
 ID.setText(user.getUserId());
    status.setText(user.getStatus());
+    user.removeExpiredStories();
     }
  private void addStoriesAndPostsLayout(User user){
 // Panel 1 (Stories)
+ user.removeExpiredStories();
 JPanel storiesPanel = new JPanel();
 storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS)); // Vertical layout
 storiesPanel.setBackground(Color.WHITE);

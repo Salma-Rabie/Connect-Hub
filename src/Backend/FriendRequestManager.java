@@ -17,9 +17,9 @@ public class FriendRequestManager implements FriendManager{
         System.out.println("Sending friend request from " + userId + " to " + requestedId);
         
         // Create a new friend request object
-        FriendRequest request = new FriendRequest("req" + System.currentTimeMillis(), userId, requestedId, "Pending", LocalDate.now());
+      //  FriendRequest request = new FriendRequest("req" + System.currentTimeMillis(), userId, requestedId, "Pending", LocalDate.now());
         
         // Call FriendRequestDataBase to save the request
-        FriendRequestDataBase.getInstance("friend_requests.json").saveFriendRequest(request);
+       // FriendRequestDataBase.getInstance("friend_requests.json").saveFriendRequest(request);
     }
 }
