@@ -14,22 +14,24 @@ import javax.swing.JFrame;
  * @author Salma Eid
  */
 public class NewsFeed extends javax.swing.JFrame {
-private User user;
-private UserManager userManager;
-private ProfileManagement profileManager;
-private JFrame previousWindow;
+
+    private User user;
+    private UserManager userManager;
+    private ProfileManagement profileManager;
+    private JFrame previousWindow;
+
     /**
      * Creates new form NewsFeed
      */
-    public NewsFeed(JFrame previousWindow ,User user, UserManager userManager, ProfileManagement profileManager) {
-        this.previousWindow=previousWindow;
+    public NewsFeed(JFrame previousWindow, User user, UserManager userManager, ProfileManagement profileManager) {
+        this.previousWindow = previousWindow;
         this.user = user;
         this.userManager = userManager;
         this.profileManager = profileManager;
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Newsfeed");
-         
+
     }
 
     /**
@@ -74,8 +76,8 @@ private JFrame previousWindow;
 
     private void GoToProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoToProfileActionPerformed
         // TODO add your handling code here:
-        ProfileWindow profile=new ProfileWindow(this,user,userManager,profileManager);
-        
+        ProfileWindow profile = new ProfileWindow(this, user, userManager, profileManager);
+
         this.setVisible(false);
         profile.setVisible(true);
     }//GEN-LAST:event_GoToProfileActionPerformed
@@ -108,7 +110,6 @@ private JFrame previousWindow;
         //</editor-fold>
 
         /* Create and display the form */
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,24 +1,23 @@
-
 package Frontend;
 
 import Backend.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 public class Login extends javax.swing.JFrame {
-private final  UserManager userManager;
+
+    private final UserManager userManager;
     private JFrame previousWindow;
-private ProfileManagement profileManager;
-    public Login(JFrame previousWindow ,UserManager userManager,ProfileManagement profileManager) {
+    private ProfileManagement profileManager;
+
+    public Login(JFrame previousWindow, UserManager userManager, ProfileManagement profileManager) {
         this.userManager = userManager;
         this.previousWindow = previousWindow;
-        this.profileManager=profileManager;
-         initComponents();
-         setLocationRelativeTo(null);
-         setTitle("Login");
+        this.profileManager = profileManager;
+        initComponents();
+        setLocationRelativeTo(null);
+        setTitle("Login");
     }
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -117,26 +116,25 @@ private ProfileManagement profileManager;
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
-         String userId = ID.getText();
+        String userId = ID.getText();
         String pass = Password.getText();
-        if(pass.isEmpty()||userId.isEmpty())
-        {
+        if (pass.isEmpty() || userId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "please enter all fields!", "Login Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-            User user= userManager.login(userId, pass);
-        
-        if (user!=null) {  
+
+        User user = userManager.login(userId, pass);
+
+        if (user != null) {
             this.setVisible(false);
-             ProfileWindow profilewindow=new ProfileWindow(previousWindow,user,userManager,profileManager);
-        this.setVisible(false);
-        profilewindow.setVisible(true);
-           
+            ProfileWindow profilewindow = new ProfileWindow(previousWindow, user, userManager, profileManager);
+            this.setVisible(false);
+            profilewindow.setVisible(true);
+
         } else {
             JOptionPane.showMessageDialog(this, "Wrong ID or password!", "Login Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_LoginActionPerformed
 
     private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
@@ -149,7 +147,7 @@ private ProfileManagement profileManager;
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
-         this.setVisible(false);
+        this.setVisible(false);
         previousWindow.setVisible(true);
     }//GEN-LAST:event_BackActionPerformed
 

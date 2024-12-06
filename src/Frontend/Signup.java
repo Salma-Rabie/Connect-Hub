@@ -9,24 +9,25 @@ import java.io.File;
 import java.time.*;
 import java.util.Date;
 import javax.swing.*;
+
 /**
  *
  * @author Salma Eid
  */
 public class Signup extends javax.swing.JFrame {
-private final  UserManager userManager;
+
+    private final UserManager userManager;
     private JFrame previousWindow;
-private ProfileManagement profileManager ;
+    private ProfileManagement profileManager;
 
-    public Signup( JFrame previousWindow,UserManager userManager,ProfileManagement profileManager) {
-        this.userManager =userManager;
+    public Signup(JFrame previousWindow, UserManager userManager, ProfileManagement profileManager) {
+        this.userManager = userManager;
         this.previousWindow = previousWindow;
-        this.profileManager= profileManager;
+        this.profileManager = profileManager;
         initComponents();
-         setLocationRelativeTo(null);
-         setTitle("Signup");
+        setLocationRelativeTo(null);
+        setTitle("Signup");
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -158,44 +159,44 @@ private ProfileManagement profileManager ;
 
     private void SignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupActionPerformed
         // TODO add your handling code here:
-        String username=Username.getText();
-        String pass= Password.getText();
-        String email=Email.getText();
-        Date date=DateOfBirth.getDate();
+        String username = Username.getText();
+        String pass = Password.getText();
+        String email = Email.getText();
+        Date date = DateOfBirth.getDate();
         if (date == null) {
             JOptionPane.showMessageDialog(this, "Please select your date of birth.", "Message", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        LocalDate dateofbirth  = Instant.ofEpochMilli(date.getTime())
+        LocalDate dateofbirth = Instant.ofEpochMilli(date.getTime())
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
-        if(username.isEmpty()||pass.isEmpty()||email.isEmpty())
-        {
+        if (username.isEmpty() || pass.isEmpty() || email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter all fields!", "Signup error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if(!userManager.isValidEmail(email))
-        {
+        if (!userManager.isValidEmail(email)) {
             JOptionPane.showMessageDialog(this, "Enter a valid email", "Signup error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-      User user=  userManager.sigup(email, username, pass, dateofbirth);
-         userManager.getDatabase().saveUser(user);
-         
-          ChoosePhotos choose=new ChoosePhotos(this,true);
-          choose.setVisible(true);
-          File profile=choose.getProfileFile();
-          File cover= choose.getCoverFile();
-          
-          if(profile==null)
-        profileManager.changeProfilePhoto(user.getUserId(),null);
-          if(cover==null)
-               profileManager.changeCoverPhoto(user.getUserId(),null);
-       profileManager.changeProfilePhoto(user.getUserId(),profile );
-        profileManager.changeCoverPhoto(user.getUserId(),cover);
-       userManager.getDatabase().saveUser(user);
-        JOptionPane.showMessageDialog(this, "Signed up successfuly!\nYour ID is:"+user.getUserId(), "Message", JOptionPane.INFORMATION_MESSAGE);
-        ProfileWindow profilewindow=new ProfileWindow(previousWindow,user,userManager,profileManager);
+        User user = userManager.sigup(email, username, pass, dateofbirth);
+        userManager.getDatabase().saveUser(user);
+
+        ChoosePhotos choose = new ChoosePhotos(this, true);
+        choose.setVisible(true);
+        File profile = choose.getProfileFile();
+        File cover = choose.getCoverFile();
+
+        if (profile == null) {
+            profileManager.changeProfilePhoto(user.getUserId(), null);
+        }
+        if (cover == null) {
+            profileManager.changeCoverPhoto(user.getUserId(), null);
+        }
+        profileManager.changeProfilePhoto(user.getUserId(), profile);
+        profileManager.changeCoverPhoto(user.getUserId(), cover);
+        userManager.getDatabase().saveUser(user);
+        JOptionPane.showMessageDialog(this, "Signed up successfuly!\nYour ID is:" + user.getUserId(), "Message", JOptionPane.INFORMATION_MESSAGE);
+        ProfileWindow profilewindow = new ProfileWindow(previousWindow, user, userManager, profileManager);
         this.setVisible(false);
         profilewindow.setVisible(true);
     }//GEN-LAST:event_SignupActionPerformed
@@ -215,7 +216,7 @@ private ProfileManagement profileManager ;
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-           previousWindow.setVisible(true);
+        previousWindow.setVisible(true);
     }//GEN-LAST:event_BackActionPerformed
 
     /**

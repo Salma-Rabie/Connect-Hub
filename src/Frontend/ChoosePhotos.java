@@ -17,14 +17,14 @@ public class ChoosePhotos extends javax.swing.JDialog {
     /**
      * Creates new form ChoosePhotos
      */
-    
     File profile;
     File cover;
+
     public ChoosePhotos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-       initComponents();
-         setLocationRelativeTo(null);
-         setTitle("Choose Photos");
+        initComponents();
+        setLocationRelativeTo(null);
+        setTitle("Choose Photos");
     }
 
     public File getProfileFile() {
@@ -34,7 +34,6 @@ public class ChoosePhotos extends javax.swing.JDialog {
     public File getCoverFile() {
         return cover;
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,12 +93,12 @@ public class ChoosePhotos extends javax.swing.JDialog {
         // TODO add your handling code here:
         JFileChooser choose = new JFileChooser();
         choose.showSaveDialog(this);
-       profile= choose.getSelectedFile();
+        profile = choose.getSelectedFile();
         if (profile == null) {
             JOptionPane.showMessageDialog(this, "No file selected!");
             return;
         }
-       
+
 
     }//GEN-LAST:event_ProfileActionPerformed
 
@@ -107,12 +106,12 @@ public class ChoosePhotos extends javax.swing.JDialog {
         // TODO add your handling code here:
         JFileChooser choose = new JFileChooser();
         choose.showSaveDialog(this);
-       cover = choose.getSelectedFile();
+        cover = choose.getSelectedFile();
         if (cover == null) {
             JOptionPane.showMessageDialog(this, "No file selected!");
             return;
         }
-       
+
     }//GEN-LAST:event_CoverActionPerformed
 
     /**

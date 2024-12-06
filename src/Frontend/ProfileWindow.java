@@ -9,62 +9,59 @@ import java.awt.Image;
 import java.time.LocalDate;
 import javax.swing.*;
 
-
 /**
  *
  * @author Salma Eid
  */
 public class ProfileWindow extends javax.swing.JFrame {
-private User user;
-private UserManager userManager;
-private ProfileManagement profileManager;
-private JFrame previousWindow;
 
-    public ProfileWindow(JFrame previousWindow ,User user, UserManager userManager, ProfileManagement profileManager) {
-        this.previousWindow=previousWindow;
+    private User user;
+    private UserManager userManager;
+    private ProfileManagement profileManager;
+    private JFrame previousWindow;
+
+    public ProfileWindow(JFrame previousWindow, User user, UserManager userManager, ProfileManagement profileManager) {
+        this.previousWindow = previousWindow;
         this.user = user;
         this.userManager = userManager;
         this.profileManager = profileManager;
         initComponents();
         setLocationRelativeTo(null);
-        setTitle(user.getUsername()+"'s Profile");
+        setTitle(user.getUsername() + "'s Profile");
         Bio.setText(user.getBio());
         System.out.println("User Bio: " + user.getBio());
-         ImageIcon icon= new ImageIcon("ss.jpg");//Default profile photo
-         ImageIcon icon2= new ImageIcon("ss.jpg");//Default cover photo
-        if(user.getCoverPhotoPath()!=null)
-        {
-           icon2= new ImageIcon( user.getCoverPhotoPath());
+        ImageIcon icon = new ImageIcon("ss.jpg");//Default profile photo
+        ImageIcon icon2 = new ImageIcon("ss.jpg");//Default cover photo
+        if (user.getCoverPhotoPath() != null) {
+            icon2 = new ImageIcon(user.getCoverPhotoPath());
         }
-        if(user.getProfilePhotoPath()!=null)
-        {
-           icon= new ImageIcon( user.getProfilePhotoPath());
+        if (user.getProfilePhotoPath() != null) {
+            icon = new ImageIcon(user.getProfilePhotoPath());
         }
-    Image originalImage = icon.getImage();//profile
-    Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
-    jLabel2.setIcon(new ImageIcon(scaledImage));
-      
-    
-    Image originalImage2 = icon2.getImage();//cover
-    Image scaledImage2 = originalImage2.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
-    jLabel1.setIcon(new ImageIcon(scaledImage2));
-    
-    }
-public void updateuser(User updatedUser){
-    this.user=updatedUser;
-   Bio.setText(user.getBio());
-    ImageIcon icon = new ImageIcon(user.getProfilePhotoPath()); // Replace with your profile image path
-    Image originalImage = icon.getImage();
-    Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
-    jLabel2.setIcon(new ImageIcon(scaledImage));
-     
-    ImageIcon icon2 = new ImageIcon(user.getCoverPhotoPath()); // Replace with your cover image path
-    Image originalImage2 = icon2.getImage();
-    Image scaledImage2 = originalImage2.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
-    jLabel1.setIcon(new ImageIcon(scaledImage2));
-}
+        Image originalImage = icon.getImage();//profile
+        Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
+        jLabel2.setIcon(new ImageIcon(scaledImage));
 
-  
+        Image originalImage2 = icon2.getImage();//cover
+        Image scaledImage2 = originalImage2.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+        jLabel1.setIcon(new ImageIcon(scaledImage2));
+
+    }
+
+    public void updateuser(User updatedUser) {
+        this.user = updatedUser;
+        Bio.setText(user.getBio());
+        ImageIcon icon = new ImageIcon(user.getProfilePhotoPath()); // Replace with your profile image path
+        Image originalImage = icon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
+        jLabel2.setIcon(new ImageIcon(scaledImage));
+
+        ImageIcon icon2 = new ImageIcon(user.getCoverPhotoPath()); // Replace with your cover image path
+        Image originalImage2 = icon2.getImage();
+        Image scaledImage2 = originalImage2.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+        jLabel1.setIcon(new ImageIcon(scaledImage2));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -179,46 +176,44 @@ public void updateuser(User updatedUser){
     private void EditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProfileActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        ProfileEdit profileEdit=new ProfileEdit(this,user,profileManager);
+        ProfileEdit profileEdit = new ProfileEdit(this, user, profileManager);
         profileEdit.updateuser();
         profileEdit.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_EditProfileActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-         
-java.awt.EventQueue.invokeLater(new Runnable() {
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
- 
- 
- JFrame previousWindow;
- String rawPassword = "securePassword123";
-        String hashedPassword = PasswordHashing.hashPassword(rawPassword);
 
-        // Step 2: Build a User object
-        User user = new User.UserBuilder()
-                .userId("12345")
-                .username("JohnDoe")
-                .email("johndoe@example.com")
-                .passwordHash(hashedPassword)
-                .dateOfBirth(LocalDate.of(1990, 5, 15))
-                .status("online")
-                .build();
+                JFrame previousWindow;
+                String rawPassword = "securePassword123";
+                String hashedPassword = PasswordHashing.hashPassword(rawPassword);
 
-        // Step 3: Specify the JSON file path
-        String filePath = "users.json";
+                // Step 2: Build a User object
+                User user = new User.UserBuilder()
+                        .userId("12345")
+                        .username("JohnDoe")
+                        .email("johndoe@example.com")
+                        .passwordHash(hashedPassword)
+                        .dateOfBirth(LocalDate.of(1990, 5, 15))
+                        .status("online")
+                        .build();
 
-        // Step 4: Save the user to the JSON file
-        UserDataBase userDataBase = UserDataBase.getInstance(filePath);
-        ProfileManagement profileManager=new ProfileManagement(userDataBase);
-        UserManager userManager= new UserManager(userDataBase);
-        userDataBase.saveUser(user);
-ProfileWindow profile=new ProfileWindow(new MainWindow(userDataBase),user,userManager,profileManager);
+                // Step 3: Specify the JSON file path
+                String filePath = "users.json";
+
+                // Step 4: Save the user to the JSON file
+                UserDataBase userDataBase = UserDataBase.getInstance(filePath);
+                ProfileManagement profileManager = new ProfileManagement(userDataBase);
+                UserManager userManager = new UserManager(userDataBase);
+                userDataBase.saveUser(user);
+                ProfileWindow profile = new ProfileWindow(new MainWindow(userDataBase), user, userManager, profileManager);
                 profile.setVisible(true);
             }
         });
