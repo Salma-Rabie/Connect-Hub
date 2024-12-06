@@ -3,6 +3,7 @@ package Backend;
 
 import Backend.*;
 import Frontend.MainWindow;
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ public class ConnectHub {
         // TODO code application logic here
        String rawPassword = "56789";
         String hashedPassword = PasswordHashing.hashPassword(rawPassword);
-
+File def=new File("ss.jpg");
         // Step 2: Build a User object
         User user = new User.UserBuilder()
                 .userId("12345")
@@ -24,8 +25,8 @@ public class ConnectHub {
                 .dateOfBirth(LocalDate.of(1990, 5, 15))
                 .status("online")
                 .bio("sjfxsghgxdwkwdhew")
-                .coverPhotoPath("")
-                .profilePhotoPath("")
+                .coverPhotoPath(def.getPath())
+                .profilePhotoPath(def.getPath())
                 .build();
 
         // Step 3: Specify the JSON file path
