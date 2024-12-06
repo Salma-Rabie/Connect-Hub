@@ -5,6 +5,7 @@
 package Frontend;
 
 import Backend.*;
+import static Backend.PasswordHashing.hashPassword;
 import java.io.File;
 import java.time.*;
 import java.util.Date;
@@ -170,7 +171,7 @@ public class Signup extends javax.swing.JFrame {
         LocalDate dateofbirth = Instant.ofEpochMilli(date.getTime())
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
-        if (username.isEmpty() || pass.isEmpty() || email.isEmpty()) {
+        if (username.trim().isEmpty() || pass.trim().isEmpty() || email.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter all fields!", "Signup error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -178,27 +179,35 @@ public class Signup extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Enter a valid email", "Signup error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        User user = userManager.sigup(email, username, pass, dateofbirth);
-        userManager.getDatabase().saveUser(user);
+        User user = userManager.signup(email, username, hashPassword(pass), dateofbirth);
+       userManager.getDatabase().saveUser(user);
 
-        ChoosePhotos choose = new ChoosePhotos(this, true);
-        choose.setVisible(true);
-        File profile = choose.getProfileFile();
-        File cover = choose.getCoverFile();
+        
+        File profile=null;
+       File cover =null;
+        File def = new File("ss.jpg");
+       try {
+            ChoosePhotos choose = new ChoosePhotos(this, true);
+            choose.setVisible(true);
 
+            profile = choose.getProfileFile();
+            cover = choose.getCoverFile();
+        } catch (Exception e) {
+            e.printStackTrace();   
+        }
+       finally{
         if (profile == null) {
-            profileManager.changeProfilePhoto(user.getUserId(), null);
+            profile = def; 
         }
         if (cover == null) {
-            profileManager.changeCoverPhoto(user.getUserId(), null);
+            cover = def;
         }
-        profileManager.changeProfilePhoto(user.getUserId(), profile);
-        profileManager.changeCoverPhoto(user.getUserId(), cover);
-        userManager.getDatabase().saveUser(user);
+        user=profileManager.changeProfilePhoto(user.getUserId(), profile);
+       user= profileManager.changeCoverPhoto(user.getUserId(), cover);
         JOptionPane.showMessageDialog(this, "Signed up successfuly!\nYour ID is:" + user.getUserId(), "Message", JOptionPane.INFORMATION_MESSAGE);
         ProfileWindow profilewindow = new ProfileWindow(previousWindow, user, userManager, profileManager);
         this.setVisible(false);
-        profilewindow.setVisible(true);
+        profilewindow.setVisible(true);}
     }//GEN-LAST:event_SignupActionPerformed
 
     private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed

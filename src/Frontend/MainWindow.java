@@ -1,19 +1,19 @@
+
 package Frontend;
 
 import Backend.*;
 
 public class MainWindow extends javax.swing.JFrame {
-
-    private UserManager userManager;
-    private ProfileManagement profileManager;
-
+private UserManager userManager;
+private ProfileManagement profileManager ;
     public MainWindow(UserDataBase database) {
-        userManager = new UserManager(database);
-        profileManager = new ProfileManagement(database);
-        initComponents();
-        setLocationRelativeTo(null);
-        setTitle("Main Window");
+        userManager=new UserManager(database);
+        profileManager= new ProfileManagement(database);
+         initComponents();
+         setLocationRelativeTo(null);
+         setTitle("Main Window");
     }
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,23 +71,24 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void SignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupActionPerformed
         // TODO add your handling code here:
-        Signup signup = new Signup(this, userManager, profileManager);
+        Signup signup=new Signup(this,userManager,profileManager);
         signup.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_SignupActionPerformed
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
-        Login login = new Login(this, userManager, profileManager);
+        Login login=new Login(this,userManager,profileManager);
         login.setVisible(true);
         this.setVisible(false);
-
+        
     }//GEN-LAST:event_LoginActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+     
 
     }
 

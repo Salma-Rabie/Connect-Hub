@@ -5,6 +5,7 @@
 package Frontend;
 
 import Backend.*;
+import static Backend.PasswordHashing.hashPassword;
 import java.awt.Image;
 import java.io.File;
 import javax.swing.*;
@@ -27,6 +28,17 @@ public class ProfileEdit extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setTitle(user.getUsername() + "'s Profile");
+        Bio.setText(user.getBio());
+
+        ImageIcon icon = new ImageIcon(user.getProfilePhotoPath());
+        ImageIcon icon2 = new ImageIcon(user.getCoverPhotoPath());
+        Image originalImage = icon.getImage();//profile
+        Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
+        jLabel2.setIcon(new ImageIcon(scaledImage));
+
+        Image originalImage2 = icon2.getImage();//cover
+        Image scaledImage2 = originalImage2.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+        jLabel1.setIcon(new ImageIcon(scaledImage2));
 
     }
 
@@ -48,7 +60,7 @@ public class ProfileEdit extends javax.swing.JFrame {
         changebio = new javax.swing.JButton();
         changeprofile = new javax.swing.JButton();
         changecover = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        password = new javax.swing.JTextField();
         pass = new javax.swing.JButton();
         Bio = new javax.swing.JTextField();
         back = new javax.swing.JButton();
@@ -124,7 +136,7 @@ public class ProfileEdit extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
                                 .addComponent(changeprofile))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(pass)))
@@ -183,7 +195,7 @@ public class ProfileEdit extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(changeprofile))))
                 .addGap(49, 49, 49)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
@@ -193,30 +205,21 @@ public class ProfileEdit extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public void updateuser() {
-        Bio.setText(user.getBio());
-        ImageIcon icon = new ImageIcon("ss.jpg");//Default profile photo
-        ImageIcon icon2 = new ImageIcon("ss.jpg");//Default cover photo
-        if (user.getCoverPhotoPath() != null) {
-            icon2 = new ImageIcon(user.getCoverPhotoPath());
-        }
-        if (user.getProfilePhotoPath() != null) {
-            icon = new ImageIcon(user.getProfilePhotoPath());
-        }
-        Image originalImage = icon.getImage();//profile
-        Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
-        jLabel2.setIcon(new ImageIcon(scaledImage));
 
-        Image originalImage2 = icon2.getImage();//cover
-        Image scaledImage2 = originalImage2.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
-        jLabel1.setIcon(new ImageIcon(scaledImage2));
-    }
     private void changebioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changebioActionPerformed
         // TODO add your handling code here:
 
         String text = Bio.getText().trim();
-        user = profileManager.changeBio(user.getUserId(), text);
 
+        if (text.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your new bio!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (text.equals(user.getBio())) {
+            JOptionPane.showMessageDialog(this, "Please enter a new bio!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        user = profileManager.changeBio(user.getUserId(), text);
         Bio.setText(text);
     }//GEN-LAST:event_changebioActionPerformed
 
@@ -230,9 +233,34 @@ public void updateuser() {
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
-        String text = pass.getText().trim();
+        String text = password.getText().trim();
+        if (text.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your new password!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (hashPassword(text).equals(user.getPasswordHash())) {
+            JOptionPane.showMessageDialog(this, "Enter new password", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String input = JOptionPane.showInputDialog("Enter your old password:");
+        if (input == null) {
+            JOptionPane.showMessageDialog(this, "Please enter your old password!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!hashPassword(input).equals(user.getPasswordHash())) {
+            JOptionPane.showMessageDialog(this, "Wrong password!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         user = profileManager.changePassword(user.getUserId(), text);
-        pass.setText(text);
+
+        if (user != null) {
+            JOptionPane.showMessageDialog(this, "Password Updated!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error updating password!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_passActionPerformed
 
     private void changecoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changecoverActionPerformed
@@ -286,7 +314,7 @@ public void updateuser() {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton pass;
+    private javax.swing.JTextField password;
     // End of variables declaration//GEN-END:variables
 }

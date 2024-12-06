@@ -121,6 +121,10 @@ public class User implements Cloneable {
         return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 
     @Override
     public User clone() {

@@ -1,10 +1,10 @@
 {"12345": {
-     "profilePhotoPath": "user_data/profile_photos/12345_profile.jpg",
-     "Email": "johndoe@example.com",
-     "bio": "salma heloo",
-     "dateOfBirth": "1990-05-15",
-     "coverPhotoPath": "user_data/cover_photos/12345_cover.jpg",
-     "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
-     "username": "JohnDoe",
-     "status": "online"
+        "profilePhotoPath": "ss.jpg",
+        "Email": "johndoe@example.com",
+        "bio": "",
+        "dateOfBirth": "1990-05-15",
+        "coverPhotoPath": "ss.jpg",
+        "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "username": "JohnDoe",
+        "status": "online"
 }}
