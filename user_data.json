@@ -1,0 +1,30 @@
+{
+     "user1": {
+          "Email": "alice@example.com",
+          "dateOfBirth": "1990-01-01",
+          "passwordHash": "hashedpassword",
+          "username": "Alice",
+          "status": "online"
+     },
+     "user2": {
+          "Email": "bob@example.com",
+          "dateOfBirth": "1985-02-15",
+          "passwordHash": "hashedpassword",
+          "username": "Bob",
+          "status": "offline"
+     },
+     "user3": {
+          "Email": "charlie@example.com",
+          "dateOfBirth": "1992-06-20",
+          "passwordHash": "hashedpassword",
+          "username": "Charlie",
+          "status": "online"
+     },
+     "user4": {
+          "Email": "david@example.com",
+          "dateOfBirth": "1988-08-10",
+          "passwordHash": "hashedpassword",
+          "username": "David",
+          "status": "online"
+     }
+}

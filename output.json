@@ -1,0 +1,42 @@
+{"1000": {
+        "profilePhotoPath": "ss.jpg",
+        "stories": [
+                {
+                        "date": "2024-12-06T19:00:07.187649600",
+                        "img": "Screenshot (129).png",
+                        "contentId": "7c9fe3",
+                        "text": "Story 1: My first story!",
+                        "userId": "1000"
+                },
+                {
+                        "date": "2024-12-06T18:00:07.571559900",
+                        "img": "path/to/image2.jpg",
+                        "contentId": "e9f18f",
+                        "text": "Story 2: Another day, another story",
+                        "userId": "1000"
+                }
+        ],
+        "Email": "johndoe@example.com",
+        "bio": "",
+        "dateOfBirth": "1990-05-15",
+        "coverPhotoPath": "ss.jpg",
+        "posts": [
+                {
+                        "date": "2024-12-06T19:00:07.573558700",
+                        "img": "Screenshot (129).png ",
+                        "contentId": "4ce1f2",
+                        "text": "Post 1: This is my first post!",
+                        "userId": "1000"
+                },
+                {
+                        "date": "2024-12-06T17:00:07.574559300",
+                        "img": "path/to/postImage2.jpg",
+                        "contentId": "65268b",
+                        "text": "Post 2: Here is another post",
+                        "userId": "1000"
+                }
+        ],
+        "passwordHash": "4dbd5e49147b5102ee2731ac03dd0db7decc3b8715c3df3c1f3ddc62dcbcf86d",
+        "username": "john-doe",
+        "status": "online"
+}}
