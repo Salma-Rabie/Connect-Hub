@@ -39,8 +39,9 @@ private JFrame previousWindow;
     jLabel1.setIcon(new ImageIcon(scaledImage2));
     
     }
-public void updateuser(String text){
-   Bio.setText(text);
+public void updateuser(User updatedUser){
+    this.user=updatedUser;
+   Bio.setText(user.getBio());
 }
 
   
@@ -159,6 +160,7 @@ public void updateuser(String text){
         // TODO add your handling code here:
         this.setVisible(false);
         ProfileEdit profileEdit=new ProfileEdit(this,user,profileManager);
+        profileEdit.updateuser();
         profileEdit.setVisible(true);
         
         
