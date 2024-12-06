@@ -4,30 +4,30 @@
  */
 package Frontend;
 
-import Backend.ProfileManagement;
-import Backend.User;
-import Backend.UserManager;
-import javax.swing.JFrame;
+import Backend.*;
+import java.awt.Image;
+import java.io.File;
+import javax.swing.*;
 
 /**
  *
  * @author sarar
  */
 public class ProfileEdit extends javax.swing.JFrame {
-private User user;
 
-private ProfileManagement profileManager;
-private JFrame previousWindow;
+    private User user;
 
-    public ProfileEdit(JFrame previousWindow ,User user, ProfileManagement profileManager) {
-        this.previousWindow=previousWindow;
+    private ProfileManagement profileManager;
+    private JFrame previousWindow;
+
+    public ProfileEdit(JFrame previousWindow, User user, ProfileManagement profileManager) {
+        this.previousWindow = previousWindow;
         this.user = user;
         this.profileManager = profileManager;
         initComponents();
-        Bio.setText(user.getBio());
         setLocationRelativeTo(null);
-        setTitle(user.getUsername()+"'s Profile");
-         
+        setTitle(user.getUsername() + "'s Profile");
+
     }
 
     /**
@@ -46,8 +46,8 @@ private JFrame previousWindow;
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         changebio = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        changeprofile = new javax.swing.JButton();
+        changecover = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         pass = new javax.swing.JButton();
         Bio = new javax.swing.JTextField();
@@ -74,13 +74,23 @@ private JFrame previousWindow;
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Change Profile Photo");
+        changeprofile.setBackground(new java.awt.Color(0, 0, 0));
+        changeprofile.setForeground(new java.awt.Color(255, 255, 255));
+        changeprofile.setText("Change Profile Photo");
+        changeprofile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeprofileActionPerformed(evt);
+            }
+        });
 
-        jButton3.setBackground(new java.awt.Color(0, 0, 0));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Change Covor Photo");
+        changecover.setBackground(new java.awt.Color(0, 0, 0));
+        changecover.setForeground(new java.awt.Color(255, 255, 255));
+        changecover.setText("Change Covor Photo");
+        changecover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changecoverActionPerformed(evt);
+            }
+        });
 
         pass.setBackground(new java.awt.Color(0, 0, 0));
         pass.setForeground(new java.awt.Color(255, 255, 255));
@@ -113,7 +123,7 @@ private JFrame previousWindow;
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2))
+                                .addComponent(changeprofile))
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
@@ -135,7 +145,7 @@ private JFrame previousWindow;
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3))
+                                .addComponent(changecover))
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -165,13 +175,13 @@ private JFrame previousWindow;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3))
+                            .addComponent(changecover))
                         .addGap(31, 31, 31)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jButton2))))
+                            .addComponent(changeprofile))))
                 .addGap(49, 49, 49)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -183,43 +193,96 @@ private JFrame previousWindow;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+public void updateuser() {
+        Bio.setText(user.getBio());
+        ImageIcon icon= new ImageIcon("ss.jpg");//Default profile photo
+         ImageIcon icon2= new ImageIcon("ss.jpg");//Default cover photo
+        if(user.getCoverPhotoPath()!=null)
+        {
+           icon2= new ImageIcon( user.getCoverPhotoPath());
+        }
+        if(user.getProfilePhotoPath()!=null)
+        {
+           icon= new ImageIcon( user.getProfilePhotoPath());
+        }
+    Image originalImage = icon.getImage();//profile
+    Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
+    jLabel2.setIcon(new ImageIcon(scaledImage));
+      
+    
+    Image originalImage2 = icon2.getImage();//cover
+    Image scaledImage2 = originalImage2.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+    jLabel1.setIcon(new ImageIcon(scaledImage2));
+    }
     private void changebioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changebioActionPerformed
         // TODO add your handling code here:
-       
-        String text =   Bio.getText().trim();
-        profileManager.changeBio(user.getUserId(), text);
+
+        String text = Bio.getText().trim();
+        user = profileManager.changeBio(user.getUserId(), text);
+
         Bio.setText(text);
     }//GEN-LAST:event_changebioActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        ((ProfileWindow)previousWindow).updateuser( Bio.getText().trim());
+        ((ProfileWindow) previousWindow).updateuser(user);
         previousWindow.setVisible(true);
-   
+
     }//GEN-LAST:event_backActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
-        String text =   pass.getText().trim();
-        profileManager.changePassword(user.getUserId(), text);
+        String text = pass.getText().trim();
+        user = profileManager.changePassword(user.getUserId(), text);
         pass.setText(text);
     }//GEN-LAST:event_passActionPerformed
+
+    private void changecoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changecoverActionPerformed
+        // TODO add your handling code here:
+        JFileChooser choose = new JFileChooser();
+        choose.showSaveDialog(this);
+        File cover = choose.getSelectedFile();
+        if (cover == null) {
+            JOptionPane.showMessageDialog(this, "No file selected!");
+            return;
+        }
+        user = profileManager.changeCoverPhoto(user.getUserId(), cover);
+        ImageIcon icon = new ImageIcon(cover.getPath()); // Replace with your image path
+        Image originalImage = icon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+        jLabel1.setIcon(new ImageIcon(scaledImage));
+    }//GEN-LAST:event_changecoverActionPerformed
+
+    private void changeprofileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeprofileActionPerformed
+        // TODO add your handling code here:
+        JFileChooser choose = new JFileChooser();
+        choose.showSaveDialog(this);
+        File profile = choose.getSelectedFile();
+        if (profile == null) {
+            JOptionPane.showMessageDialog(this, "No file selected!");
+            return;
+        }
+        user = profileManager.changeProfilePhoto(user.getUserId(), profile);
+        ImageIcon icon = new ImageIcon(profile.getPath()); // Replace with your image path
+        Image originalImage = icon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
+        jLabel2.setIcon(new ImageIcon(scaledImage));
+    }//GEN-LAST:event_changeprofileActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Bio;
     private javax.swing.JButton back;
     private javax.swing.JButton changebio;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton changecover;
+    private javax.swing.JButton changeprofile;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

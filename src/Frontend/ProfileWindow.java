@@ -30,11 +30,22 @@ private JFrame previousWindow;
         setTitle(user.getUsername()+"'s Profile");
         Bio.setText(user.getBio());
         System.out.println("User Bio: " + user.getBio());
-        ImageIcon icon = new ImageIcon("ss.jpg"); // Replace with your image path
-    Image originalImage = icon.getImage();
+         ImageIcon icon= new ImageIcon("ss.jpg");//Default profile photo
+         ImageIcon icon2= new ImageIcon("ss.jpg");//Default cover photo
+        if(user.getCoverPhotoPath()!=null)
+        {
+           icon2= new ImageIcon( user.getCoverPhotoPath());
+        }
+        if(user.getProfilePhotoPath()!=null)
+        {
+           icon= new ImageIcon( user.getProfilePhotoPath());
+        }
+    Image originalImage = icon.getImage();//profile
     Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
     jLabel2.setIcon(new ImageIcon(scaledImage));
-      Image originalImage2 = icon.getImage();
+      
+    
+    Image originalImage2 = icon2.getImage();//cover
     Image scaledImage2 = originalImage2.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
     jLabel1.setIcon(new ImageIcon(scaledImage2));
     
@@ -42,6 +53,15 @@ private JFrame previousWindow;
 public void updateuser(User updatedUser){
     this.user=updatedUser;
    Bio.setText(user.getBio());
+    ImageIcon icon = new ImageIcon(user.getProfilePhotoPath()); // Replace with your profile image path
+    Image originalImage = icon.getImage();
+    Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
+    jLabel2.setIcon(new ImageIcon(scaledImage));
+     
+    ImageIcon icon2 = new ImageIcon(user.getCoverPhotoPath()); // Replace with your cover image path
+    Image originalImage2 = icon2.getImage();
+    Image scaledImage2 = originalImage2.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+    jLabel1.setIcon(new ImageIcon(scaledImage2));
 }
 
   

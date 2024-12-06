@@ -194,7 +194,7 @@ private ProfileManagement profileManager ;
        profileManager.changeProfilePhoto(user.getUserId(),profile );
         profileManager.changeCoverPhoto(user.getUserId(),cover);
        userManager.getDatabase().saveUser(user);
-        JOptionPane.showMessageDialog(this, "Signed up successfuly!", "Message", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Signed up successfuly!\nYour ID is:"+user.getUserId(), "Message", JOptionPane.INFORMATION_MESSAGE);
         ProfileWindow profilewindow=new ProfileWindow(previousWindow,user,userManager,profileManager);
         this.setVisible(false);
         profilewindow.setVisible(true);

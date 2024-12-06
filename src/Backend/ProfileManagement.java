@@ -27,12 +27,12 @@ public class ProfileManagement {
         this.userDataBase = userDataBase;
     }
 
-    public void changeProfilePhoto(String userId, File newPhotoFile) {
+    public User changeProfilePhoto(String userId, File newPhotoFile) {
         User user = userDataBase.getUserById(userId);
-
+User updatedUser=null;
         if (user == null) {
             System.err.println("User not found.");
-            return ;
+            return updatedUser;
         }
 
         // Define the directory and file path for the profile photo
@@ -50,7 +50,7 @@ public class ProfileManagement {
             Files.copy(newPhotoFile.toPath(), new File(newProfilePhotoPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
 
             // Update the user's profile photo path
-            User updatedUser = new User.UserBuilder()
+             updatedUser = new User.UserBuilder()
                     .userId(user.getUserId())
                     .email(user.getEmail())
                     .username(user.getUsername())
@@ -66,21 +66,22 @@ public class ProfileManagement {
             userDataBase.updateUser(updatedUser);
 
             System.out.println("Profile photo updated successfully.");
-            
+           
 
         } catch (IOException e) {
             System.err.println("Error updating profile photo: " + e.getMessage());
         }
+         return updatedUser;
     }
     
-public void changePassword(String userId, String newPassword) {
+public User changePassword(String userId, String newPassword) {
     // get the user from the database
     User user = userDataBase.getUserById(userId);
     
     if (user == null) {
         // If the user doesn't exist, log an error and return
         System.err.println("User not found.");
-        return;
+        return null;
     }
     // Hash the new password before storing it
     String hashedPassword = PasswordHashing.hashPassword(newPassword);
@@ -103,16 +104,17 @@ public void changePassword(String userId, String newPassword) {
     
     // Log the successful update
     System.out.println("Password updated successfully.");
+    return updatedUser;
 }
     
-    public void changeCoverPhoto(String userId, File newCoverPhotoFile) {
+    public User changeCoverPhoto(String userId, File newCoverPhotoFile) {
     // Fetch the user from the database
     User user = userDataBase.getUserById(userId);
-    
+    User updatedUser =null;
     if (user == null) {
         // If the user doesn't exist, log an error and return
         System.err.println("User not found.");
-        return;
+        return updatedUser;
     }
     
     // Define the directory and file path for the cover photo
@@ -130,7 +132,7 @@ public void changePassword(String userId, String newPassword) {
         Files.copy(newCoverPhotoFile.toPath(), new File(newCoverPhotoPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
 
         // Create a new user object with the updated cover photo path
-        User updatedUser = new User.UserBuilder()
+         updatedUser = new User.UserBuilder()
                 .bio(user.getBio())  // Keep the other fields as they are
                 .coverPhotoPath(newCoverPhotoPath)  // Update the cover photo path
                 .dateOfBirth(user.getDateOfBirth())
@@ -152,12 +154,13 @@ public void changePassword(String userId, String newPassword) {
         // Handle any file-related errors
         System.err.println("Error updating cover photo: " + e.getMessage());
     }
+    return updatedUser;
 }
-   public void changeBio(String userId,String bio){
+   public User changeBio(String userId,String bio){
        User user = userDataBase.getUserById(userId);
        if (user == null) {
             System.err.println("User not found.");
-            return ;
+            return null ;
         }
         User updatedUser = new User.UserBuilder()
             .bio(bio)  // Update the bio
@@ -176,6 +179,7 @@ public void changePassword(String userId, String newPassword) {
     
     // Log the successful update
     System.out.println("Bio updated successfully.");
+    return updatedUser;
    }
 }
 
