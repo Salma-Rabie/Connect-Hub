@@ -1,21 +1,27 @@
 {
+    "1001": {
+        "profilePhotoPath": "user_data/profile_photos/1001_profile.jpg",
+        "stories": [],
+        "bio": "",
+        "dateOfBirth": "2024-12-10",
+        "coverPhotoPath": "user_data/cover_photos/1001_cover.jpg",
+        "posts": [],
+        "email": "sara@gamil.com",
+        "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "username": "sara",
+        "status": "offline"
+    },
     "1000": {
         "profilePhotoPath": "user_data/profile_photos/1000_profile.jpg",
         "stories": [],
         "bio": "malak waled",
         "dateOfBirth": "1990-09-15",
         "coverPhotoPath": "user_data/cover_photos/1000_cover.jpg",
-        "posts": [{
-            "date": "2024-12-07T01:07:22.822463200",
-            "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
-            "contentId": "f705e6",
-            "text": "mena is here",
-            "userId": "1000"
-        }],
+        "posts": [],
         "email": "malak@example.com",
         "passwordHash": "fd5f56b40a79a385708428e7b32ab996a681080a166a2206e750eb4819186145",
         "username": "malak",
-        "status": "online"
+        "status": "offline"
     },
     "12345": {
         "profilePhotoPath": "ss.jpg",

@@ -1,1 +1,12 @@
-[]
+[
+    {
+        "senderId": "12345",
+        "receiverId": "sara",
+        "requestId": "REQ1"
+    },
+    {
+        "senderId": "12345",
+        "receiverId": "malak",
+        "requestId": "REQ2"
+    }
+]
