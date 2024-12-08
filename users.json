@@ -1,10 +1,18 @@
 {
     "1000": {
-        "profilePhotoPath": "ss.jpg",
-        "email": "malak@example.com",
+        "profilePhotoPath": "user_data/profile_photos/1000_profile.jpg",
+        "stories": [],
         "bio": "malak waled",
         "dateOfBirth": "1990-09-15",
-        "coverPhotoPath": "ss.jpg",
+        "coverPhotoPath": "user_data/cover_photos/1000_cover.jpg",
+        "posts": [{
+            "date": "2024-12-07T01:07:22.822463200",
+            "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
+            "contentId": "f705e6",
+            "text": "mena is here",
+            "userId": "1000"
+        }],
+        "email": "malak@example.com",
         "passwordHash": "fd5f56b40a79a385708428e7b32ab996a681080a166a2206e750eb4819186145",
         "username": "malak",
         "status": "online"
@@ -12,13 +20,13 @@
     "12345": {
         "profilePhotoPath": "ss.jpg",
         "stories": [],
-        "bio": "sjfxsghgxdwkwdhew",
+        "bio": "rgfteg",
         "dateOfBirth": "1990-05-15",
         "coverPhotoPath": "ss.jpg",
         "posts": [],
         "email": "johndoe@example.com",
         "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
         "username": "JohnDoe",
-        "status": "online"
+        "status": "offline"
     }
 }

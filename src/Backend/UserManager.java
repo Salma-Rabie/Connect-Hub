@@ -24,7 +24,6 @@ public class UserManager {
                 .status("online").username(username).userId(username)
                 .userId(String.valueOf(idCounter)).build();
         idCounter++;
-        System.out.println(idCounter);
         database.saveUser(user);
         return user;
 
@@ -42,10 +41,10 @@ public class UserManager {
 
     }
 
-    public void logout(String userId, String status) {
+    public void logout(String userId) {
         User user = database.getUserById(userId);
-        user.setStatus(status);
-
+        user.setStatus("offline");
+        database.updateUser(user);
     }
 
     public boolean isValidEmail(String email) {

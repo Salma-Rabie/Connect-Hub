@@ -30,17 +30,18 @@ private User user;
 private UserManager userManager;
 private ProfileManagement profileManager;
 private JFrame previousWindow;
-
-    public ProfileWindow(JFrame previousWindow ,User user, UserManager userManager, ProfileManagement profileManager) {
+private JFrame mainWindow;
+    public ProfileWindow(JFrame previousWindow ,User user, UserManager userManager, ProfileManagement profileManager,JFrame mainWindow) {
          this.previousWindow = previousWindow;
         this.user = user;
         this.userManager = userManager;
         this.profileManager = profileManager;
+        this.mainWindow=mainWindow;
         initComponents();
         setLocationRelativeTo(null);
         setTitle(user.getUsername() + "'s Profile");
         Bio.setText(user.getBio());
-        System.out.println("User Bio: " + user.getBio());
+       // System.out.println("User Bio: " + user.getBio());
    ID.setText(user.getUserId());
    status.setText(user.getStatus());
      ImageIcon icon  = new ImageIcon(user.getProfilePhotoPath());
@@ -380,9 +381,9 @@ jPanel1.repaint();
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         // TODO add your handling code here:
-        userManager.logout(user.getUserId(), "offline");
+       userManager.logout(user.getUserId());
         this.setVisible(false);
-        previousWindow.setVisible(true);
+        mainWindow.setVisible(true);
     }//GEN-LAST:event_LogoutActionPerformed
 
     private void EditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProfileActionPerformed
@@ -397,7 +398,8 @@ jPanel1.repaint();
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+       this.setVisible(false);
+        ((NewsFeed)previousWindow).updateUser(user);
         previousWindow.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
@@ -406,55 +408,55 @@ jPanel1.repaint();
      */
     public static void main(String args[]) {
          
-java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
- 
- 
- JFrame previousWindow;
- String rawPassword = "securePassword123";
-        String hashedPassword = PasswordHashing.hashPassword(rawPassword);
-
-        // Step 2: Build a User object
-        User user = new User.UserBuilder()
-                .userId("1000")
-                .username("john-doe")
-                .email("johndoe@example.com")
-                .passwordHash(hashedPassword)
-                .dateOfBirth(LocalDate.of(1990, 5, 15))
-                .status("online")
-                .build();
-              stories story1 = new stories(LocalDateTime.now(), "Story 1: My first story!", "ss.jpg", "1000");
-        stories story2 = new stories(LocalDateTime.now().minusHours(1), "Story 2: Another day, another story", "ss.jpg", "1000");
-
-        // Add stories to the user
-        user.addStory(story1);
-        user.addStory(story2);
-
-        // Create some posts for the user
-        posts post1 = new posts(LocalDateTime.now(), "Post 1: This is my first post!", "ss.jpg", "1000");
-        posts post2 = new posts(LocalDateTime.now().minusHours(2), "Post 2: Here is another post", "ss.jpg", "1000");
-
-        // Add posts to the user
-        user.addPost(post1);
-        user.addPost(post2);
-
-        // Save the user to the database
-        UserDataBase userDataBase = UserDataBase.getInstance("output.json");
-        userDataBase.saveUser(user);
-       
-        // Step 3: Specify the JSON file path
-        String filePath = "output.json";
-
-        // Step 4: Save the user to the JSON file
-       // UserDataBase userDataBase = UserDataBase.getInstance("output.json");
-        ProfileManagement profileManager=new ProfileManagement(userDataBase);
-        UserManager userManager= new UserManager(userDataBase);
-        userDataBase.saveUser(user);
-ProfileWindow profile=new ProfileWindow(new MainWindow(userDataBase),user,userManager,profileManager);
-                profile.setVisible(true);
-            }
-        });
+//java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                
+// 
+// 
+// JFrame previousWindow;
+// String rawPassword = "securePassword123";
+//        String hashedPassword = PasswordHashing.hashPassword(rawPassword);
+//
+//        // Step 2: Build a User object
+//        User user = new User.UserBuilder()
+//                .userId("1000")
+//                .username("john-doe")
+//                .email("johndoe@example.com")
+//                .passwordHash(hashedPassword)
+//                .dateOfBirth(LocalDate.of(1990, 5, 15))
+//                .status("online")
+//                .build();
+//              stories story1 = new stories(LocalDateTime.now(), "Story 1: My first story!", "ss.jpg", "1000");
+//        stories story2 = new stories(LocalDateTime.now().minusHours(1), "Story 2: Another day, another story", "ss.jpg", "1000");
+//
+//        // Add stories to the user
+//        user.addStory(story1);
+//        user.addStory(story2);
+//
+//        // Create some posts for the user
+//        posts post1 = new posts(LocalDateTime.now(), "Post 1: This is my first post!", "ss.jpg", "1000");
+//        posts post2 = new posts(LocalDateTime.now().minusHours(2), "Post 2: Here is another post", "ss.jpg", "1000");
+//
+//        // Add posts to the user
+//        user.addPost(post1);
+//        user.addPost(post2);
+//
+//        // Save the user to the database
+//        UserDataBase userDataBase = UserDataBase.getInstance("output.json");
+//        userDataBase.saveUser(user);
+//       
+//        // Step 3: Specify the JSON file path
+//        String filePath = "output.json";
+//
+//        // Step 4: Save the user to the JSON file
+//       // UserDataBase userDataBase = UserDataBase.getInstance("output.json");
+//        ProfileManagement profileManager=new ProfileManagement(userDataBase);
+//        UserManager userManager= new UserManager(userDataBase);
+//        userDataBase.saveUser(user);
+//ProfileWindow profile=new ProfileWindow(new MainWindow(userDataBase),user,userManager,profileManager);
+//                profile.setVisible(true);
+//            }
+//        });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bio;

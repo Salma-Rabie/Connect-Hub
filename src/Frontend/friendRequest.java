@@ -5,7 +5,7 @@
 package Frontend;
 
 import Backend.FriendDataBase;
-import Backend.FriendRequest;
+import Backend.FriendRequestClass;
 import Backend.FriendRequestDataBase;
 import Backend.User;
 import Backend.UserDataBase;
@@ -29,7 +29,7 @@ public class friendRequest extends javax.swing.JFrame {
     private JFrame previousWindow;
     private ArrayList<String> Requests ;
     private  UserManager userManager;
-     List<FriendRequest> result;
+     List<FriendRequestClass> result;
      ArrayList<User> all;
      UserDataBase db;
      FriendDataBase friendDb;
@@ -52,7 +52,7 @@ public class friendRequest extends javax.swing.JFrame {
         friends.setSelectedIndex(0);
         result =frienddatabase.getRequestsReceivedByUserId(user.getUserId());
          all=  db.getAllUsers();
-         for (FriendRequest request : result) {
+         for (FriendRequestClass request : result) {
     // Find the user whose ID matches the sender ID in the request
     for (User userInList : all) {
         if (userInList.getUserId().equals(request.getSenderId())) {
@@ -153,10 +153,10 @@ public class friendRequest extends javax.swing.JFrame {
         // TODO add your handling code here:
         String selectedUserName = (String) friends.getSelectedItem();
     
-    // You need to retrieve the actual FriendRequest object for the selected user
+    // You need to retrieve the actual FriendRequestClass object for the selected user
     if (selectedUserName != null && !selectedUserName.equals("Select Friend Request")) {
-        // Find the corresponding FriendRequest from the list
-        for (FriendRequest request : result) {
+        // Find the corresponding FriendRequestClass from the list
+        for (FriendRequestClass request : result) {
             if (request.getSenderId()!=null) {
                 // Accept the friend request and add the user to the friends list
                 frienddatabase.acceptFriendRequest(request.getRequestId());
@@ -172,10 +172,10 @@ public class friendRequest extends javax.swing.JFrame {
     private void acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptActionPerformed
        String selectedUserName = (String) friends.getSelectedItem();
     
-    // You need to retrieve the actual FriendRequest object for the selected user
+    // You need to retrieve the actual FriendRequestClass object for the selected user
     if (selectedUserName != null && !selectedUserName.equals("Select Friend Request")) {
-        // Find the corresponding FriendRequest from the list
-        for (FriendRequest request : result) {
+        // Find the corresponding FriendRequestClass from the list
+        for (FriendRequestClass request : result) {
             // Assume 'getSenderId()' is a method to retrieve the sender's ID
             if (request.getSenderId()!=null) {
                 // Accept the friend request and add the user to the friends list

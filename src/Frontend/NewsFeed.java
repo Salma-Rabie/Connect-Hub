@@ -41,7 +41,9 @@ public class NewsFeed extends javax.swing.JFrame {
         setTitle("Newsfeed");
 
     }
-
+public void updateUser(User user){
+    this.user=user;
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -126,7 +128,7 @@ public class NewsFeed extends javax.swing.JFrame {
 
     private void GoToProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoToProfileActionPerformed
         // TODO add your handling code here:
-        ProfileWindow profile = new ProfileWindow(this, user, userManager, profileManager);
+        ProfileWindow profile = new ProfileWindow(this, user, userManager, profileManager,previousWindow);
         this.setVisible(false);
         profile.setVisible(true);
     }//GEN-LAST:event_GoToProfileActionPerformed
