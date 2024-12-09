@@ -11,13 +11,13 @@ import java.util.ArrayList;
  * @author DELL
  */
 public class SuggestedFriends {
-
-   public ArrayList<String> getSuggestedFriendNames(String userId) {
+ public ArrayList<String> getSuggestedFriendNames(String userId) {
         ArrayList<User> suggested = Suggestions.getInstance().suggestFriends(userId);
         ArrayList<String> names = new ArrayList<>();
         for (User user : suggested) {
-            names.add(user.getUsername());
+            names.add(user.getUserId());
         }
         return names;
     }
+    
 }

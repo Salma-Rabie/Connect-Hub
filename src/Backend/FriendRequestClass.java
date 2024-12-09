@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Backend;
 
-import java.time.LocalDate;
-
-/**
- *
- * @author DELL
- */public class FriendRequestClass {
+public class FriendRequestClass {
     private final String requestId;
     private final String senderId;
     private final String receiverId;

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class UserManager {
 
-    private static int idCounter;
+    private static int idCounter=1000;
     private final UserDataBase database;
 
     public UserDataBase getDatabase() {
@@ -14,7 +14,7 @@ public class UserManager {
 
     public UserManager(UserDataBase database) {
         this.database = database;
-        idCounter = 1000;
+       
     }
 
     public User signup(String email, String username, String password, LocalDate dateOfBirth) {

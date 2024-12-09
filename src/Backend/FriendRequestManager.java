@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class FriendRequestManager implements FriendManager{
     public void manage(String userId,String requestedId){
          // Here we define the logic of sending a request
-        System.out.println("Sending friend request from " + userId + " to " + requestedId);
+        //System.out.println("Sending friend request from " + userId + " to " + requestedId);
         
         // Create a new friend request object
       //  FriendRequest request = new FriendRequest("req" + System.currentTimeMillis(), userId, requestedId, "Pending", LocalDate.now());
