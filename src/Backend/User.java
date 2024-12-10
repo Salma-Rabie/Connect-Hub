@@ -16,7 +16,7 @@ public class User implements Cloneable {
     private String bio;
  private List<stories> stories; 
     private List<posts> posts; 
-    
+    private ArrayList<Group> groups;
     private User(UserBuilder builder) {
         this.userId = builder.userId;
         this.email = builder.email;
@@ -29,6 +29,7 @@ public class User implements Cloneable {
         this.bio = builder.bio;
         this.posts=builder.user_posts;
         this.stories=builder.user_stories;
+        this.groups=builder.groups;
     }
 
     public static class UserBuilder {
@@ -43,6 +44,7 @@ public class User implements Cloneable {
     private String bio;
  private List<stories> user_stories = new ArrayList<>();
     private List<posts> user_posts = new ArrayList<>(); 
+    private ArrayList<Group> groups=new ArrayList<>(); 
 
     public UserBuilder userId(String userId) {
         this.userId = userId;
@@ -56,6 +58,10 @@ public class User implements Cloneable {
 
     public UserBuilder username(String username) {
         this.username = username;
+        return this;
+    }
+      public UserBuilder groups(ArrayList<Group> groups) {
+        this.groups = groups;
         return this;
     }
 

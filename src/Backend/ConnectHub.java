@@ -4,12 +4,21 @@ package Backend;
 import Frontend.MainWindow;
 import java.io.File;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 public class ConnectHub {
 
    
     public static void main(String[] args) {
+        
+//          String filePath = "users.json";
+//         UserDataBase userDataBase = UserDataBase.getInstance(filePath);
+//         ArrayList<User> allusers= userDataBase.getAllUsers();
+//         for(int i=0;i<allusers.size();i++){
+//             System.out.println(allusers.get(i).getUserId());
+//         }
+//        
         String rawPassword = "56789";
         String hashedPassword = PasswordHashing.hashPassword(rawPassword);
 File def=new File("ss.jpg");
@@ -36,6 +45,8 @@ MainWindow main=new MainWindow(userDataBase);
 main.setVisible(true);
         // Confirming that the user has been saved
         System.out.println("User saved to JSON file: " + filePath);
+
+
         // TODO code application logic here
 //       String rawPassword = "56789";
 //        String hashedPassword = PasswordHashing.hashPassword(rawPassword);
