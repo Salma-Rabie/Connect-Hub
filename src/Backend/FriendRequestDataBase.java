@@ -1,19 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Backend;
 
-/**
- *
- * @author sarar
- */
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-import Backend.FriendDataBase;
-import Backend.FriendRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.*;
@@ -24,7 +11,7 @@ public class FriendRequestDataBase {
     private static FriendRequestDataBase instance = null;
     private final String filePath;
     private final Map<Integer, String> requestIndexMap; // Index to request ID mapping
-    private final List<FriendRequest> requestsList; // List of all pending requests
+    private final List<FriendRequestClass> requestsList; // List of all pending requests
     private static int requestCounter=0; // Counter for generating unique request IDs
 
     private FriendRequestDataBase(String filePath) {
@@ -46,41 +33,121 @@ public class FriendRequestDataBase {
     private String generateRequestId() {
         return "REQ" + requestCounter++;
     }
+//private void loadRequestsFromFile() {
+//    try {
+//        File file = new File(filePath);
+//        if (file.exists()) {
+//            String content = new String(java.nio.file.Files.readAllBytes(file.toPath())).trim();
+//            if (!content.isEmpty()) {
+//                JSONArray requestsArray = new JSONArray(content);
+//
+//                for (int i = 0; i < requestsArray.length(); i++) {
+//                    JSONObject requestJSON = requestsArray.getJSONObject(i);
+//                    FriendRequestClass request = new FriendRequestClass(
+//                            requestJSON.getString("requestId"),
+//                            requestJSON.getString("senderId"),
+//                            requestJSON.getString("receiverId")
+//                    );
+//                    requestsList.add(request);
+//                    requestIndexMap.put(i, request.getRequestId());
+//                }
+//
+//                // Update request counter to avoid ID conflicts
+//                if (!requestsList.isEmpty()) {
+//                    requestCounter = requestsList.size() + 1;
+//                }
+//            }
+//        }
+//    } catch (JSONException | IOException e) {
+//        System.err.println("Error loading friend requests: " + e.getMessage());
+//    }
+//}
+private void loadRequestsFromFile() {
+    try {
+        File file = new File(filePath);
+        if (file.exists()) {
+            String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+            if (content.trim().isEmpty()) return;
 
-    // Load requests from the file into the list and index map
-    private void loadRequestsFromFile() {
-        try {
-            File file = new File(filePath);
-            if (file.exists()) {
-                String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
-                JSONArray requestsArray = new JSONArray(content);
+            JSONArray requestsArray = new JSONArray(content);
 
-                for (int i = 0; i < requestsArray.length(); i++) {
-                    JSONObject requestJSON = requestsArray.getJSONObject(i);
-                    FriendRequest request = new FriendRequest(
-                            requestJSON.getString("requestId"),
-                            requestJSON.getString("senderId"),
-                            requestJSON.getString("receiverId")
-                    );
-                    requestsList.add(request);
-                    requestIndexMap.put(i, request.getRequestId());
+            for (int i = 0; i < requestsArray.length(); i++) {
+                JSONObject requestJSON = requestsArray.getJSONObject(i);
+
+                FriendRequestClass request = new FriendRequestClass(
+                    requestJSON.getString("requestId"),
+                    requestJSON.getString("senderId"),
+                    requestJSON.getString("receiverId")
+                );
+
+                // Check for duplicates before adding to the list
+                boolean alreadyExists = false;
+                for (FriendRequestClass existingRequest : requestsList) {
+                    if (existingRequest.getSenderId().equals(request.getSenderId()) &&
+                        existingRequest.getReceiverId().equals(request.getReceiverId())) {
+                        alreadyExists = true;
+                        break;
+                    }
                 }
-
-                // Update request counter to avoid ID conflicts
-                if (!requestsList.isEmpty()) {
-                    requestCounter = requestsList.size() + 1;
+                if (!alreadyExists) {
+                    requestsList.add(request);
+                    requestIndexMap.put(requestsList.size() - 1, request.getRequestId());
                 }
             }
-        } catch (IOException | JSONException e) {
-            System.err.println("Error loading friend requests: " + e.getMessage());
+
+            // Update the counter to avoid ID conflicts
+            if (!requestsList.isEmpty()) {
+                requestCounter = requestsList.size() + 1;
+            }
         }
+    } catch (IOException | JSONException e) {
+        System.err.println("Error loading friend requests: " + e.getMessage());
     }
+}
+
 
     // Save the list back to the file
-    private void saveRequestsToFile() {
+//    private void saveRequestsToFile() throws IOException {
+//        System.out.println("Saving friend requests to file...");
+//         JSONArray requestsArray ;
+//        File file = new File(filePath);
+//         if (file.exists()) {
+//            String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+//            if (content.trim().isEmpty()) {
+//                requestsArray = new JSONArray();  // Empty file, start fresh
+//            } else {
+//                try {
+//                    requestsArray = new JSONArray(content);  // Parse existing content
+//                } catch (JSONException e) {
+//                    System.err.println("Invalid JSON format, creating a new JSON object.");
+//                    requestsArray = new JSONArray();  // Reset to empty if parsing fails
+//                }
+//            }
+//        } else {
+//            requestsArray = new JSONArray();  // File does not exist, create a new JSON object
+//        }
+//        try {
+//            //JSONArray requestsArray = new JSONArray();
+//            for (FriendRequestClass request : requestsList) {
+//                JSONObject requestJSON = new JSONObject();
+//                requestJSON.put("requestId", request.getRequestId());
+//                requestJSON.put("senderId", request.getSenderId());
+//                requestJSON.put("receiverId", request.getReceiverId());
+//                requestsArray.put(requestJSON);
+//            }
+//            try (FileWriter writer = new FileWriter(filePath)) {
+//                writer.write(requestsArray.toString(4)); // Indented for readability
+//            }
+//        } catch (IOException e) {
+//            System.err.println("Error saving friend requests: " + e.getMessage());
+//        }
+//         System.out.println("File saved with content: " + requestsArray.toString());
+//    }
+
+ private void saveRequestsToFile() {
         try {
             JSONArray requestsArray = new JSONArray();
-            for (FriendRequest request : requestsList) {
+            for (FriendRequestClass request : requestsList) {
                 JSONObject requestJSON = new JSONObject();
                 requestJSON.put("requestId", request.getRequestId());
                 requestJSON.put("senderId", request.getSenderId());
@@ -96,21 +163,31 @@ public class FriendRequestDataBase {
     }
 
     // Add a new friend request
-    public void addFriendRequest(String senderId, String receiverId) {
-        String requestId = generateRequestId();
-        FriendRequest newRequest = new FriendRequest(requestId, senderId, receiverId);
-        requestsList.add(newRequest);
+    public void addFriendRequest(String senderId, String receiverId) throws IOException {
+        System.out.println("(inside addFriendRequest methode)addFriendRequest called with: senderId = " + senderId + ", receiverId = " + receiverId);
+        for (FriendRequestClass request : requestsList) {
+        if (request.getSenderId().equals(senderId) && request.getReceiverId().equals(receiverId)) {
+            System.out.println("Friend request already exists.");
+            return; // Prevent adding a duplicate request
+        }
+    }
+    // If no duplicates, proceed to add the new request
+    String requestId = generateRequestId();
+    FriendRequestClass newRequest = new FriendRequestClass(requestId, senderId, receiverId);
+    requestsList.add(newRequest);
 
-        // Update the index map
-        requestIndexMap.put(requestsList.size() - 1, requestId);
-        saveRequestsToFile();
+    // Update the index map
+    requestIndexMap.put(requestsList.size() - 1, requestId);
+
+    // Save the updated requests to the file
+    saveRequestsToFile();
     }
 
     // Accept a friend request
-    public void acceptFriendRequest(String requestId) {
+    public void acceptFriendRequest(String requestId) throws IOException {
         for (int i = 0; i < requestsList.size(); i++) {
             if (requestsList.get(i).getRequestId().equals(requestId)) {
-                FriendRequest request = requestsList.get(i);
+                FriendRequestClass request = requestsList.get(i);
 
                 // Add the friendship in FriendDataBase
                 FriendDataBase.getInstance("friends.json").addFriend(request.getSenderId(), request.getReceiverId());
@@ -124,7 +201,7 @@ public class FriendRequestDataBase {
     }
 
     // Decline a friend request
-    public void declineFriendRequest(String requestId) {
+    public void declineFriendRequest(String requestId) throws IOException {
         for (int i = 0; i < requestsList.size(); i++) {
             if (requestsList.get(i).getRequestId().equals(requestId)) {
                 // Remove the request and update index map
@@ -145,9 +222,9 @@ public class FriendRequestDataBase {
     }
 
     // Get all pending requests for a specific receiver
-    public List<FriendRequest> getPendingRequests(String receiverId) {
-        List<FriendRequest> result = new ArrayList<>();
-        for (FriendRequest request : requestsList) {
+    public List<FriendRequestClass> getPendingRequests(String receiverId) {
+        List<FriendRequestClass> result = new ArrayList<>();
+        for (FriendRequestClass request : requestsList) {
             if (request.getReceiverId().equals(receiverId)) {
                 result.add(request);
             }
@@ -156,15 +233,15 @@ public class FriendRequestDataBase {
     }
 
     // Get a request by its index
-    public FriendRequest getRequestByIndex(int index) {
+    public FriendRequestClass getRequestByIndex(int index) {
         if (index >= 0 && index < requestsList.size()) {
             return requestsList.get(index);
         }
         return null;
     }
-    public List<FriendRequest> getRequestsReceivedByUserId(String userId) {
-    List<FriendRequest> result = new ArrayList<>();
-    for (FriendRequest request : requestsList) {
+    public List<FriendRequestClass> getRequestsReceivedByUserId(String userId) {
+    List<FriendRequestClass> result = new ArrayList<>();
+    for (FriendRequestClass request : requestsList) {
         if (request.getReceiverId().equals(userId)) {
             result.add(request);
         }
@@ -202,7 +279,7 @@ public class FriendRequestDataBase {
 //    }
 //
 //    // Save friend request to file
-//    public void saveFriendRequest(FriendRequest friendRequest) {
+//    public void saveFriendRequest(FriendRequestClass friendRequest) {
 //        JSONObject jsonObject = new JSONObject();
 //        jsonObject.put("senderId", friendRequest.getSenderId());
 //        jsonObject.put("receiverId", friendRequest.getReceiverId());
@@ -244,7 +321,7 @@ public class FriendRequestDataBase {
 //
 //                for (int i = 0; i < requestsArray.length(); i++) {
 //                    JSONObject requestJSON = requestsArray.getJSONObject(i);
-//                    FriendRequest request = new FriendRequest(
+//                    FriendRequestClass request = new FriendRequestClass(
 //                            requestJSON.getString("requestId"),
 //                            requestJSON.getString("senderId"),
 //                            requestJSON.getString("receiverId")
@@ -293,7 +370,7 @@ public class FriendRequestDataBase {
 //    }
 //}
 //
-//    public FriendRequest getFriendRequestById(String requestId) {
+//    public FriendRequestClass getFriendRequestById(String requestId) {
 //        try {
 //            File file = new File(filePath);
 //            if (file.exists()) {
@@ -305,8 +382,8 @@ public class FriendRequestDataBase {
 //                    if (database.has(requestId)) {
 //                        JSONObject jsonObject = database.getJSONObject(requestId);
 //
-//                        // Construct and return the FriendRequest object
-////                        return new FriendRequest(
+//                        // Construct and return the FriendRequestClass object
+////                        return new FriendRequestClass(
 ////                                requestId,
 ////                                jsonObject.getString("senderId"),
 ////                                jsonObject.getString("receiverId"),
@@ -322,7 +399,7 @@ public class FriendRequestDataBase {
 //        return null;  
 //    }
 //   public void acceptFriendRequest(String requestId) {
-//    FriendRequest request = getFriendRequestById(requestId);  
+//    FriendRequestClass request = getFriendRequestById(requestId);  
 //    if (request != null) {
 //        //request.setStatus("Accepted");
 //
@@ -332,7 +409,7 @@ public class FriendRequestDataBase {
 //}
 //
 //public void declineFriendRequest(String requestId) {
-//    FriendRequest request = FriendRequestDataBase.getInstance("friend_requests.json")
+//    FriendRequestClass request = FriendRequestDataBase.getInstance("friend_requests.json")
 //                            .getFriendRequestById(requestId);
 //    if (request != null) {
 //        //request.setStatus("Declined");

@@ -1,1 +1,22 @@
-[]
+[
+    {
+        "senderId": "12345",
+        "receiverId": "1004",
+        "requestId": "REQ2"
+    },
+    {
+        "senderId": "12345",
+        "receiverId": "1006",
+        "requestId": "REQ3"
+    },
+    {
+        "senderId": "12345",
+        "receiverId": "1001",
+        "requestId": "REQ4"
+    },
+    {
+        "senderId": "12345",
+        "receiverId": "1000",
+        "requestId": "REQ4"
+    }
+]
