@@ -1,0 +1,15 @@
+{"Java Enthusiasts": {
+    "photoPath": "path/to/new_photo.jpg",
+    "primaryAdmin": "User2",
+    "name": "Java Enthusiasts",
+    "description": "A group for saraand yhnjuyjukmu enthusiasts and advanced learners.",
+    "posts": [],
+    "otherAdmins": ["User2"],
+    "users": [
+        "AdminUser",
+        "User1",
+        "User2",
+        "User3"
+    ],
+    "numMembers": 4
+}}

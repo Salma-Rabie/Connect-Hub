@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Backend;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +17,7 @@ import org.json.JSONObject;
 public class GroupDataBase {
     private static GroupDataBase instance = null;
     private final String filePath;
+    private  ArrayList<Group> allGroups;
       private GroupDataBase(String filePath) {
         this.filePath = filePath;
     }
@@ -30,104 +29,133 @@ public class GroupDataBase {
         }
         return instance;
     }
+    
      public void saveGroup(Group group) {
-        // Check if the user already exists in the database (assuming getUserById is defined elsewhere)
-        if (getGroupbyName(group.getName()) != null) {
-            return;  // User already exists, no need to save again
-        }
+        JSONObject databaseJson;
 
-        File defaultPhoto = new File("ss.jpg");  // Default photo in case the user doesn't have one
-
-        // Create a new JSON object to hold the user's data
-        JSONObject userJson = new JSONObject();
-
-        // Add user-specific fields
-        userJson.put("username", user.getUsername());
-        userJson.put("email", user.getEmail());
-        userJson.put("passwordHash", user.getPasswordHash());
-        userJson.put("dateOfBirth", user.getDateOfBirth().toString());
-        userJson.put("status", "online");
-
-        // Bio field
-        if (user.getBio() == null) {
-            userJson.put("bio", "");  // Empty string for bio if null
+    // Load existing data from file, if any
+    try {
+        File file = new File(filePath);
+        if (file.exists()) {
+            String content = new String(Files.readAllBytes(file.toPath()));
+            databaseJson = new JSONObject(content);
         } else {
-            userJson.put("bio", user.getBio());
+            databaseJson = new JSONObject(); // Start with an empty JSON object
         }
-
-        // Profile photo path (default or user-defined)
-        if (user.getProfilePhotoPath() == null) {
-            userJson.put("profilePhotoPath", defaultPhoto.getPath());
-        } else {
-            userJson.put("profilePhotoPath", user.getProfilePhotoPath());
-        }
-
-       
-        
-
-        // Add stories array
-        JSONArray storiesArray = new JSONArray();
-        for (stories story : user.getStories()) {
-            JSONObject storyJson = new JSONObject();
-            storyJson.put("contentId", story.getContentId());
-            storyJson.put("date", story.getDate().toString());
-            storyJson.put("text", story.getText());
-            storyJson.put("img", story.getImg());
-            storyJson.put("userId", story.getUserId());
-            storiesArray.put(storyJson);
-        }
-        userJson.put("stories", storiesArray);
-
-        // Add posts array
-        JSONArray postsArray = new JSONArray();
-        for (posts post : user.getPosts()) {
-            JSONObject postJson = new JSONObject();
-            postJson.put("contentId", post.getContentId());
-            postJson.put("date", post.getDate().toString());
-            postJson.put("text", post.getText());
-            postJson.put("img", post.getImg());
-            postJson.put("userId", post.getUserId());
-            postsArray.put(postJson);
-        }
-        userJson.put("posts", postsArray);
-
-        // Now, the user data is directly under their userId key (e.g., "12345")
-        JSONObject finalJson = new JSONObject();
-        finalJson.put(String.valueOf(user.getUserId()), userJson);  // UserId as key, userJson as value
-
-        try {
-            // Load the existing JSON file or create a new one if it doesn't exist
-            JSONObject database;
-            File file = new File(filePath);
-
-            if (file.exists()) {
-                String content = new String(Files.readAllBytes(file.toPath()));
-                if (content.trim().isEmpty()) {
-                    database = new JSONObject();  // Empty file, start fresh
-                } else {
-                    try {
-                        database = new JSONObject(content);  // Parse existing content
-                    } catch (JSONException e) {
-                        System.err.println("Invalid JSON format, creating a new JSON object.");
-                        database = new JSONObject();  // Reset to empty if parsing fails
-                    }
-                }
-            } else {
-                database = new JSONObject();  // File does not exist, create a new JSON object
-            }
-
-            // Put the updated user data under the userId key in the database
-            database.put(String.valueOf(user.getUserId()), userJson);
-
-            // Write the updated database back to the file
-            try (FileWriter writer = new FileWriter(filePath)) {
-                writer.write(database.toString(4));  // Indented JSON output for better readability
-                System.out.println("User saved successfully.");
-            }
-
-        } catch (IOException e) {
-            System.err.println("Error saving user: " + e.getMessage());
-        }
+    } catch (IOException | JSONException e) {
+        e.printStackTrace();
+        return; // Handle file read error
     }
+
+    // Check if the group already exists
+    if (databaseJson.has(group.getName())) {
+        //System.out.println("Group already exists in the database.");
+        return; // Avoid overwriting an existing group
+    }
+
+    // Create a JSON representation of the group
+    JSONObject groupJson = new JSONObject();
+    groupJson.put("name", group.getName());
+    groupJson.put("numMembers", group.getNumMembers());
+    groupJson.put("photoPath", group.getPhotoPath());
+    groupJson.put("description", group.getDescription());
+
+    if (group.getPrimaryAdmin() != null) {
+        groupJson.put("primaryAdmin", group.getPrimaryAdmin().getUsername());
+    }
+
+    JSONArray otherAdminsJson = new JSONArray();
+    for (User admin : group.getOtherAdmins()) {
+        otherAdminsJson.put(admin.getUsername());
+    }
+    groupJson.put("otherAdmins", otherAdminsJson);
+
+    JSONArray usersJson = new JSONArray();
+    for (User user : group.getUsers()) {
+        usersJson.put(user.getUsername());
+    }
+    groupJson.put("users", usersJson);
+
+    JSONArray postsJson = new JSONArray();
+    for (posts post : group.getPosts()) {
+        postsJson.put(post.toString()); // Replace with appropriate post serialization
+    }
+    groupJson.put("posts", postsJson);
+
+    // Add the group to the main database JSON object
+    databaseJson.put(group.getName(), groupJson);
+
+    // Write the updated JSON object back to the file
+    try (FileWriter writer = new FileWriter(filePath)) {
+        writer.write(databaseJson.toString(4)); // Pretty print with an indent of 4 spaces
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+     }
+    public Group updateGroup(Group updatedGroup) {
+    JSONObject databaseJson;
+
+    // Load existing data from file, if any
+    try {
+        File file = new File(filePath);
+        if (file.exists()) {
+            String content = new String(Files.readAllBytes(file.toPath()));
+            databaseJson = new JSONObject(content);
+        } else {
+            databaseJson = new JSONObject(); // Start with an empty JSON object
+        }
+    } catch (IOException | JSONException e) {
+        e.printStackTrace();
+        return null; // Handle file read error
+    }
+
+    // Check if the group exists in the database
+    if (!databaseJson.has(updatedGroup.getName())) {
+        //System.out.println("Group does not exist in the database.");
+        return null; // Group doesn't exist, so no update
+    }
+
+    // Create a JSON representation of the updated group
+    JSONObject updatedGroupJson = new JSONObject();
+    updatedGroupJson.put("name", updatedGroup.getName());
+    updatedGroupJson.put("numMembers", updatedGroup.getNumMembers());
+    updatedGroupJson.put("photoPath", updatedGroup.getPhotoPath());
+    updatedGroupJson.put("description", updatedGroup.getDescription());
+
+    if (updatedGroup.getPrimaryAdmin() != null) {
+        updatedGroupJson.put("primaryAdmin", updatedGroup.getPrimaryAdmin().getUsername());
+    }
+
+    JSONArray otherAdminsJson = new JSONArray();
+    for (User admin : updatedGroup.getOtherAdmins()) {
+        otherAdminsJson.put(admin.getUsername());
+    }
+    updatedGroupJson.put("otherAdmins", otherAdminsJson);
+
+    JSONArray usersJson = new JSONArray();
+    for (User user : updatedGroup.getUsers()) {
+        usersJson.put(user.getUsername());
+    }
+    updatedGroupJson.put("users", usersJson);
+
+    JSONArray postsJson = new JSONArray();
+    for (posts post : updatedGroup.getPosts()) {
+        postsJson.put(post.toString()); // Replace with appropriate post serialization
+    }
+    updatedGroupJson.put("posts", postsJson);
+
+    // Update the group in the main database JSON object
+    databaseJson.put(updatedGroup.getName(), updatedGroupJson);
+
+    // Write the updated JSON object back to the file
+    try (FileWriter writer = new FileWriter(filePath)) {
+        writer.write(databaseJson.toString(4)); // Pretty print with an indent of 4 spaces
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    // Return the updated group
+    return updatedGroup;
+}
     
 }
