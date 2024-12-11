@@ -280,7 +280,9 @@ public class NewsFeed extends javax.swing.JFrame {
     }//GEN-LAST:event_friendrequestsActionPerformed
 
     private void MyFriendsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MyFriendsActionPerformed
-        // TODO add your handling code here:
+ FriendsList flist = new FriendsList(this, user);
+        flist.setVisible(true);
+        this.setVisible(false);        // TODO add your handling code here:
 
     }//GEN-LAST:event_MyFriendsActionPerformed
 

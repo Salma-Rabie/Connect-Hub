@@ -156,7 +156,7 @@ public class friendRequest extends javax.swing.JFrame {
             if (request.getSenderId()!=null) {
                 try {
                     // Accept the friend request and add the user to the friends list
-                    friendRequestsDatabase.acceptFriendRequest(request.getRequestId());
+                    friendRequestsDatabase.declineFriendRequest(request.getRequestId());
                 } catch (IOException ex) {
                     Logger.getLogger(friendRequest.class.getName()).log(Level.SEVERE, null, ex);
                 }
