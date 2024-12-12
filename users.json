@@ -11,6 +11,18 @@
         "username": "malak",
         "status": "offline"
     },
+    "1005": {
+        "profilePhotoPath": "user_data/profile_photos/1000_profile.jpg",
+        "stories": [],
+        "bio": "",
+        "dateOfBirth": "2024-12-10",
+        "coverPhotoPath": "user_data/cover_photos/1000_cover.jpg",
+        "posts": [],
+        "email": "salma@gmail.com",
+        "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "username": "salma",
+        "status": "offline"
+    },
     "1004": {
         "profilePhotoPath": "user_data/profile_photos/1001_profile.jpg",
         "stories": [],
@@ -23,6 +35,31 @@
         "username": "sara",
         "status": "offline"
     },
+    "1233": {
+        "profilePhotoPath": "ss.jpg",
+        "stories": [],
+        "bio": "sjfxsghgxdwkwdhew",
+        "dateOfBirth": "1990-05-15",
+        "coverPhotoPath": "ss.jpg",
+        "posts": [],
+        "email": "johndoe@example.com",
+        "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
+        "username": "JohnDoe",
+        "status": "online"
+    },
+    "1222": {
+        "profilePhotoPath": "ss.jpg",
+        "stories": [],
+        "bio": "sjfxsghgxdwkwdhew",
+        "groups": ["Java Enthusiasts"],
+        "dateOfBirth": "1990-05-15",
+        "coverPhotoPath": "ss.jpg",
+        "posts": [],
+        "email": "johndoe@example.com",
+        "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
+        "username": "JohnDoe",
+        "status": "offline"
+    },
     "1001": {
         "profilePhotoPath": "user_data/profile_photos/1001_profile.jpg",
         "stories": [],
@@ -33,18 +70,6 @@
         "email": "tt@gmail.com",
         "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
         "username": "test",
-        "status": "offline"
-    },
-    "1000": {
-        "profilePhotoPath": "user_data/profile_photos/1000_profile.jpg",
-        "stories": [],
-        "bio": "",
-        "dateOfBirth": "2024-12-10",
-        "coverPhotoPath": "user_data/cover_photos/1000_cover.jpg",
-        "posts": [],
-        "email": "salma@gmail.com",
-        "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
-        "username": "salma",
         "status": "offline"
     },
     "12345": {
@@ -69,9 +94,27 @@
                 "userId": "12345"
             }
         ],
+        "bio": "sjfxsghgxdwkwdhew",
+        "groups": ["Java Enthusiasts"],
+        "dateOfBirth": "1990-05-15",
+        "coverPhotoPath": "ss.jpg",
+        "posts": [],
         "email": "johndoe@example.com",
         "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
         "username": "JohnDoe",
-        "status": "offline"
+        "status": "online"
+    },
+    "1230": {
+        "profilePhotoPath": "ss.jpg",
+        "stories": [],
+        "bio": "sjfxsghgxdwkwdhew",
+        "groups": ["Java Enthusiasts"],
+        "dateOfBirth": "1990-05-15",
+        "coverPhotoPath": "ss.jpg",
+        "posts": [],
+        "email": "johndoe@example.com",
+        "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
+        "username": "JohnDoe",
+        "status": "online"
     }
 }
