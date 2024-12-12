@@ -1,15 +1,36 @@
 {"Java Enthusiasts": {
     "photoPath": "path/to/new_photo.jpg",
-    "primaryAdmin": "User2",
     "name": "Java Enthusiasts",
     "description": "A group for saraand yhnjuyjukmu enthusiasts and advanced learners.",
-    "posts": [],
-    "otherAdmins": ["User2"],
+     "posts": [
+            {
+                "date": "2024-12-08T17:27:21.311869800",
+                "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\desktop-wallpaper-full-screen-girly-for-laptop-pc-cute-girly-thumbnail.jpg",
+                "contentId": "b95206",
+                "text": "alaaaaa",
+                "userId": "12345"
+            },
+            {
+                "date": "2024-12-12T14:03:25.090561300",
+                "img": "",
+                "contentId": "c0ee68",
+                "text": "rhbty",
+                "userId": "12345"
+            },
+            {
+                "date": "2024-12-12T14:03:39.103419500",
+                "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
+                "contentId": "0efa98",
+                "text": "gtrgbr",
+                "userId": "12345"
+            }
+        ],
+    "otherAdmins": [null],
     "users": [
-        "AdminUser",
-        "User1",
-        "User2",
-        "User3"
+        null,
+        null,
+        null,
+        null
     ],
     "numMembers": 4
 }}

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Frontend;
 
 import Backend.*;
@@ -11,10 +8,6 @@ import java.time.*;
 import java.util.Date;
 import javax.swing.*;
 
-/**
- *
- * @author Salma Eid
- */
 public class Signup extends javax.swing.JFrame {
 
     private final UserManager userManager;
