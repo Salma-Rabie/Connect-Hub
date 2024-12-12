@@ -31,6 +31,7 @@ public class NewsFeed extends javax.swing.JFrame {
     private final Map<String, List<String>> friendsMap = new HashMap<>();
     private List<String> currentUserFriends = new ArrayList();
     private GroupDataBase groupDatabase;
+   private GroupManagement groupManager;
 private ArrayList<String>userGroups;
     /**
      * Creates new form NewsFeed
@@ -42,6 +43,7 @@ private ArrayList<String>userGroups;
         this.profileManager = profileManager;
         this.groupDatabase=GroupDataBase.getInstance("groups.json"); 
         this.userGroups=user.getGroups();
+        this.groupManager=new GroupManagement(userManager.getDatabase(),groupDatabase);
          String filePath = "friend_requests.json";
         friendRequestsDatabase = FriendRequestDataBase.getInstance(filePath);
         initComponents();
@@ -333,7 +335,10 @@ private ArrayList<String>userGroups;
         // TODO add your handling code here:
         String groupName=(String) mygroups.getSelectedItem();
         if (groupName != null && !groupName.equals("Select Friend Request")){
-            
+            Group group= groupDatabase.getGroupByName(groupName);
+            this.setVisible(false);
+            GroupWindow groupWindow=new GroupWindow(this,user,group,groupDatabase,groupManager);
+            groupWindow.setVisible(true);
         }
     }//GEN-LAST:event_choosegroupActionPerformed
 
