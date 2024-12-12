@@ -57,7 +57,6 @@ private ArrayList<String>userGroups;
         for(int i=0;i<userGroups.size();i++){
             mygroups.addItem(userGroups.get(i));
         }
-        mygroups.addItem(userGroups.get(i));
     }
 
     public void updateUser(User user) {
