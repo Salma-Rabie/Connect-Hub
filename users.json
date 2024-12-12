@@ -1,24 +1,77 @@
 {
-    "1000": {
-        "profilePhotoPath": "ss.jpg",
-        "email": "malak@example.com",
+    "1006": {
+        "profilePhotoPath": "user_data/profile_photos/1000_profile.jpg",
+        "stories": [],
         "bio": "malak waled",
         "dateOfBirth": "1990-09-15",
-        "coverPhotoPath": "ss.jpg",
+        "coverPhotoPath": "user_data/cover_photos/1000_cover.jpg",
+        "posts": [],
+        "email": "malak@example.com",
         "passwordHash": "fd5f56b40a79a385708428e7b32ab996a681080a166a2206e750eb4819186145",
         "username": "malak",
-        "status": "online"
+        "status": "offline"
+    },
+    "1004": {
+        "profilePhotoPath": "user_data/profile_photos/1001_profile.jpg",
+        "stories": [],
+        "bio": "",
+        "dateOfBirth": "2024-12-10",
+        "coverPhotoPath": "user_data/cover_photos/1001_cover.jpg",
+        "posts": [],
+        "email": "sara@gamil.com",
+        "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "username": "sara",
+        "status": "offline"
+    },
+    "1001": {
+        "profilePhotoPath": "user_data/profile_photos/1001_profile.jpg",
+        "stories": [],
+        "bio": "",
+        "dateOfBirth": "2024-12-10",
+        "coverPhotoPath": "user_data/cover_photos/1001_cover.jpg",
+        "posts": [],
+        "email": "tt@gmail.com",
+        "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "username": "test",
+        "status": "offline"
+    },
+    "1000": {
+        "profilePhotoPath": "user_data/profile_photos/1000_profile.jpg",
+        "stories": [],
+        "bio": "",
+        "dateOfBirth": "2024-12-10",
+        "coverPhotoPath": "user_data/cover_photos/1000_cover.jpg",
+        "posts": [],
+        "email": "salma@gmail.com",
+        "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "username": "salma",
+        "status": "offline"
     },
     "12345": {
         "profilePhotoPath": "ss.jpg",
         "stories": [],
-        "bio": "sjfxsghgxdwkwdhew",
+        "bio": "rgfteg",
         "dateOfBirth": "1990-05-15",
         "coverPhotoPath": "ss.jpg",
-        "posts": [],
+        "posts": [
+            {
+                "date": "2024-12-08T17:27:21.311869800",
+                "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\desktop-wallpaper-full-screen-girly-for-laptop-pc-cute-girly-thumbnail.jpg",
+                "contentId": "7bb6a8",
+                "text": "alaaaaa",
+                "userId": "12345"
+            },
+            {
+                "date": "2024-12-12T17:25:46.236861200",
+                "img": "C:\\Users\\alaae\\OneDrive\\Documents\\datastruct.cpp",
+                "contentId": "22a131",
+                "text": "helllooo",
+                "userId": "12345"
+            }
+        ],
         "email": "johndoe@example.com",
         "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
         "username": "JohnDoe",
-        "status": "online"
+        "status": "offline"
     }
 }

@@ -155,7 +155,7 @@ public UserBuilder setstories(List<stories>u)
     public void setStatus(String status) {
         this.status = status;
     }
-public List<stories> getStories() {
+   public List<stories> getStories() {
         return stories;
     }
 

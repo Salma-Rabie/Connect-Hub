@@ -30,21 +30,22 @@ private User user;
 private UserManager userManager;
 private ProfileManagement profileManager;
 private JFrame previousWindow;
-
-    public ProfileWindow(JFrame previousWindow ,User user, UserManager userManager, ProfileManagement profileManager) {
-         this.previousWindow = previousWindow;
+private JFrame mainWindow;
+    public ProfileWindow(JFrame previousWindow, User user, UserManager userManager, ProfileManagement profileManager, JFrame mainWindow) {
+        this.previousWindow = previousWindow;
         this.user = user;
         this.userManager = userManager;
         this.profileManager = profileManager;
+        this.mainWindow = mainWindow;
         initComponents();
         setLocationRelativeTo(null);
         setTitle(user.getUsername() + "'s Profile");
         Bio.setText(user.getBio());
-        System.out.println("User Bio: " + user.getBio());
-   ID.setText(user.getUserId());
-   status.setText(user.getStatus());
-     ImageIcon icon  = new ImageIcon(user.getProfilePhotoPath());
- ImageIcon icon2 = new ImageIcon(user.getCoverPhotoPath());
+        // System.out.println("User Bio: " + user.getBio());
+        ID.setText(user.getUserId());
+        status.setText(user.getStatus());
+        ImageIcon icon = new ImageIcon(user.getProfilePhotoPath());
+        ImageIcon icon2 = new ImageIcon(user.getCoverPhotoPath());
         Image originalImage = icon.getImage();//profile
         Image scaledImage = originalImage.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
         jLabel2.setIcon(new ImageIcon(scaledImage));
@@ -52,9 +53,9 @@ private JFrame previousWindow;
         Image originalImage2 = icon2.getImage();//cover
         Image scaledImage2 = originalImage2.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
         jLabel1.setIcon(new ImageIcon(scaledImage2));
-    
-    addStoriesAndPostsLayout(user);
-    
+
+        addStoriesAndPostsLayout(user);
+
    
     }
     public void updateuser(User updatedUser) {
@@ -73,129 +74,129 @@ ID.setText(user.getUserId());
    status.setText(user.getStatus());
     user.removeExpiredStories();
     }
- private void addStoriesAndPostsLayout(User user){
+    private void addStoriesAndPostsLayout(User user) {
 // Panel 1 (Stories)
- user.removeExpiredStories();
-JPanel storiesPanel = new JPanel();
-storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS)); // Vertical layout
-storiesPanel.setBackground(Color.WHITE);
+        user.removeExpiredStories();
+        JPanel storiesPanel = new JPanel();
+        storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS)); // Vertical layout
+        storiesPanel.setBackground(Color.WHITE);
 
 // Header Label for "Stories"
-JLabel storiesLabel = new JLabel("Stories");
-storiesLabel.setFont(new Font("Arial", Font.BOLD, 20));
-storiesLabel.setForeground(new Color(0, 102, 204));  // Modern blue color
-storiesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around header
-storiesLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-storiesPanel.add(storiesLabel);
+        JLabel storiesLabel = new JLabel("Stories");
+        storiesLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        storiesLabel.setForeground(new Color(0, 102, 204));  // Modern blue color
+        storiesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around header
+        storiesLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        storiesPanel.add(storiesLabel);
 
 // Iterate over the stories
-for (int i = 0; i < user.getStories().size(); i++) {
-    stories story = user.getStories().get(i);
+        for (int i = 0; i < user.getStories().size(); i++) {
+            stories story = user.getStories().get(i);
 
-    // Create a card-like panel for each story
-    JPanel storyPanel = new JPanel();
-    storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS)); // Vertical layout
-    storyPanel.setBackground(new Color(245, 245, 245)); // Light gray background
-    storyPanel.setBorder(BorderFactory.createCompoundBorder(
-        BorderFactory.createLineBorder(new Color(220, 220, 220), 1),
-        BorderFactory.createEmptyBorder(10, 10, 10, 10) // Padding inside the card
-    ));
+            // Create a card-like panel for each story
+            JPanel storyPanel = new JPanel();
+            storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS)); // Vertical layout
+            storyPanel.setBackground(new Color(245, 245, 245)); // Light gray background
+            storyPanel.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(new Color(220, 220, 220), 1),
+                    BorderFactory.createEmptyBorder(10, 10, 10, 10) // Padding inside the card
+            ));
 
-    // Add the image (if available)
-    if (story.getImg() != null) {
-        ImageIcon icon = new ImageIcon(story.getImg());
-        Image scaledImage = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Resize image
-        JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
-        imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the image
-        storyPanel.add(imageLabel);
-    }
+            // Add the image (if available)
+            if (story.getImg() != null) {
+                ImageIcon icon = new ImageIcon(story.getImg());
+                Image scaledImage = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Resize image
+                JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
+                imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the image
+                storyPanel.add(imageLabel);
+            }
 
-    // Add the text of the story
-    JLabel storyLabel = new JLabel("<html><div style='text-align: center;'>" + story.getText() + "</div></html>");
-    storyLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Use standard font
-    storyLabel.setForeground(Color.DARK_GRAY); // Dark gray text
-    storyLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the text
-    storyPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Space between image and text
-    storyPanel.add(storyLabel);
+            // Add the text of the story
+            JLabel storyLabel = new JLabel("<html><div style='text-align: center;'>" + story.getText() + "</div></html>");
+            storyLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Use standard font
+            storyLabel.setForeground(Color.DARK_GRAY); // Dark gray text
+            storyLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the text
+            storyPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Space between image and text
+            storyPanel.add(storyLabel);
 
-    // Add spacing around each story
-    storyPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the panel itself
-    storiesPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Space between stories
-    storiesPanel.add(storyPanel);
-}
+            // Add spacing around each story
+            storyPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the panel itself
+            storiesPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Space between stories
+            storiesPanel.add(storyPanel);
+        }
 
 // Scroll Pane for Stories
-JScrollPane storiesScrollPane = new JScrollPane(storiesPanel);
-storiesScrollPane.setPreferredSize(new Dimension(500, 300)); // Adjust dimensions as needed
-storiesScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Disable horizontal scroll
+        JScrollPane storiesScrollPane = new JScrollPane(storiesPanel);
+        storiesScrollPane.setPreferredSize(new Dimension(500, 300)); // Adjust dimensions as needed
+        storiesScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Disable horizontal scroll
 
 // Posts Panel (Scrollable)
-JPanel postsPanel = new JPanel();
-postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Vertical layout
-postsPanel.setBackground(Color.WHITE);
+        JPanel postsPanel = new JPanel();
+        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Vertical layout
+        postsPanel.setBackground(Color.WHITE);
 
 // Header Label for "Posts"
-JLabel postsLabel = new JLabel("Posts");
-postsLabel.setFont(new Font("Arial", Font.BOLD, 20));
-postsLabel.setForeground(new Color(0, 102, 204));  // Modern blue color
-postsLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around header
-postsLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-postsPanel.add(postsLabel);
+        JLabel postsLabel = new JLabel("Posts");
+        postsLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        postsLabel.setForeground(new Color(0, 102, 204));  // Modern blue color
+        postsLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around header
+        postsLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        postsPanel.add(postsLabel);
 
 // Iterate over the posts
-for (int i = 0; i < user.getPosts().size(); i++) {
-    posts post = user.getPosts().get(i);
+        for (int i = 0; i < user.getPosts().size(); i++) {
+            posts post = user.getPosts().get(i);
 
-    // Create a card-like panel for each post
-    JPanel postPanel = new JPanel();
-    postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
-    postPanel.setBackground(new Color(245, 245, 245)); // Light gray background
-    postPanel.setBorder(BorderFactory.createCompoundBorder(
-        BorderFactory.createLineBorder(new Color(220, 220, 220), 1),
-        BorderFactory.createEmptyBorder(10, 10, 10, 10) // Padding inside the card
-    ));
+            // Create a card-like panel for each post
+            JPanel postPanel = new JPanel();
+            postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
+            postPanel.setBackground(new Color(245, 245, 245)); // Light gray background
+            postPanel.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(new Color(220, 220, 220), 1),
+                    BorderFactory.createEmptyBorder(10, 10, 10, 10) // Padding inside the card
+            ));
 
-    // Add the image (if available)
-    if (post.getImg() != null) {
-        ImageIcon icon = new ImageIcon(post.getImg());
-        Image scaledImage = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Resize the image for better appearance
-        JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
-        imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the image horizontally
-        postPanel.add(imageLabel); // Add the image to the post panel
-    }
+            // Add the image (if available)
+            if (post.getImg() != null) {
+                ImageIcon icon = new ImageIcon(post.getImg());
+                Image scaledImage = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Resize the image for better appearance
+                JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
+                imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the image horizontally
+                postPanel.add(imageLabel); // Add the image to the post panel
+            }
 
-    // Add the text of the post
-    JLabel postLabel = new JLabel("<html><div style='text-align: center;'>" + post.getText() + "</div></html>");
-    postLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Set the font for the text
-    postLabel.setForeground(Color.DARK_GRAY); // Set a dark gray color for the text
-    postLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center-align the text
-    postPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add some space between the image and the text
-    postPanel.add(postLabel);
+            // Add the text of the post
+            JLabel postLabel = new JLabel("<html><div style='text-align: center;'>" + post.getText() + "</div></html>");
+            postLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Set the font for the text
+            postLabel.setForeground(Color.DARK_GRAY); // Set a dark gray color for the text
+            postLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center-align the text
+            postPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add some space between the image and the text
+            postPanel.add(postLabel);
 
-    // Add spacing around the post panel
-    postPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-    postsPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Space between posts
-    postsPanel.add(postPanel);
-}
+            // Add spacing around the post panel
+            postPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            postsPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Space between posts
+            postsPanel.add(postPanel);
+        }
 
 // Scroll Pane for Posts (Ensure it is scrollable)
-JScrollPane postsScrollPane = new JScrollPane(postsPanel);
-postsScrollPane.setPreferredSize(new Dimension(500, 50)); // Adjust size to your needs
-postsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);// Disable horizontal scroll
-postsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        JScrollPane postsScrollPane = new JScrollPane(postsPanel);
+        postsScrollPane.setPreferredSize(new Dimension(500, 50)); // Adjust size to your needs
+        postsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);// Disable horizontal scroll
+        postsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 // Add the split pane
-JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, storiesScrollPane, postsScrollPane);
-splitPane.setDividerLocation(200); // Adjust the divider location as needed
-splitPane.setDividerSize(5); // Adjust divider thickness
-splitPane.setResizeWeight(0.5); // Equal weight for both panels
-splitPane.setContinuousLayout(true); // Continuous layout updates
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, storiesScrollPane, postsScrollPane);
+        splitPane.setDividerLocation(200); // Adjust the divider location as needed
+        splitPane.setDividerSize(5); // Adjust divider thickness
+        splitPane.setResizeWeight(0.5); // Equal weight for both panels
+        splitPane.setContinuousLayout(true); // Continuous layout updates
 
 // Set up the main panel and add the split pane
-jPanel1.setLayout(new BorderLayout());
-jPanel1.add(splitPane, BorderLayout.CENTER);
-jPanel1.revalidate();
-jPanel1.repaint();
- }
+        jPanel1.setLayout(new BorderLayout());
+        jPanel1.add(splitPane, BorderLayout.CENTER);
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }
 
 
   
@@ -380,9 +381,9 @@ jPanel1.repaint();
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         // TODO add your handling code here:
-        userManager.logout(user.getUserId(), "offline");
+       userManager.logout(user.getUserId());
         this.setVisible(false);
-        previousWindow.setVisible(true);
+        mainWindow.setVisible(true);
     }//GEN-LAST:event_LogoutActionPerformed
 
     private void EditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProfileActionPerformed
@@ -397,7 +398,8 @@ jPanel1.repaint();
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+       this.setVisible(false);
+        ((NewsFeed)previousWindow).updateUser(user);
         previousWindow.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
@@ -406,55 +408,55 @@ jPanel1.repaint();
      */
     public static void main(String args[]) {
          
-java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
- 
- 
- JFrame previousWindow;
- String rawPassword = "securePassword123";
-        String hashedPassword = PasswordHashing.hashPassword(rawPassword);
-
-        // Step 2: Build a User object
-        User user = new User.UserBuilder()
-                .userId("1000")
-                .username("john-doe")
-                .email("johndoe@example.com")
-                .passwordHash(hashedPassword)
-                .dateOfBirth(LocalDate.of(1990, 5, 15))
-                .status("online")
-                .build();
-              stories story1 = new stories(LocalDateTime.now(), "Story 1: My first story!", "ss.jpg", "1000");
-        stories story2 = new stories(LocalDateTime.now().minusHours(1), "Story 2: Another day, another story", "ss.jpg", "1000");
-
-        // Add stories to the user
-        user.addStory(story1);
-        user.addStory(story2);
-
-        // Create some posts for the user
-        posts post1 = new posts(LocalDateTime.now(), "Post 1: This is my first post!", "ss.jpg", "1000");
-        posts post2 = new posts(LocalDateTime.now().minusHours(2), "Post 2: Here is another post", "ss.jpg", "1000");
-
-        // Add posts to the user
-        user.addPost(post1);
-        user.addPost(post2);
-
-        // Save the user to the database
-        UserDataBase userDataBase = UserDataBase.getInstance("output.json");
-        userDataBase.saveUser(user);
-       
-        // Step 3: Specify the JSON file path
-        String filePath = "output.json";
-
-        // Step 4: Save the user to the JSON file
-       // UserDataBase userDataBase = UserDataBase.getInstance("output.json");
-        ProfileManagement profileManager=new ProfileManagement(userDataBase);
-        UserManager userManager= new UserManager(userDataBase);
-        userDataBase.saveUser(user);
-ProfileWindow profile=new ProfileWindow(new MainWindow(userDataBase),user,userManager,profileManager);
-                profile.setVisible(true);
-            }
-        });
+//java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                
+// 
+// 
+// JFrame previousWindow;
+// String rawPassword = "securePassword123";
+//        String hashedPassword = PasswordHashing.hashPassword(rawPassword);
+//
+//        // Step 2: Build a User object
+//        User user = new User.UserBuilder()
+//                .userId("1000")
+//                .username("john-doe")
+//                .email("johndoe@example.com")
+//                .passwordHash(hashedPassword)
+//                .dateOfBirth(LocalDate.of(1990, 5, 15))
+//                .status("online")
+//                .build();
+//              stories story1 = new stories(LocalDateTime.now(), "Story 1: My first story!", "ss.jpg", "1000");
+//        stories story2 = new stories(LocalDateTime.now().minusHours(1), "Story 2: Another day, another story", "ss.jpg", "1000");
+//
+//        // Add stories to the user
+//        user.addStory(story1);
+//        user.addStory(story2);
+//
+//        // Create some posts for the user
+//        posts post1 = new posts(LocalDateTime.now(), "Post 1: This is my first post!", "ss.jpg", "1000");
+//        posts post2 = new posts(LocalDateTime.now().minusHours(2), "Post 2: Here is another post", "ss.jpg", "1000");
+//
+//        // Add posts to the user
+//        user.addPost(post1);
+//        user.addPost(post2);
+//
+//        // Save the user to the database
+//        UserDataBase userDataBase = UserDataBase.getInstance("output.json");
+//        userDataBase.saveUser(user);
+//       
+//        // Step 3: Specify the JSON file path
+//        String filePath = "output.json";
+//
+//        // Step 4: Save the user to the JSON file
+//       // UserDataBase userDataBase = UserDataBase.getInstance("output.json");
+//        ProfileManagement profileManager=new ProfileManagement(userDataBase);
+//        UserManager userManager= new UserManager(userDataBase);
+//        userDataBase.saveUser(user);
+//ProfileWindow profile=new ProfileWindow(new MainWindow(userDataBase),user,userManager,profileManager);
+//                profile.setVisible(true);
+//            }
+//        });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bio;

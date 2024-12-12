@@ -128,9 +128,7 @@ public class Login extends javax.swing.JFrame {
             this.setVisible(false);
            NewsFeed newsfeed = new NewsFeed(previousWindow, user, userManager, profileManager);
             this.setVisible(false);
-            newsfeed.setVisible(true);
-            System.out.println(user.getPosts().size());
-                        System.out.println(user.getStories().size());
+            newsfeed.setVisible(true);  
 
         } else {
             JOptionPane.showMessageDialog(this, "Wrong ID or password!", "Login Error", JOptionPane.ERROR_MESSAGE);
