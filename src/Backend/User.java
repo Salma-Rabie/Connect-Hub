@@ -158,6 +158,10 @@ public UserBuilder setstories(List<stories>u)
         return status;
     }
 
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }

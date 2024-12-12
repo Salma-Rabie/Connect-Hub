@@ -285,12 +285,6 @@ if(group.getOtherAdmins().contains(admin)&&group.getOtherAdmins().contains(membe
 
     // Method to delete a group (only by primary admin)
     public boolean deleteGroup(Group group, User primaryAdmin) {
-        if (!group.getPrimaryAdmin().equals(primaryAdmin)) {
-            return false;
-        }
-
-        // In a real implementation, this would remove the group from the database
-        // For now, we'll just return true to indicate successful deletion
-        return true;
+        return groupDataBase.deleteGroup(group, primaryAdmin);
     }
 }
