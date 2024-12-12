@@ -16,7 +16,7 @@ public class User implements Cloneable {
     private String bio;
  private List<stories> stories; 
     private List<posts> posts; 
-    private ArrayList<Group> groups;
+    private ArrayList<String> groups;
     private User(UserBuilder builder) {
         this.userId = builder.userId;
         this.email = builder.email;
@@ -44,7 +44,7 @@ public class User implements Cloneable {
     private String bio;
  private List<stories> user_stories = new ArrayList<>();
     private List<posts> user_posts = new ArrayList<>(); 
-    private ArrayList<Group> groups=new ArrayList<>(); 
+    private ArrayList<String> groups=new ArrayList<>(); 
 
     public UserBuilder userId(String userId) {
         this.userId = userId;
@@ -60,7 +60,7 @@ public class User implements Cloneable {
         this.username = username;
         return this;
     }
-      public UserBuilder groups(ArrayList<Group> groups) {
+      public UserBuilder groups(ArrayList<String> groups) {
         this.groups = groups;
         return this;
     }
@@ -158,7 +158,7 @@ public UserBuilder setstories(List<stories>u)
         return status;
     }
 
-    public ArrayList<Group> getGroups() {
+    public ArrayList<String> getGroups() {
         return groups;
     }
 
@@ -180,7 +180,9 @@ public List<stories> getStories() {
     public void addPost(posts post) {
         this.posts.add(post);
     }
-  
+  public void addGroup(String group){
+      groups.add(group);
+  }
     public void removeExpiredStories() {
     this.stories.removeIf( user_stories -> user_stories.isExpired());}
 

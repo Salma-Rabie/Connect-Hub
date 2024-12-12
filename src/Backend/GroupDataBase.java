@@ -1,233 +1,4 @@
-//
-//package Backend;
-//
-//import java.io.File;
-//import java.io.FileWriter;
-//import java.io.IOException;
-//import java.nio.file.Files;
-//import java.util.ArrayList;
-//import org.json.JSONArray;
-//import org.json.JSONException;
-//import org.json.JSONObject;
-//
-///**
-// *
-// * @author Salma Eid
-// */
-//public class GroupDataBase {
-//    private static GroupDataBase instance = null;
-//    private final String filePath;
-//    private  ArrayList<Group> allGroups;
-//      private GroupDataBase(String filePath) {
-//        this.filePath = filePath;
-//    }
-//
-//    public ArrayList<Group> getAllGroups() {
-//        return allGroups;
-//    }
-//
-//    //Singleton design pattern 
-//    public static GroupDataBase getInstance(String filePath) {
-//        if (instance == null) {
-//            instance = new GroupDataBase(filePath);
-//        }
-//        return instance;
-//    }
-//    
-//     public void saveGroup(Group group) {
-//        JSONObject databaseJson;
-//
-//    // Load existing data from file, if any
-//    try {
-//        File file = new File(filePath);
-//        if (file.exists()) {
-//            String content = new String(Files.readAllBytes(file.toPath()));
-//            databaseJson = new JSONObject(content);
-//        } else {
-//            databaseJson = new JSONObject(); // Start with an empty JSON object
-//        }
-//    } catch (IOException | JSONException e) {
-//        e.printStackTrace();
-//        return; // Handle file read error
-//    }
-//
-//    // Check if the group already exists
-//    if (databaseJson.has(group.getName())) {
-//        //System.out.println("Group already exists in the database.");
-//        return; // Avoid overwriting an existing group
-//    }
-//
-//    // Create a JSON representation of the group
-//    JSONObject groupJson = new JSONObject();
-//    groupJson.put("name", group.getName());
-//    groupJson.put("numMembers", group.getNumMembers());
-//    groupJson.put("photoPath", group.getPhotoPath());
-//    groupJson.put("description", group.getDescription());
-//
-//    if (group.getPrimaryAdmin() != null) {
-//        groupJson.put("primaryAdmin", group.getPrimaryAdmin().getUserId());
-//    }
-//
-//    JSONArray otherAdminsJson = new JSONArray();
-//    for (User admin : group.getOtherAdmins()) {
-//        otherAdminsJson.put(admin.getUserId());
-//    }
-//    groupJson.put("otherAdmins", otherAdminsJson);
-//
-//    JSONArray usersJson = new JSONArray();
-//    for (User user : group.getUsers()) {
-//        usersJson.put(user.getUserId());
-//    }
-//    groupJson.put("users", usersJson);
-//
-//    JSONArray postsJson = new JSONArray();
-//    for (posts post : group.getPosts()) {
-//        postsJson.put(post.toString()); // Replace with appropriate post serialization
-//    }
-//    groupJson.put("posts", postsJson);
-//
-//    // Add the group to the main database JSON object
-//    databaseJson.put(group.getName(), groupJson);
-//
-//    // Write the updated JSON object back to the file
-//    try (FileWriter writer = new FileWriter(filePath)) {
-//        writer.write(databaseJson.toString(4)); // Pretty print with an indent of 4 spaces
-//    } catch (IOException e) {
-//        e.printStackTrace();
-//    }
-//     }
-//    public Group updateGroup(Group updatedGroup) {
-//    JSONObject databaseJson;
-//
-//    // Load existing data from file, if any
-//    try {
-//        File file = new File(filePath);
-//        if (file.exists()) {
-//            String content = new String(Files.readAllBytes(file.toPath()));
-//            databaseJson = new JSONObject(content);
-//        } else {
-//            databaseJson = new JSONObject(); // Start with an empty JSON object
-//        }
-//    } catch (IOException | JSONException e) {
-//        e.printStackTrace();
-//        return null; // Handle file read error
-//    }
-//
-//    // Check if the group exists in the database
-//    if (!databaseJson.has(updatedGroup.getName())) {
-//        //System.out.println("Group does not exist in the database.");
-//        return null; // Group doesn't exist, so no update
-//    }
-//
-//    // Create a JSON representation of the updated group
-//    JSONObject updatedGroupJson = new JSONObject();
-//    updatedGroupJson.put("name", updatedGroup.getName());
-//    updatedGroupJson.put("numMembers", updatedGroup.getNumMembers());
-//    updatedGroupJson.put("photoPath", updatedGroup.getPhotoPath());
-//    updatedGroupJson.put("description", updatedGroup.getDescription());
-//
-//    if (updatedGroup.getPrimaryAdmin() != null) {
-//        updatedGroupJson.put("primaryAdmin", updatedGroup.getPrimaryAdmin().getUsername());
-//    }
-//
-//    JSONArray otherAdminsJson = new JSONArray();
-//    for (User admin : updatedGroup.getOtherAdmins()) {
-//        otherAdminsJson.put(admin.getUsername());
-//    }
-//    updatedGroupJson.put("otherAdmins", otherAdminsJson);
-//
-//    JSONArray usersJson = new JSONArray();
-//    for (User user : updatedGroup.getUsers()) {
-//        usersJson.put(user.getUsername());
-//    }
-//    updatedGroupJson.put("users", usersJson);
-//
-//    JSONArray postsJson = new JSONArray();
-//    for (posts post : updatedGroup.getPosts()) {
-//        postsJson.put(post.getContentId()); // Replace with appropriate post serialization
-//    }
-//    updatedGroupJson.put("posts", postsJson);
-//
-//    // Update the group in the main database JSON object
-//    databaseJson.put(updatedGroup.getName(), updatedGroupJson);
-//
-//    // Write the updated JSON object back to the file
-//    try (FileWriter writer = new FileWriter(filePath)) {
-//        writer.write(databaseJson.toString(4)); // Pretty print with an indent of 4 spaces
-//    } catch (IOException e) {
-//        e.printStackTrace();
-//    }
-//
-//    // Return the updated group
-//    return updatedGroup;
-//}
-//    
-//    
-//    
-//    public Group getGroupByName(String name) {
-//    try {
-//        File file = new File(filePath);
-//        if (!file.exists()) {
-//            return null; // No database file exists
-//        }
-//
-//        // Read the entire file content
-//        String content = new String(Files.readAllBytes(file.toPath()));
-//        JSONObject databaseJson = new JSONObject(content);
-//
-//        // Check if the group exists
-//        if (!databaseJson.has(name)) {
-//            return null; // Group not found
-//        }
-//
-//        // Retrieve the group's JSON object
-//        JSONObject groupJson = databaseJson.getJSONObject(name);
-//
-//        // Retrieve UserDataBase instance to load users
-//        UserDataBase userDB = UserDataBase.getInstance("user_data.json");
-//
-//        // Create a GroupBuilder to reconstruct the Group
-//        Group.GroupBuilder groupBuilder = new Group.GroupBuilder()
-//            .name(groupJson.getString("name"))
-//            .description(groupJson.getString("description"))
-//            .photoPath(groupJson.getString("photoPath"))
-//            .numMembers(groupJson.getInt("numMembers"));
-//
-//        // Load primary admin
-//        if (groupJson.has("primaryAdmin")) {
-//            User primaryAdmin = userDB.getUserById(groupJson.getString("primaryAdmin"));
-//            groupBuilder.primaryAdmin(primaryAdmin);
-//        }
-//
-//        // Load other admins
-//        if (groupJson.has("otherAdmins")) {
-//            JSONArray otherAdminsJson = groupJson.getJSONArray("otherAdmins");
-//            for (int i = 0; i < otherAdminsJson.length(); i++) {
-//                User admin = userDB.getUserById(otherAdminsJson.getString(i));
-//                groupBuilder.addOtherAdmin(admin);
-//            }
-//        }
-//
-//        // Load users
-//        if (groupJson.has("users")) {
-//            JSONArray usersJson = groupJson.getJSONArray("users");
-//            for (int i = 0; i < usersJson.length(); i++) {
-//                User user = userDB.getUserById(usersJson.getString(i));
-//                groupBuilder.addUser(user);
-//            }
-//        }
-//
-//        // TODO: Load posts (you might need to implement a method to deserialize posts)
-//        // For now, we'll leave the posts empty
-//        
-//        return groupBuilder.build();
-//
-//    } catch (IOException | JSONException e) {
-//        e.printStackTrace();
-//        return null;
-//    }
-//}
-//}
+
 package Backend;
 
 import java.io.File;
@@ -236,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -547,6 +320,13 @@ public class GroupDataBase {
         allGroups.add(updatedGroup);
     }
 
+
+
+//public ArrayList<Group> getGroupsForUser(User user) {
+//    return allGroups.stream()
+//                    .filter(group -> group.getUsers().contains(user))
+//                    .collect(Collectors.toCollection(ArrayList::new));
+//}
     // Getter for all groups
     public ArrayList<Group> getAllGroups() {
         return new ArrayList<>(allGroups); // Return a copy to prevent direct modification

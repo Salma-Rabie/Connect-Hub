@@ -12,10 +12,10 @@ public class ConnectHub {
    
     public static void main(String[] args) {
         
-//        User adminUser = new User.UserBuilder().username("AdminUser").build();
-//        User user1 = new User.UserBuilder().username("User1").build();
-//        User user2 = new User.UserBuilder().username("User2").build();
-//        User user3 = new User.UserBuilder().username("User3").build();
+//        User adminUser = new User.UserBuilder().userId("12345").build();
+//        User user1 = new User.UserBuilder().userId("12348").build();
+//        User user2 = new User.UserBuilder().userId("12346").build();
+//        User user3 = new User.UserBuilder().userId("12347").build();
 //
 //        // Create the original group ("Java Enthusiasts")
 //        Group javaGroup = new Group.GroupBuilder()
@@ -63,8 +63,8 @@ public class ConnectHub {
 //        } else {
 //            System.out.println("Failed to update the group.");
 //        }
-//
-//       
+
+       
 //    }}
         
          // Specify the file path for the JSON file
@@ -158,9 +158,11 @@ public class ConnectHub {
        String rawPassword = "56789";
         String hashedPassword = PasswordHashing.hashPassword(rawPassword);
 File def=new File("ss.jpg");
+ArrayList<String> groups=new ArrayList<>();
+groups.add("Java Enthusiasts");
         // Step 2: Build a User object
         User user = new User.UserBuilder()
-                .userId("12345")
+                .userId("1222")
                 .username("JohnDoe")
                 .email("johndoe@example.com")
                 .passwordHash(hashedPassword)
@@ -169,13 +171,14 @@ File def=new File("ss.jpg");
                 .bio("sjfxsghgxdwkwdhew")
                 .coverPhotoPath(def.getPath())
                 .profilePhotoPath(def.getPath())
+                .groups(groups)
                 .build();
-
+               //user.addGroup("Java Enthusiasts");
         // Step 3: Specify the JSON file path
         String filePath = "users.json";
 
         // Step 4: Save the user to the JSON file
-        UserDataBase userDataBase = UserDataBase.getInstance(filePath);
+        UserDataBase userDataBase = UserDataBase.getInstance("users.json");
         userDataBase.saveUser(user);
 MainWindow main=new MainWindow(userDataBase);
 main.setVisible(true);

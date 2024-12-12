@@ -190,7 +190,7 @@ public class friendRequest extends javax.swing.JFrame {
                 break;
             }
         }
-    } System.out.println("No valid selection or default option selected.");
+    } //System.out.println("No valid selection or default option selected.");
             
     }//GEN-LAST:event_acceptActionPerformed
 

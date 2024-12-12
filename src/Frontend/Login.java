@@ -125,6 +125,7 @@ public class Login extends javax.swing.JFrame {
         User user = userManager.login(userId, pass);
 
         if (user != null) {
+            user.setStatus("online");
             this.setVisible(false);
            NewsFeed newsfeed = new NewsFeed(previousWindow, user, userManager, profileManager);
             this.setVisible(false);
