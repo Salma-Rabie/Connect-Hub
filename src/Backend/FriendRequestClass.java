@@ -1,23 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Backend;
 
-import java.time.LocalDate;
-
-/**
- *
- * @author DELL
- */public class FriendRequest {
+public class FriendRequestClass {
     private final String requestId;
     private final String senderId;
     private final String receiverId;
+    private final String status;
 
-    public FriendRequest(String requestId, String senderId, String receiverId) {
+    public FriendRequestClass(String requestId, String senderId, String receiverId,String status) {
         this.requestId = requestId;
         this.senderId = senderId;
         this.receiverId = receiverId;
+        this.status=status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public String getRequestId() {
@@ -37,7 +35,7 @@ import java.time.LocalDate;
         return "Request from: " + senderId;
     }
 }
-//public class FriendRequest {
+//public class FriendRequestClass {
 //   
 //    private static int reqID=1; 
 //    private String senderId;
@@ -45,7 +43,7 @@ import java.time.LocalDate;
 //    private String status; 
 //    private LocalDate requestDate;
 //
-//    public FriendRequest( String senderId, String receiverId) {
+//    public FriendRequestClass( String senderId, String receiverId) {
 //        this.reqID=reqID++;
 //        this.senderId = senderId;
 //        this.receiverId = receiverId;
