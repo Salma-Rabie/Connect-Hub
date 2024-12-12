@@ -31,6 +31,7 @@ public class NewsFeed extends javax.swing.JFrame {
     private final Map<String, List<String>> friendsMap = new HashMap<>();
     private List<String> currentUserFriends = new ArrayList();
     private GroupDataBase groupDatabase;
+   private GroupManagement groupManager;
 private ArrayList<String>userGroups;
     /**
      * Creates new form NewsFeed
@@ -42,6 +43,7 @@ private ArrayList<String>userGroups;
         this.profileManager = profileManager;
         this.groupDatabase=GroupDataBase.getInstance("groups.json"); 
         this.userGroups=user.getGroups();
+        this.groupManager=new GroupManagement(userManager.getDatabase(),groupDatabase);
          String filePath = "friend_requests.json";
         friendRequestsDatabase = FriendRequestDataBase.getInstance(filePath);
         initComponents();
@@ -83,12 +85,12 @@ private ArrayList<String>userGroups;
         Suggestions = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         MyFriends = new javax.swing.JButton();
         GoToProfile = new javax.swing.JButton();
         mygroups = new javax.swing.JComboBox<>();
         choosegroup = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,7 +140,6 @@ private ArrayList<String>userGroups;
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 438, Short.MAX_VALUE)
             .addGap(0, 414, Short.MAX_VALUE)
         );
 
@@ -152,19 +153,6 @@ private ArrayList<String>userGroups;
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 438, Short.MAX_VALUE)
-        );
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("search");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             .addGap(0, 414, Short.MAX_VALUE)
         );
 
@@ -204,38 +192,24 @@ private ArrayList<String>userGroups;
             }
         });
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(addpost)
-                        .addGap(18, 18, 18)
-                        .addComponent(addstory)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(friendrequests, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(Suggestions)
-                        .addGap(38, 38, 38)
-                        .addComponent(MyFriends, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(GoToProfile)
-                .addContainerGap())
-
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -261,6 +235,10 @@ private ArrayList<String>userGroups;
                                 .addComponent(GoToProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(choosegroup)
+                                .addGap(39, 39, 39)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(16, 16, 16))
         );
@@ -268,24 +246,6 @@ private ArrayList<String>userGroups;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(addpost)
-                        .addComponent(addstory)
-                        .addComponent(friendrequests))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(GoToProfile)
-                        .addComponent(MyFriends)
-                        .addComponent(Suggestions)))
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addpost)
                     .addComponent(addstory)
@@ -296,13 +256,15 @@ private ArrayList<String>userGroups;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mygroups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(choosegroup))
+                    .addComponent(choosegroup)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
-      );
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -385,13 +347,25 @@ private ArrayList<String>userGroups;
         this.setVisible(false);
     }//GEN-LAST:event_SuggestionsActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void mygroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mygroupsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+      
+    }//GEN-LAST:event_mygroupsActionPerformed
+
+    private void choosegroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choosegroupActionPerformed
+        // TODO add your handling code here:
+        String groupName=(String) mygroups.getSelectedItem();
+        if (groupName != null && !groupName.equals("Select Friend Request")){
+            Group group= groupDatabase.getGroupByName(groupName);
+            this.setVisible(false);
+            GroupWindow groupWindow=new GroupWindow(this,user,group,groupDatabase);
+            groupWindow.setVisible(true);
+        }
+    }//GEN-LAST:event_choosegroupActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         JDialog searchDialog = new JDialog(this, "Search Results", true);;
+        JDialog searchDialog = new JDialog(this, "Search Results", true);;
         String text = jTextField1.getText().trim();
         JPanel panel2 = new JPanel();
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS)); // Vertical stacking
@@ -403,8 +377,7 @@ private ArrayList<String>userGroups;
             boolean userFound = false;
 
             for (User userr : users) {
-                if(userr.getUsername().equalsIgnoreCase(user.getUsername()))
-                {
+                if (userr.getUsername().equalsIgnoreCase(user.getUsername())) {
                     continue;
                 }
                 // Check if the username contains the input text (case-insensitive)
@@ -421,7 +394,7 @@ private ArrayList<String>userGroups;
                     userLabel.setFont(new Font("Arial", Font.PLAIN, 14));
                     userPanel.add(userLabel);
 
-                   boolean[] isFriend = {false}; // Use an array or a reference to keep the state
+                    boolean[] isFriend = {false}; // Use an array or a reference to keep the state
 
                     for (String friend : currentUserFriends) {
                         if (friend.equals(userr.getUserId())) {
@@ -430,7 +403,7 @@ private ArrayList<String>userGroups;
                         }
                     }
 
-                   // Create "Add Friend" or "Remove" button
+                    // Create "Add Friend" or "Remove" button
                     JButton addFriendButton = new JButton(isFriend[0] ? "Remove" : "Add Friend");
 
                     addFriendButton.addActionListener(e -> {
@@ -457,22 +430,19 @@ private ArrayList<String>userGroups;
                         JOptionPane.showMessageDialog(null, userr.getUsername() + " has been blocked.");
                     });
                     userPanel.add(blockButton);
-
                     // Add "View Profile" button
                     JButton viewProfileButton = new JButton("View Profile");
                     viewProfileButton.addActionListener(e -> {
-                        
-                        
-                          searchDialog.setVisible(false); 
+
+                        searchDialog.setVisible(false);
                         // Action to view profile
-                       
-                         ViewProfile profile = new ViewProfile( userr, this , userManager );
-                         profile.setVisible(true);
+
+                        ViewProfile profile = new ViewProfile(userr, this, userManager);
+                        profile.setVisible(true);
                     });
                     userPanel.add(viewProfileButton);
 
                     // Add "Remove User" button
-                    
 //                    if(isFriend){
 //                    JButton removeUserButton = new JButton("Remove User");
 //                    removeUserButton.addActionListener(e -> {
@@ -480,7 +450,6 @@ private ArrayList<String>userGroups;
 //                        JOptionPane.showMessageDialog(null, userr.getUsername() + " has been removed.");
 //                    });
 //                    userPanel.add(removeUserButton);}
-
                     // Add the user panel to the main panel
                     panel2.add(userPanel);
                 }
@@ -499,32 +468,23 @@ private ArrayList<String>userGroups;
         }
 
 // Wrap the panel in a JScrollPane
-     
+        // Wrap the panel in a JScrollPane
+        JScrollPane scrollPane = new JScrollPane(panel2);
+        scrollPane.setPreferredSize(new Dimension(500, 400)); // Adjust size as needed
 
-    // Wrap the panel in a JScrollPane
-    JScrollPane scrollPane = new JScrollPane(panel2);
-    scrollPane.setPreferredSize(new Dimension(500, 400)); // Adjust size as needed
+        // Add the scrollPane to the JDialog
+        searchDialog.add(scrollPane);
+        searchDialog.pack(); // Adjust size of the dialog
+        searchDialog.setLocationRelativeTo(this); // Center the dialog
 
-    // Add the scrollPane to the JDialog
-    searchDialog.add(scrollPane);
-    searchDialog.pack(); // Adjust size of the dialog
-    searchDialog.setLocationRelativeTo(this); // Center the dialog
-
-    // Show the dialog (this is a blocking call, so the dialog will stay open until closed)
-    searchDialog.setVisible(true);
+        // Show the dialog (this is a blocking call, so the dialog will stay open until closed)
+        searchDialog.setVisible(true);
+   
     }//GEN-LAST:event_jButton1ActionPerformed
-    private void mygroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mygroupsActionPerformed
-        // TODO add your handling code here:
-      
-    }//GEN-LAST:event_mygroupsActionPerformed
 
-    private void choosegroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choosegroupActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-        String groupName=(String) mygroups.getSelectedItem();
-        if (groupName != null && !groupName.equals("Select Friend Request")){
-            
-        }
-    }//GEN-LAST:event_choosegroupActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void loadFriends(String currentUserId) {
         try {
@@ -560,6 +520,8 @@ private ArrayList<String>userGroups;
             // Only load the friends of the current user
             if (friendsMap.containsKey(currentUserId)) {
                 currentUserFriends = friendsMap.get(currentUserId);
+
+                System.out.println("Current user's friends: " + currentUserFriends);
             } else {
                 System.out.println("No friends found for the current user.");
             }
@@ -572,16 +534,14 @@ private ArrayList<String>userGroups;
     private void showPosts(User user) {
         jPanel1.setLayout(new BorderLayout());
         // Create the posts panel
-        loadFriends(user.getUserId());
         JPanel postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Vertical stacking of posts
 
         List<posts> posts = new ArrayList();
-        System.out.println(posts);
 
         for (String friendId : currentUserFriends) {
-            List<posts> friendPosts = userManager.getDatabase().getUserById(friendId).getPosts();
-             posts.addAll(friendPosts);
+            System.out.println(friendId);
+            posts = userManager.getDatabase().getUserById(friendId).getPosts();
         }
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Stack posts vertically
         Collections.shuffle(posts);
@@ -648,75 +608,68 @@ private ArrayList<String>userGroups;
     }
 
     private void showStories(User user) {
-    jPanel2.setLayout(new BorderLayout());
-    loadFriends(user.getUserId());
-    System.out.println("Current user's friends: " + currentUserFriends);
+        jPanel2.setLayout(new BorderLayout());
 
-    JPanel storiesPanel = new JPanel();
-    storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS)); // Vertical stacking of stories
+        // Create the posts panel
+        JPanel storiesPanel = new JPanel();
+        storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS)); // Vertical stacking of posts
 
-    List<stories> story = new ArrayList<>();
-    for (String friendId : currentUserFriends) {
-        List<stories> friendStories = userManager.getDatabase().getUserById(friendId).getStories();
-        story.addAll(friendStories); // Add all stories from this friend
-    }
+        List<stories> story = new ArrayList();
 
-    Collections.shuffle(story); // Shuffle stories
-
-    for (stories s : story) {
-        JPanel postPanel = new JPanel();
-        postPanel.setLayout(new BorderLayout());
-        postPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)
-        ));
-        postPanel.setBackground(Color.WHITE);
-
-        String imgPath = s.getImg();
-        if (imgPath != null && !imgPath.isEmpty()) {
-            try {
-                ImageIcon imageIcon = new ImageIcon(imgPath);
-                if (imageIcon.getIconWidth() > 0) { // Ensure image loaded correctly
-                    Image scaledImage = imageIcon.getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH);
-                    JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
-                    imageLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-                    postPanel.add(imageLabel, BorderLayout.CENTER);
-                } else {
-                    System.err.println("Image failed to load: " + imgPath);
-                }
-            } catch (Exception e) {
-                System.err.println("Error loading image from path: " + imgPath);
-                e.printStackTrace();
-            }
+        for (String friendId : currentUserFriends) {
+            System.out.println(friendId);
+            story = userManager.getDatabase().getUserById(friendId).getStories();
         }
+        storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS)); // Stack posts vertically
+        Collections.shuffle(story);
+        for (stories s : story) {
+            // Create a JPanel for each story
+            JPanel postPanel = new JPanel();
+            postPanel.setLayout(new BorderLayout());
+            postPanel.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1),
+                    BorderFactory.createEmptyBorder(5, 5, 5, 5)
+            ));
+            postPanel.setBackground(Color.WHITE);
 
-        JTextArea textArea = new JTextArea(s.getText());
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setEditable(false);
-        textArea.setFont(new Font("Arial", Font.PLAIN, 14));
-        textArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        textArea.setBackground(Color.WHITE);
+            // Create and add image if available
+            String imgPath = s.getImg();
+            if (imgPath != null && !imgPath.isEmpty()) {
+                try {
+                    ImageIcon imageIcon = new ImageIcon(imgPath);
+                    if (imageIcon.getIconWidth() > 0) { // Ensure image loaded correctly
+                        Image scaledImage = imageIcon.getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH);
+                        JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
+                        imageLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+                        postPanel.add(imageLabel, BorderLayout.CENTER);
+                    } else {
+                        System.err.println("Image failed to load: " + imgPath);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error loading image from path: " + imgPath);
+                    e.printStackTrace();
+                }
 
-        JScrollPane scrollPaneForText = new JScrollPane(textArea);
-        scrollPaneForText.setBorder(BorderFactory.createEmptyBorder());
-        scrollPaneForText.setPreferredSize(new Dimension(400, 100));
-        postPanel.add(scrollPaneForText, BorderLayout.SOUTH);
+            }
 
-        storiesPanel.add(postPanel);
+            // Create a text area with post text
+            JTextArea textArea = new JTextArea(s.getText());
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            textArea.setEditable(false);
+            textArea.setFont(new Font("Arial", Font.PLAIN, 14));
+            textArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            textArea.setBackground(Color.WHITE);
+
+            // Wrap text area into a scroll pane to handle long text
+            JScrollPane scrollPaneForText = new JScrollPane(textArea);
+            scrollPaneForText.setBorder(BorderFactory.createEmptyBorder());
+            scrollPaneForText.setPreferredSize(new Dimension(400, 100));
+            postPanel.add(scrollPaneForText, BorderLayout.SOUTH);
+
+            storiesPanel.add(postPanel);
+        }
     }
-
-    // Clear old content and add the new stories panel
-    jPanel2.removeAll();
-    JScrollPane scrollPane = new JScrollPane(storiesPanel);
-    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-    jPanel2.add(scrollPane, BorderLayout.CENTER);
-    jPanel2.revalidate();
-    jPanel2.repaint();
-}
-
 
     
   

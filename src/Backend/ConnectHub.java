@@ -155,11 +155,11 @@ public class ConnectHub {
 
 
          //TODO code application logic here
-       String rawPassword = "56789";
+        String rawPassword = "56789";
         String hashedPassword = PasswordHashing.hashPassword(rawPassword);
-File def=new File("ss.jpg");
-ArrayList<String> groups=new ArrayList<>();
-groups.add("Java Enthusiasts");
+        File def = new File("ss.jpg");
+        ArrayList<String> groups = new ArrayList<>();
+        groups.add("Java Enthusiasts");
         // Step 2: Build a User object
         User user = new User.UserBuilder()
                 .userId("1222")
@@ -173,15 +173,15 @@ groups.add("Java Enthusiasts");
                 .profilePhotoPath(def.getPath())
                 .groups(groups)
                 .build();
-               //user.addGroup("Java Enthusiasts");
+        //user.addGroup("Java Enthusiasts");
         // Step 3: Specify the JSON file path
         String filePath = "users.json";
 
         // Step 4: Save the user to the JSON file
         UserDataBase userDataBase = UserDataBase.getInstance("users.json");
         userDataBase.saveUser(user);
-MainWindow main=new MainWindow(userDataBase);
-main.setVisible(true);
+        MainWindow main = new MainWindow(userDataBase);
+        main.setVisible(true);
         // Confirming that the user has been saved
         System.out.println("User saved to JSON file: " + filePath);
         
