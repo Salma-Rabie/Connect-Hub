@@ -8,21 +8,24 @@
             {
                 "date": "2024-12-13T22:10:30.818714",
                 "img": "",
-                "contentId": "de1ced",
+                "contentId": "d069b7",
                 "text": "35g46h5",
                 "userId": "12345"
             },
             {
                 "date": "2024-12-13T22:10:30.818714",
                 "img": "",
-                "contentId": "de1ced",
+                "contentId": "cc6e95",
                 "text": "35g46h5",
                 "userId": "12345"
             }
         ],
         "otherAdmins": [],
-        "users": ["12345"],
-        "numMembers": 1
+        "users": [
+            "12345",
+            "1222"
+        ],
+        "numMembers": 2
     },
     "salmaaa": {
         "photoPath": "ss.jpg",
@@ -31,8 +34,11 @@
         "description": "",
         "posts": [],
         "otherAdmins": [],
-        "users": ["12345"],
-        "numMembers": 1
+        "users": [
+            "12345",
+            "1222"
+        ],
+        "numMembers": 2
     },
     "Java Enthusiasts": {
         "photoPath": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",

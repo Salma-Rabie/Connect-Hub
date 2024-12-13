@@ -42,7 +42,12 @@
         "profilePhotoPath": "ss.jpg",
         "stories": [],
         "bio": "sjfxsghgxdwkwdhew",
-        "groups": ["Java Enthusiasts"],
+        "groups": [
+            "Java Enthusiasts",
+            "saraaa",
+            "salmaaa",
+            "saraaa"
+        ],
         "dateOfBirth": "1990-05-15",
         "coverPhotoPath": "ss.jpg",
         "posts": [],
