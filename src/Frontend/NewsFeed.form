@@ -42,18 +42,15 @@
                           <Group type="102" attributes="0">
                               <Component id="addstory" min="-2" pref="114" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="friendrequests" min="-2" pref="125" max="-2" attributes="0"/>
+                              <Component id="friendrequests" min="-2" pref="147" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="Suggestions" max="32767" attributes="0"/>
+                              <Component id="Suggestions" min="-2" pref="146" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="MyFriends" min="-2" pref="115" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="GoToProfile" min="-2" pref="115" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="choosegroup" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="choosegroup" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

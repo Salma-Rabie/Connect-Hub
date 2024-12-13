@@ -47,7 +47,10 @@ public class Group {
     public User getPrimaryAdmin() {
         return primaryAdmin;
     }
-
+ public void addPost(posts post) {
+            this.posts.add(post);
+           
+        }
     public ArrayList<User> getOtherAdmins() {
         return otherAdmins;
     }

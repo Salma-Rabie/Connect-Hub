@@ -46,6 +46,9 @@ public class ProfileManagement {
                     .bio(user.getBio())
                     .profilePhotoPath(newProfilePhotoPath) // Set the new path
                     .coverPhotoPath(user.getCoverPhotoPath())
+                    .groups(user.getGroups())
+                    .setstories(user.getStories())
+                .setposts(user.getPosts())
                     .build();
 
             // Use updateUser to save changes
@@ -81,6 +84,9 @@ public class ProfileManagement {
                 .status(user.getStatus())
                 .userId(user.getUserId())
                 .username(user.getUsername())
+                .groups(user.getGroups())
+                .setstories(user.getStories())
+                .setposts(user.getPosts())
                 .build();
 
         // Save the updated user to the database
@@ -126,6 +132,9 @@ public class ProfileManagement {
                     .status(user.getStatus())
                     .userId(user.getUserId())
                     .username(user.getUsername())
+                    .setstories(user.getStories())
+                .setposts(user.getPosts())
+                    .groups(user.getGroups())
                     .build();
 
             // Save the updated user to the database
@@ -156,6 +165,9 @@ public class ProfileManagement {
                 .status(user.getStatus())
                 .userId(user.getUserId())
                 .username(user.getUsername())
+                .groups(user.getGroups())
+                .setstories(user.getStories())
+                .setposts(user.getPosts())
                 .build();
 
         // Save the updated user to the database

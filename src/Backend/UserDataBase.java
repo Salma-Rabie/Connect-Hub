@@ -290,11 +290,12 @@ public class UserDataBase {
 //                userJson.put("groups", groupsArray);
                 JSONArray groupsArray = new JSONArray();
                 for (String groupName : updatedUser.getGroups()) {
-                    groupsArray.put(groupName); // Add each group name to the JSON array
+                    groupsArray.put(groupName);
+                    System.out.println("user group:"+groupName);// Add each group name to the JSON array
                 }
                 userJson.put("groups", groupsArray); // Attach the groups array to the user JSON
                 // Update the user in the database
-                database.put(String.valueOf(updatedUser.getUserId()), userJson);
+                database.put(updatedUser.getUserId(), userJson);
 
                 // Write the updated database back to the file
                 try (FileWriter writer = new FileWriter(filePath)) {
