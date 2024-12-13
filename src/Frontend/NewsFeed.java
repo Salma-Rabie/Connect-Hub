@@ -352,6 +352,9 @@ public class NewsFeed extends javax.swing.JFrame {
                 PrimaryAdminGroupWindow groupWindow = new PrimaryAdminGroupWindow(this, user, group, groupDatabase, groupManager);
                 groupWindow.setVisible(true);
             }
+           else if(group.getOtherAdmins().equals(user.getUserId()))
+           {
+            }
         }
 
     }//GEN-LAST:event_choosegroupActionPerformed

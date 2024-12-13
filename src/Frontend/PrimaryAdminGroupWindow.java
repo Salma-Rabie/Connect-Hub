@@ -49,12 +49,21 @@ Map<String,String> mapAdmins=new HashMap<>();
         photo.setIcon(new ImageIcon(scaledImage));
         showPosts();
          users.removeAllItems();
-        users.addItem("Users");
+        users.addItem("Normal Users");
         users.setSelectedIndex(0);
         otherAdmins.removeAllItems();
         otherAdmins.addItem("Other Admins");
         otherAdmins.setSelectedIndex(0);
+        allusers.removeAllItems();
+        allusers.addItem("All Users");
+        allusers.setSelectedIndex(0);
         ArrayList<String>usersGroup=group.getUsers();
+        for (int i = 0; i <usersGroup.size() ; i++) {
+            User user1=userDatabase.getUserById(usersGroup.get(i));
+            mapUsers.put(user1.getUsername(), user1.getUserId());
+            if(!user1.getUserId().equals(user.getUserId()))
+            allusers.addItem(user1.getUsername());
+        }
         for (int i = 0; i <usersGroup.size() ; i++) {
             User user1=userDatabase.getUserById(usersGroup.get(i));
             mapUsers.put(user1.getUsername(), user1.getUserId());
@@ -70,81 +79,7 @@ Map<String,String> mapAdmins=new HashMap<>();
             users.removeItem(user1.getUsername());
         }
     }
-//private void showPosts() {
-//    jPanel1.setLayout(new BorderLayout());
-//
-//    // Create the posts panel
-//    JPanel postsPanel = new JPanel();
-//    postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Vertical stacking of posts
-//
-//    List<posts> posts = group.getPosts();
-//    Collections.shuffle(posts); // Randomize post order (optional)
-//
-//    for (posts post : posts) {
-//        // Create a JPanel for each post
-//        JPanel postPanel = new JPanel();
-//        postPanel.setLayout(new BorderLayout());
-//        postPanel.setBorder(BorderFactory.createCompoundBorder(
-//                BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1),
-//                BorderFactory.createEmptyBorder(5, 5, 5, 5)
-//        ));
-//        postPanel.setBackground(Color.WHITE);
-//
-//        // Add admin name at the top
-//        User user1= userDatabase.getUserById( post.getUserId());
-//        JLabel userLabel = new JLabel("Posted by: " + user1.getUsername()); // Replace with admin name if available
-//        userLabel.setFont(new Font("Arial", Font.BOLD, 14));
-//        userLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-//        postPanel.add(userLabel, BorderLayout.NORTH);
-//
-//        // Add image if available
-//        String imgPath = post.getImg();
-//        if (imgPath != null && !imgPath.isEmpty()) {
-//            try {
-//                ImageIcon imageIcon = new ImageIcon(imgPath);
-//                if (imageIcon.getIconWidth() > 0) { // Ensure the image loaded correctly
-//                    Image scaledImage = imageIcon.getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH);
-//                    JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
-//                    imageLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-//                    postPanel.add(imageLabel, BorderLayout.CENTER);
-//                } else {
-//                    System.err.println("Image failed to load: " + imgPath);
-//                }
-//            } catch (Exception e) {
-//                System.err.println("Error loading image from path: " + imgPath);
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        // Add post text
-//        JTextArea textArea = new JTextArea(post.getText());
-//        textArea.setLineWrap(true);
-//        textArea.setWrapStyleWord(true);
-//        textArea.setEditable(false);
-//        textArea.setFont(new Font("Arial", Font.PLAIN, 14));
-//        textArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-//        textArea.setBackground(Color.WHITE);
-//
-//        JScrollPane scrollPaneForText = new JScrollPane(textArea);
-//        scrollPaneForText.setBorder(BorderFactory.createEmptyBorder());
-//        scrollPaneForText.setPreferredSize(new Dimension(400, 100));
-//        postPanel.add(scrollPaneForText, BorderLayout.SOUTH);
-//
-//        // Add the post panel to the posts panel
-//        postsPanel.add(postPanel);
-//    }
-//
-//    // Wrap the postsPanel in a JScrollPane
-//    JScrollPane scrollPane = new JScrollPane(postsPanel);
-//    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//
-//    // Clear and add the scrollPane to the main JPanel
-//    jPanel1.removeAll();
-//    jPanel1.add(scrollPane, BorderLayout.CENTER);
-//    jPanel1.revalidate();
-//    jPanel1.repaint();
-//}
+
 
     private void showPosts() {
         // Clear existing components
@@ -239,6 +174,9 @@ Map<String,String> mapAdmins=new HashMap<>();
         promote = new javax.swing.JButton();
         demote = new javax.swing.JButton();
         otherAdmins = new javax.swing.JComboBox<>();
+        changePhoto = new javax.swing.JButton();
+        allusers = new javax.swing.JComboBox<>();
+        removeUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -322,6 +260,33 @@ Map<String,String> mapAdmins=new HashMap<>();
             }
         });
 
+        changePhoto.setBackground(new java.awt.Color(0, 0, 0));
+        changePhoto.setForeground(new java.awt.Color(255, 255, 255));
+        changePhoto.setText("Change Profile Photo");
+        changePhoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changePhotoActionPerformed(evt);
+            }
+        });
+
+        allusers.setBackground(new java.awt.Color(0, 0, 0));
+        allusers.setForeground(new java.awt.Color(255, 255, 255));
+        allusers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        allusers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allusersActionPerformed(evt);
+            }
+        });
+
+        removeUser.setBackground(new java.awt.Color(0, 0, 0));
+        removeUser.setForeground(new java.awt.Color(255, 255, 255));
+        removeUser.setText("Remove User");
+        removeUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeUserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -331,22 +296,27 @@ Map<String,String> mapAdmins=new HashMap<>();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(photo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(photo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(changePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel1)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(back, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(addpost, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(deleteGroup, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(users, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(otherAdmins, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(allusers, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(users, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(otherAdmins, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(promote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(demote, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(demote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(removeUser, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(122, 122, 122))
         );
@@ -358,7 +328,9 @@ Map<String,String> mapAdmins=new HashMap<>();
                 .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(photo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(photo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(changePhoto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -375,6 +347,10 @@ Map<String,String> mapAdmins=new HashMap<>();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(demote)
                     .addComponent(otherAdmins, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(allusers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removeUser))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(back)
                 .addGap(16, 16, 16))
@@ -493,6 +469,52 @@ Map<String,String> mapAdmins=new HashMap<>();
         // TODO add your handling code here:
     }//GEN-LAST:event_otherAdminsActionPerformed
 
+    private void changePhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePhotoActionPerformed
+        // TODO add your handling code here:
+         JFileChooser choose = new JFileChooser();
+        choose.showSaveDialog(this);
+        File profile = choose.getSelectedFile();
+        if (profile == null) {
+            JOptionPane.showMessageDialog(this, "No file selected!");
+            return;
+        }
+        group = groupManager.changeGroupPhoto(group, admin.getUserId(),profile.getPath());
+        ImageIcon icon = new ImageIcon(profile.getPath()); // Replace with your image path
+        Image originalImage = icon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(photo.getWidth(), photo.getHeight(), Image.SCALE_SMOOTH);
+        photo.setIcon(new ImageIcon(scaledImage));
+       // group =groupManager.changeGroupPhoto(group, admin.getUserId(), group)
+    }//GEN-LAST:event_changePhotoActionPerformed
+
+    private void allusersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allusersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_allusersActionPerformed
+
+    private void removeUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeUserActionPerformed
+        // TODO add your handling code here:
+        String userName = (String) allusers.getSelectedItem();
+
+    if(userName != null && !userName.equals("All Users")){
+        String userId = mapUsers.get(userName);
+        //System.out.println("Found UserId: " + userId);
+        
+        if (userId != null) {
+            User user1 = userDatabase.getUserById(userId);
+            Group updatedGroup = groupManager.removeMember(group, admin.getUserId(), user1.getUserId());
+            
+            if(updatedGroup != null) {
+                group = updatedGroup;
+                allusers.removeItem(userName);
+                JOptionPane.showMessageDialog(this, userName + " has been promoted to admin.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to promote " + userName + " to admin.", "Promotion Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "User not found in map: " + userName, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    }//GEN-LAST:event_removeUserActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -530,7 +552,9 @@ Map<String,String> mapAdmins=new HashMap<>();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addpost;
+    private javax.swing.JComboBox<String> allusers;
     private javax.swing.JButton back;
+    private javax.swing.JButton changePhoto;
     private javax.swing.JButton deleteGroup;
     private javax.swing.JButton demote;
     private javax.swing.JLabel jLabel1;
@@ -538,6 +562,7 @@ Map<String,String> mapAdmins=new HashMap<>();
     private javax.swing.JComboBox<String> otherAdmins;
     private javax.swing.JLabel photo;
     private javax.swing.JButton promote;
+    private javax.swing.JButton removeUser;
     private javax.swing.JComboBox<String> users;
     // End of variables declaration//GEN-END:variables
 }
