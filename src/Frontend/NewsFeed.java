@@ -315,10 +315,10 @@ private ArrayList<String>userGroups;
     }//GEN-LAST:event_friendrequestsActionPerformed
 
     private void MyFriendsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MyFriendsActionPerformed
- FriendsList flist = new FriendsList(this, user);
+        // TODO add your handling code here:
+  FriendsList flist = new FriendsList(this, user);
         flist.setVisible(true);
-        this.setVisible(false);        // TODO add your handling code here:
-
+        this.setVisible(false);  
     }//GEN-LAST:event_MyFriendsActionPerformed
 
     private void SuggestionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SuggestionsActionPerformed

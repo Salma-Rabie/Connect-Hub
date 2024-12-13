@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Backend/GroupManagement.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Backend/UserDataBase.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Frontend/NewsFeed.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Backend/User.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/users.json</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Frontend/GroupWindow.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/groups.json</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/New%20version%20of%20lab%2010/Connect-Hub/users.json</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/New%20version%20of%20lab%2010/Connect-Hub/src/Backend/ConnectHub.java</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/New%20version%20of%20lab%2010/Connect-Hub/src/Backend/GroupDataBase.java</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/New%20version%20of%20lab%2010/Connect-Hub/src/Frontend/NewsFeed.java</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/New%20version%20of%20lab%2010/Connect-Hub/src/Backend/User.java</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/New%20version%20of%20lab%2010/Connect-Hub/src/Backend/UserDataBase.java</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/New%20version%20of%20lab%2010/Connect-Hub/src/Frontend/FriendsList.java</file>
+            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/New%20version%20of%20lab%2010/Connect-Hub/friends.json</file>
         </group>
     </open-files>
 </project-private>

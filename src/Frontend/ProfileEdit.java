@@ -60,10 +60,10 @@ public class ProfileEdit extends javax.swing.JFrame {
         changebio = new javax.swing.JButton();
         changeprofile = new javax.swing.JButton();
         changecover = new javax.swing.JButton();
-        password = new javax.swing.JTextField();
         pass = new javax.swing.JButton();
         Bio = new javax.swing.JTextField();
         back = new javax.swing.JButton();
+        password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,8 +127,17 @@ public class ProfileEdit extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(changecover))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -136,10 +145,10 @@ public class ProfileEdit extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
                                 .addComponent(changeprofile))
-                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(pass)))
+                                .addComponent(pass))
+                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -150,16 +159,7 @@ public class ProfileEdit extends javax.swing.JFrame {
                                         .addComponent(changebio, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(changecover))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -194,9 +194,9 @@ public class ProfileEdit extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(changeprofile))))
-                .addGap(49, 49, 49)
-                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(41, 41, 41)
+                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(pass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,26 +233,64 @@ public class ProfileEdit extends javax.swing.JFrame {
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
-        String text = password.getText().trim();
-        if (text.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter your new password!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (hashPassword(text).equals(user.getPasswordHash())) {
-            JOptionPane.showMessageDialog(this, "Enter new password", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        String input = JOptionPane.showInputDialog("Enter your old password:");
-        if (input == null) {
+//        String text = password.getText().trim();
+//        if (text.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Please enter your new password!", "Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//        if (hashPassword(text).equals(user.getPasswordHash())) {
+//            JOptionPane.showMessageDialog(this, "Enter new password", "Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//        String input = JOptionPane.showInputDialog("Enter your old password:");
+//        if (input == null) {
+//            JOptionPane.showMessageDialog(this, "Please enter your old password!", "Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//
+//        if (!hashPassword(input).equals(user.getPasswordHash())) {
+//            JOptionPane.showMessageDialog(this, "Wrong password!", "Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//
+//        user = profileManager.changePassword(user.getUserId(), text);
+//
+//        if (user != null) {
+//            JOptionPane.showMessageDialog(this, "Password Updated!");
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Error updating password!", "Error", JOptionPane.ERROR_MESSAGE);
+//        }
+ String text = password.getText().trim();
+    if (text.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter your new password!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    if (hashPassword(text).equals(user.getPasswordHash())) {
+        JOptionPane.showMessageDialog(this, "Enter a different password!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Use a JPasswordField in a JOptionPane for entering the old password
+    JPasswordField passwordField = new JPasswordField();
+    Object[] message = {
+        "Enter your old password:", passwordField
+    };
+
+    int option = JOptionPane.showConfirmDialog(this, message, "Old Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+    if (option == JOptionPane.OK_OPTION) {
+        char[] input = passwordField.getPassword(); // Get the password entered
+        if (input.length == 0) {
             JOptionPane.showMessageDialog(this, "Please enter your old password!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (!hashPassword(input).equals(user.getPasswordHash())) {
+        if (!hashPassword(new String(input)).equals(user.getPasswordHash())) {
             JOptionPane.showMessageDialog(this, "Wrong password!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        // Update password
         user = profileManager.changePassword(user.getUserId(), text);
 
         if (user != null) {
@@ -260,7 +298,9 @@ public class ProfileEdit extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Error updating password!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
+    } else {
+        JOptionPane.showMessageDialog(this, "Password update canceled.", "Info", JOptionPane.INFORMATION_MESSAGE);
+    }
     }//GEN-LAST:event_passActionPerformed
 
     private void changecoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changecoverActionPerformed
@@ -315,6 +355,6 @@ public class ProfileEdit extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JButton pass;
-    private javax.swing.JTextField password;
+    private javax.swing.JPasswordField password;
     // End of variables declaration//GEN-END:variables
 }

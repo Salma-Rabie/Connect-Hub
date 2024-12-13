@@ -133,91 +133,94 @@ public class UserDataBase {
             System.err.println("Error saving user: " + e.getMessage());
         }
     }
-public User getUserById(String userId) {
-    try {
-        File file = new File(filePath);
-        if (file.exists()) {
-            String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
-            
-            // Check if the file is empty
-            if (content.trim().isEmpty()) {
-                System.err.println("File is empty.");
-                return null;
+
+    public User getUserById(String userId) {
+        try {
+            File file = new File(filePath);
+            if (file.exists()) {
+                String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+
+                // Check if the file is empty
+                if (content.trim().isEmpty()) {
+                    System.err.println("File is empty.");
+                    return null;
+                }
+
+                // Parse JSON content
+                JSONObject database = new JSONObject(content);
+
+                // Check if user exists
+                if (database.has(userId)) {
+                    // Extract and return the user
+                    JSONObject jsonObject = database.getJSONObject(userId);
+
+                    // Extract stories
+                    JSONArray storiesArray = jsonObject.optJSONArray("stories");
+                    ArrayList<stories> userStories = new ArrayList<>();
+                    if (storiesArray != null) {
+                        for (int i = 0; i < storiesArray.length(); i++) {
+                            JSONObject storyJson = storiesArray.getJSONObject(i);
+                            LocalDateTime date = LocalDateTime.parse(storyJson.getString("date"));
+                            String text = storyJson.getString("text");
+                            String img = storyJson.getString("img");
+                            String userIdForStory = storyJson.getString("userId");
+                            stories userStory = new stories(date, text, img, userIdForStory);
+                            userStories.add(userStory);
+                        }
+                    }
+
+                    // Extract posts
+                    JSONArray postsArray = jsonObject.optJSONArray("posts");
+                    ArrayList<posts> userPosts = new ArrayList<>();
+                    if (postsArray != null) {
+                        for (int i = 0; i < postsArray.length(); i++) {
+                            JSONObject postJson = postsArray.getJSONObject(i);
+                            LocalDateTime date = LocalDateTime.parse(postJson.getString("date"));
+                            String text = postJson.getString("text");
+                            String img = postJson.getString("img");
+                            String userIdForPost = postJson.getString("userId");
+                            posts userPost = new posts(date, text, img, userIdForPost);
+                            userPosts.add(userPost);
+                        }
+                    }
+
+
+
+                    // Extract groups
+                    JSONArray groupsArray = jsonObject.optJSONArray("groups");
+                    ArrayList<String> groupNames = new ArrayList<>();
+                    if (groupsArray != null) {
+                        for (int i = 0; i < groupsArray.length(); i++) {
+                            String groupName = groupsArray.getString(i);
+                            //System.out.println("Found group: " + groupName); // Debug
+                            groupNames.add(groupName);
+                        }
+                    } 
+                    // Build and return the user
+                    return new User.UserBuilder()
+                            .userId(userId)
+                            .email(jsonObject.getString("email"))
+                            .username(jsonObject.getString("username"))
+                            .passwordHash(jsonObject.getString("passwordHash"))
+                            .status(jsonObject.getString("status"))
+                            .dateOfBirth(LocalDate.parse(jsonObject.getString("dateOfBirth")))
+                            .bio(jsonObject.getString("bio"))
+                            .profilePhotoPath(jsonObject.getString("profilePhotoPath"))
+                            .coverPhotoPath(jsonObject.getString("coverPhotoPath"))
+                            .setstories(userStories)
+                            .setposts(userPosts)
+                            .groups(groupNames)
+                            .build();
+                }
+            } else {
+                System.err.println("File does not exist.");
             }
-
-            // Parse JSON content
-            JSONObject database = new JSONObject(content);
-            
-            // Check if user exists
-            if (database.has(userId)) {
-                // Extract and return the user
-                JSONObject jsonObject = database.getJSONObject(userId);
-
-                // Extract stories
-                JSONArray storiesArray = jsonObject.optJSONArray("stories");
-                ArrayList<stories> userStories = new ArrayList<>();
-                if (storiesArray != null) {
-                    for (int i = 0; i < storiesArray.length(); i++) {
-                        JSONObject storyJson = storiesArray.getJSONObject(i);
-                        LocalDateTime date = LocalDateTime.parse(storyJson.getString("date"));
-                        String text = storyJson.getString("text");
-                        String img = storyJson.getString("img");
-                        String userIdForStory = storyJson.getString("userId");
-                        stories userStory = new stories(date, text, img, userIdForStory);
-                        userStories.add(userStory);
-                    }
-                }
-
-                // Extract posts
-                JSONArray postsArray = jsonObject.optJSONArray("posts");
-                ArrayList<posts> userPosts = new ArrayList<>();
-                if (postsArray != null) {
-                    for (int i = 0; i < postsArray.length(); i++) {
-                        JSONObject postJson = postsArray.getJSONObject(i);
-                        LocalDateTime date = LocalDateTime.parse(postJson.getString("date"));
-                        String text = postJson.getString("text");
-                        String img = postJson.getString("img");
-                        String userIdForPost = postJson.getString("userId");
-                        posts userPost = new posts(date, text, img, userIdForPost);
-                        userPosts.add(userPost);
-                    }
-                }
-
-                // Extract groups
-                JSONArray groupsArray = jsonObject.optJSONArray("groups");
-                ArrayList<String> groupNames = new ArrayList<>();
-                if (groupsArray != null) {
-                    for (int i = 0; i < groupsArray.length(); i++) {
-                        groupNames.add(groupsArray.getString(i));
-                    }
-                }
-
-                // Build and return the user
-                return new User.UserBuilder()
-                        .userId(userId)
-                        .email(jsonObject.getString("email"))
-                        .username(jsonObject.getString("username"))
-                        .passwordHash(jsonObject.getString("passwordHash"))
-                        .status(jsonObject.getString("status"))
-                        .dateOfBirth(LocalDate.parse(jsonObject.getString("dateOfBirth")))
-                        .bio(jsonObject.getString("bio"))
-                        .profilePhotoPath(jsonObject.getString("profilePhotoPath"))
-                        .coverPhotoPath(jsonObject.getString("coverPhotoPath"))
-                        .setstories(userStories)
-                        .setposts(userPosts)
-                        .groups(groupNames)
-                        .build();
-            } 
-        } else {
-            System.err.println("File does not exist.");
+        } catch (IOException | JSONException e) {
+            System.err.println("Error retrieving user: " + e.getMessage());
         }
-    } catch (IOException | JSONException e) {
-        System.err.println("Error retrieving user: " + e.getMessage());
+        // Return null if the user is not found
+        return null;
     }
-    // Return null if the user is not found
-    return null;
-}
-
 
     public void updateUser(User updatedUser) {
         try {
@@ -280,11 +283,16 @@ public User getUserById(String userId) {
                     postsArray.put(postJson);
                 }
                 userJson.put("posts", postsArray);
+//                JSONArray groupsArray = new JSONArray();
+//                for (int i = 0; i < updatedUser.getGroups().size(); i++) {
+//                    groupsArray.put(updatedUser.getGroups().get(i));
+//                }
+//                userJson.put("groups", groupsArray);
                 JSONArray groupsArray = new JSONArray();
-                for (int i = 0; i < updatedUser.getGroups().size(); i++) {
-                    groupsArray.put(updatedUser.getGroups().get(i));
+                for (String groupName : updatedUser.getGroups()) {
+                    groupsArray.put(groupName); // Add each group name to the JSON array
                 }
-                userJson.put("groups", groupsArray);
+                userJson.put("groups", groupsArray); // Attach the groups array to the user JSON
                 // Update the user in the database
                 database.put(String.valueOf(updatedUser.getUserId()), userJson);
 
@@ -364,7 +372,7 @@ public User getUserById(String userId) {
                                 .coverPhotoPath(jsonObject.getString("coverPhotoPath"))
                                 .setstories(userStories)
                                 .setposts(userPosts)
-                                 .groups(groupNames)
+                                .groups(groupNames)
                                 .build();
 
                         userList.add(user);
