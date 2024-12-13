@@ -70,14 +70,14 @@
             {
                 "date": "2024-12-13T16:54:39.008918500",
                 "img": "C:\\Users\\alaae\\OneDrive\\Pictures\\Screenshots\\Screenshot (127).png",
-                "contentId": "8836ad",
+                "contentId": "b05f70",
                 "text": "tryyyiinggg posttsss",
                 "userId": "1000"
             },
             {
                 "date": "2024-12-13T16:55:56.810739100",
                 "img": "",
-                "contentId": "80ba51",
+                "contentId": "9b7242",
                 "text": "hhhhhhhhhhhhhh",
                 "userId": "1000"
             }
@@ -86,17 +86,47 @@
         "groups": ["Java Enthusiasts"],
         "dateOfBirth": "2024-12-10",
         "coverPhotoPath": "user_data/cover_photos/1001_cover.jpg",
-        "posts": [{
-            "date": "2024-12-13T16:54:15.585588600",
-            "img": "C:\\Users\\alaae\\OneDrive\\Pictures\\Screenshots\\Screenshot (123).png",
-            "contentId": "dccf73",
-            "text": "hellloooo",
-            "userId": "1000"
-        }],
+        "posts": [
+            {
+                "date": "2024-12-13T16:54:15.585588600",
+                "img": "C:\\Users\\alaae\\OneDrive\\Pictures\\Screenshots\\Screenshot (123).png",
+                "contentId": "6d9996",
+                "text": "hellloooo",
+                "userId": "1000"
+            },
+            {
+                "date": "2024-12-13T17:56:19.866466900",
+                "img": "C:\\Users\\alaae\\OneDrive\\Pictures\\Screenshots\\Screenshot (127).png",
+                "contentId": "b225c0",
+                "text": "uuuuuuu",
+                "userId": "1000"
+            },
+            {
+                "date": "2024-12-13T18:07:59.793291300",
+                "img": "C:\\Users\\alaae\\OneDrive\\Pictures\\Screenshots\\Screenshot (127).png",
+                "contentId": "a9b2cc",
+                "text": "byee",
+                "userId": "1000"
+            },
+            {
+                "date": "2024-12-13T18:09:15.933198100",
+                "img": "C:\\Users\\alaae\\OneDrive\\Pictures\\Screenshots\\Screenshot (122).png",
+                "contentId": "073ac5",
+                "text": "nyeyeeeeeeeeeee",
+                "userId": "1000"
+            },
+            {
+                "date": "2024-12-13T18:14:56.490931800",
+                "img": "C:\\Users\\alaae\\OneDrive\\Pictures\\Screenshots\\Screenshot (126).png",
+                "contentId": "e263bb",
+                "text": "last try",
+                "userId": "1000"
+            }
+        ],
         "email": "sara@gamil.com",
         "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
         "username": "sara",
-        "status": "online"
+        "status": "offline"
     },
     "12345": {
         "profilePhotoPath": "user_data/profile_photos/12345_profile.jpg",

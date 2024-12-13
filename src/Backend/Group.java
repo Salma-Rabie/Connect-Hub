@@ -10,7 +10,6 @@ public class Group {
     private User primaryAdmin;
     private ArrayList<User> otherAdmins;
     private ArrayList<posts> posts;
-      private ArrayList<String> joinRequests;
 
     // Private constructor to enforce the use of the builder
     private Group(GroupBuilder builder) {
@@ -22,7 +21,6 @@ public class Group {
         this.primaryAdmin = builder.primaryAdmin;
         this.otherAdmins = builder.otherAdmins;
         this.posts = builder.posts;
-        this.joinRequests = builder.joinRequests;
     }
 
     // Getter methods for all fields (optional for usage)
@@ -60,17 +58,7 @@ public class Group {
     public ArrayList<posts> getPosts() {
         return posts;
     }
-      public ArrayList<String> getJoinRequests() {
-        return joinRequests;
-    }
-
-    public void addJoinRequest(String userName) {
-        this.joinRequests.add(userName);
-    }
-
-    public void removeJoinRequest(String userName) {
-        this.joinRequests.remove(userName);
-    }
+     
 
     // Builder class
     public static class GroupBuilder {
@@ -140,15 +128,7 @@ public class Group {
             this.posts.add(post);
             return this;
         }
-        public GroupBuilder joinRequests(ArrayList<String> joinRequests) {
-            this.joinRequests = joinRequests;
-            return this;
-        }
-
-        public GroupBuilder addJoinRequest(String userName) {
-            this.joinRequests.add(userName);
-            return this;
-        }
+       
 
         // Build method to create the Group object
         public Group build() {

@@ -38,7 +38,7 @@ public SuggestionsList(JFrame previousWindow, User user) {
     // Fetch pending friend requests
     FriendRequestDataBase friendRequestsDatabase = FriendRequestDataBase.getInstance("friend_requests.json");
     ArrayList<FriendRequestClass> pendingRequests = (ArrayList<FriendRequestClass>) friendRequestsDatabase.getRequestsReceivedByUserId(user.getUserId());
- /////   pendingRequests.addAll(friendRequestsDatabase.getPendingRequests(user.getUserId())); // Add sent requests as well
+ ///   pendingRequests.addAll(friendRequestsDatabase.getPendingRequests(user.getUserId())); // Add sent requests as well
 
     // Extract IDs of users already involved in friend requests
     HashSet<String> excludedIds = new HashSet<>();
@@ -90,6 +90,63 @@ public SuggestionsList(JFrame previousWindow, User user) {
 
     setVisible(true);
 }
+
+//    public SuggestionsList(JFrame previousWindow, User user) {
+//        this.previousWindow = previousWindow;
+//        this.user = user;
+//        usernameToIdMap = new HashMap<>();
+//
+//        setTitle("Friend Suggestions");
+//        setSize(600, 400);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setLocationRelativeTo(null);
+//        setLayout(new BorderLayout());
+//
+//        // Fetch suggested friends
+//        SuggestedFriends suggestions = new SuggestedFriends();
+//        ArrayList<User> suggestedUsers = Suggestions.getInstance().suggestFriends(user.getUserId());
+//
+//        // Populate the map with usernames and user IDs
+//        for (User suggestedUser : suggestedUsers) {
+//            usernameToIdMap.put(suggestedUser.getUsername(), suggestedUser.getUserId());
+//        }
+//
+//        // Create table model
+//        tableModel = new DefaultTableModel(new Object[]{"Username", "Action"}, 0);
+//
+//        // Add rows to the table model (display usernames)
+//        for (String username : usernameToIdMap.keySet()) {
+//            tableModel.addRow(new Object[]{username, "Add Request"});
+//        }
+//
+//        // Create JTable
+//        JTable table = new JTable(tableModel) {
+//            @Override
+//            public boolean isCellEditable(int row, int column) {
+//                return column == 1; // Only "Action" column is editable
+//            }
+//        };
+//
+//        // Add button renderer and editor
+//        table.getColumn("Action").setCellRenderer(new ButtonRenderer());
+//        table.getColumn("Action").setCellEditor(new ButtonEditor(new JCheckBox(), table));
+//
+//        // Add table to scroll pane
+//        JScrollPane scrollPane = new JScrollPane(table);
+//        getContentPane().add(scrollPane, BorderLayout.CENTER);
+//
+//        // Add "Back" button to return to NewsFeed
+//        JButton backButton = new JButton("Back");
+//        backButton.addActionListener(e -> {
+//            this.dispose(); // Close SuggestionsList
+//            ((NewsFeed)previousWindow).updateUser(user);
+//            previousWindow.setVisible(true); // Show NewsFeed
+//        });
+//        getContentPane().add(backButton, BorderLayout.SOUTH);
+//
+//        setVisible(true);
+//    }
+
     class ButtonRenderer extends JButton implements TableCellRenderer {
 
         public ButtonRenderer() {

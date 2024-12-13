@@ -51,9 +51,10 @@ public class NewsFeed extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Newsfeed");
         loadFriends(user.getUserId());
-        showPosts(user);
-        loadFriends(user.getUserId());
-        showStories(user);
+         addStoriesAndPostsLayout( user);
+       // showPosts(user);
+//        loadFriends(user.getUserId());
+//        showStories(user);
        mygroups.removeAllItems();
          mygroups.addItem("My Groups");
         mygroups.setSelectedIndex(0);
@@ -65,7 +66,7 @@ public class NewsFeed extends javax.swing.JFrame {
     public void updateUser(User user) {
         this.user = user;
         loadFriends(user.getUserId());
-        showPosts(user);
+       // showPosts(user);
         showStories(user);
         user.removeExpiredStories();
         
@@ -92,6 +93,7 @@ public class NewsFeed extends javax.swing.JFrame {
         choosegroup = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        GoToProfile1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,11 +139,11 @@ public class NewsFeed extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 346, Short.MAX_VALUE)
+            .addGap(0, 309, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 414, Short.MAX_VALUE)
+            .addGap(0, 233, Short.MAX_VALUE)
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -154,7 +156,7 @@ public class NewsFeed extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 414, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         MyFriends.setBackground(new java.awt.Color(0, 0, 0));
@@ -168,7 +170,7 @@ public class NewsFeed extends javax.swing.JFrame {
 
         GoToProfile.setBackground(new java.awt.Color(0, 0, 0));
         GoToProfile.setForeground(new java.awt.Color(255, 255, 255));
-        GoToProfile.setText("Your Profile");
+        GoToProfile.setText(" Your Profile");
         GoToProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GoToProfileActionPerformed(evt);
@@ -206,6 +208,15 @@ public class NewsFeed extends javax.swing.JFrame {
             }
         });
 
+        GoToProfile1.setBackground(new java.awt.Color(0, 0, 0));
+        GoToProfile1.setForeground(new java.awt.Color(255, 255, 255));
+        GoToProfile1.setText("Group Suggestions");
+        GoToProfile1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GoToProfile1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -214,14 +225,14 @@ public class NewsFeed extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 105, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(mygroups, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addpost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(addpost, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -232,14 +243,17 @@ public class NewsFeed extends javax.swing.JFrame {
                                 .addComponent(Suggestions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(MyFriends, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(GoToProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(GoToProfile)
+                                .addGap(20, 20, 20))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(choosegroup)
                                 .addGap(39, 39, 39)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(119, 119, 119)
+                                .addComponent(GoToProfile1)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(16, 16, 16))
         );
@@ -259,12 +273,13 @@ public class NewsFeed extends javax.swing.JFrame {
                     .addComponent(mygroups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(choosegroup)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16))
+                    .addComponent(jButton1)
+                    .addComponent(GoToProfile1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(166, 166, 166))
         );
 
         pack();
@@ -594,6 +609,13 @@ public class NewsFeed extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void GoToProfile1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoToProfile1ActionPerformed
+        // TODO add your handling code here:
+         GroupSuggestions suggestions = new GroupSuggestions(this, user,groupManager);
+        suggestions.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_GoToProfile1ActionPerformed
+
     private void loadFriends(String currentUserId) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("friends.json"));
@@ -639,80 +661,216 @@ public class NewsFeed extends javax.swing.JFrame {
         }
     }
 
-    private void showPosts(User user) {
-        jPanel1.setLayout(new BorderLayout());
-        // Create the posts panel
-        JPanel postsPanel = new JPanel();
-        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Vertical stacking of posts
+//     private void showPosts(User user) {
+//        jPanel1.setLayout(new BorderLayout());
+//        // Create the posts panel
+//        JPanel postsPanel = new JPanel();
+//        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Vertical stacking of posts
+//
+//        List<posts> posts = new ArrayList();
+//
+//        for (String friendId : currentUserFriends) {
+//            System.out.println(friendId);
+//            posts = userManager.getDatabase().getUserById(friendId).getPosts();
+//        }
+//        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Stack posts vertically
+//        Collections.shuffle(posts);
+//        for (posts post : posts) {
+//            // Create a JPanel for each post
+//            JPanel postPanel = new JPanel();
+//            postPanel.setLayout(new BorderLayout());
+//            postPanel.setBorder(BorderFactory.createCompoundBorder(
+//                    BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1),
+//                    BorderFactory.createEmptyBorder(5, 5, 5, 5)
+//            ));
+//            postPanel.setBackground(Color.WHITE);
+//
+//            // Create and add image if available
+//            String imgPath = post.getImg();
+//            if (imgPath != null && !imgPath.isEmpty()) {
+//                try {
+//                    ImageIcon imageIcon = new ImageIcon(imgPath);
+//                    if (imageIcon.getIconWidth() > 0) { // Ensure image loaded correctly
+//                        Image scaledImage = imageIcon.getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH);
+//                        JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
+//                        imageLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//                        postPanel.add(imageLabel, BorderLayout.CENTER);
+//                    } else {
+//                        System.err.println("Image failed to load: " + imgPath);
+//                    }
+//                } catch (Exception e) {
+//                    System.err.println("Error loading image from path: " + imgPath);
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//            // Create a text area with post text
+//            JTextArea textArea = new JTextArea(post.getText());
+//            textArea.setLineWrap(true);
+//            textArea.setWrapStyleWord(true);
+//            textArea.setEditable(false);
+//            textArea.setFont(new Font("Arial", Font.PLAIN, 14));
+//            textArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//            textArea.setBackground(Color.WHITE);
+//
+//            // Wrap text area into a scroll pane to handle long text
+//            JScrollPane scrollPaneForText = new JScrollPane(textArea);
+//            scrollPaneForText.setBorder(BorderFactory.createEmptyBorder());
+//            scrollPaneForText.setPreferredSize(new Dimension(400, 100));
+//            postPanel.add(scrollPaneForText, BorderLayout.SOUTH);
+//
+//            postsPanel.add(postPanel);
+//        }
+//
+//// Ensure postsPanel is visible
+//        postsPanel.revalidate();
+//        postsPanel.repaint();
+//
+//// Wrap the postsPanel in a JScrollPane
+//        JScrollPane scrollPane = new JScrollPane(postsPanel);
+//        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//
+//// Add scrollPane to the main JPanel
+//        jPanel1.setLayout(new BorderLayout());
+//        jPanel1.add(scrollPane, BorderLayout.CENTER);
+//    }
+private void addStoriesAndPostsLayout(User user) {
+// Panel 1 (Stories)
+        user.removeExpiredStories();
+        JPanel storiesPanel = new JPanel();
+        storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS)); // Vertical layout
+        storiesPanel.setBackground(Color.WHITE);
 
-        List<posts> posts = new ArrayList();
+// Header Label for "Stories"
+        JLabel storiesLabel = new JLabel("Stories");
+        storiesLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        storiesLabel.setForeground(new Color(0, 102, 204));  // Modern blue color
+        storiesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around header
+        storiesLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        storiesPanel.add(storiesLabel);
 
+        List<stories> s = new ArrayList();
+        List<posts> p =userManager.getDatabase().getUserById(user.getUserId()).getPosts();
         for (String friendId : currentUserFriends) {
             System.out.println(friendId);
-            posts = userManager.getDatabase().getUserById(friendId).getPosts();
+            s = userManager.getDatabase().getUserById(friendId).getStories();
         }
-        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Stack posts vertically
-        Collections.shuffle(posts);
-        for (posts post : posts) {
-            // Create a JPanel for each post
-            JPanel postPanel = new JPanel();
-            postPanel.setLayout(new BorderLayout());
-            postPanel.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1),
-                    BorderFactory.createEmptyBorder(5, 5, 5, 5)
+           for (String friendId : currentUserFriends) {
+            System.out.println(friendId);
+            p = userManager.getDatabase().getUserById(friendId).getPosts();
+        }
+        
+       
+        
+// Iterate over the stories
+        for (int i = 0; i < s.size(); i++) {
+            stories story = s.get(i);
+
+            // Create a card-like panel for each story
+            JPanel storyPanel = new JPanel();
+            storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS)); // Vertical layout
+            storyPanel.setBackground(new Color(245, 245, 245)); // Light gray background
+            storyPanel.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(new Color(220, 220, 220), 1),
+                    BorderFactory.createEmptyBorder(10, 10, 10, 10) // Padding inside the card
             ));
-            postPanel.setBackground(Color.WHITE);
 
-            // Create and add image if available
-            String imgPath = post.getImg();
-            if (imgPath != null && !imgPath.isEmpty()) {
-                try {
-                    ImageIcon imageIcon = new ImageIcon(imgPath);
-                    if (imageIcon.getIconWidth() > 0) { // Ensure image loaded correctly
-                        Image scaledImage = imageIcon.getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH);
-                        JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
-                        imageLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-                        postPanel.add(imageLabel, BorderLayout.CENTER);
-                    } else {
-                        System.err.println("Image failed to load: " + imgPath);
-                    }
-                } catch (Exception e) {
-                    System.err.println("Error loading image from path: " + imgPath);
-                    e.printStackTrace();
-                }
-
+            // Add the image (if available)
+            if (story.getImg() != null) {
+                ImageIcon icon = new ImageIcon(story.getImg());
+                Image scaledImage = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Resize image
+                JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
+                imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the image
+                storyPanel.add(imageLabel);
             }
 
-            // Create a text area with post text
-            JTextArea textArea = new JTextArea(post.getText());
-            textArea.setLineWrap(true);
-            textArea.setWrapStyleWord(true);
-            textArea.setEditable(false);
-            textArea.setFont(new Font("Arial", Font.PLAIN, 14));
-            textArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-            textArea.setBackground(Color.WHITE);
+            // Add the text of the story
+            JLabel storyLabel = new JLabel("<html><div style='text-align: center;'>" + story.getText() + "</div></html>");
+            storyLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Use standard font
+            storyLabel.setForeground(Color.DARK_GRAY); // Dark gray text
+            storyLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the text
+            storyPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Space between image and text
+            storyPanel.add(storyLabel);
 
-            // Wrap text area into a scroll pane to handle long text
-            JScrollPane scrollPaneForText = new JScrollPane(textArea);
-            scrollPaneForText.setBorder(BorderFactory.createEmptyBorder());
-            scrollPaneForText.setPreferredSize(new Dimension(400, 100));
-            postPanel.add(scrollPaneForText, BorderLayout.SOUTH);
+            // Add spacing around each story
+            storyPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the panel itself
+            storiesPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Space between stories
+            storiesPanel.add(storyPanel);
+        }
 
+// Scroll Pane for Stories
+        JScrollPane storiesScrollPane = new JScrollPane(storiesPanel);
+        storiesScrollPane.setPreferredSize(new Dimension(500, 300)); // Adjust dimensions as needed
+        storiesScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Disable horizontal scroll
+
+// Posts Panel (Scrollable)
+        JPanel postsPanel = new JPanel();
+        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Vertical layout
+        postsPanel.setBackground(Color.WHITE);
+
+// Header Label for "Posts"
+        JLabel postsLabel = new JLabel("Posts");
+        postsLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        postsLabel.setForeground(new Color(0, 102, 204));  // Modern blue color
+        postsLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around header
+        postsLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        postsPanel.add(postsLabel);
+
+// Iterate over the posts
+        for (int i = 0; i < p.size(); i++) {
+            posts post = p.get(i);
+
+            // Create a card-like panel for each post
+            JPanel postPanel = new JPanel();
+            postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
+            postPanel.setBackground(new Color(245, 245, 245)); // Light gray background
+            postPanel.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(new Color(220, 220, 220), 1),
+                    BorderFactory.createEmptyBorder(10, 10, 10, 10) // Padding inside the card
+            ));
+
+            // Add the image (if available)
+            if (post.getImg() != null) {
+                ImageIcon icon = new ImageIcon(post.getImg());
+                Image scaledImage = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Resize the image for better appearance
+                JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
+                imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the image horizontally
+                postPanel.add(imageLabel); // Add the image to the post panel
+            }
+
+            // Add the text of the post
+            JLabel postLabel = new JLabel("<html><div style='text-align: center;'>" + post.getText() + "</div></html>");
+            postLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Set the font for the text
+            postLabel.setForeground(Color.DARK_GRAY); // Set a dark gray color for the text
+            postLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center-align the text
+            postPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add some space between the image and the text
+            postPanel.add(postLabel);
+
+            // Add spacing around the post panel
+            postPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            postsPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Space between posts
             postsPanel.add(postPanel);
         }
 
-// Ensure postsPanel is visible
-        postsPanel.revalidate();
-        postsPanel.repaint();
+// Scroll Pane for Posts (Ensure it is scrollable)
+        JScrollPane postsScrollPane = new JScrollPane(postsPanel);
+        postsScrollPane.setPreferredSize(new Dimension(300, 50)); // Adjust size to your needs
+        postsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);// Disable horizontal scroll
+        postsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+// Add the split pane
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, storiesScrollPane, postsScrollPane);
+        splitPane.setDividerLocation(100); // Adjust the divider location as needed
+        splitPane.setDividerSize(5); // Adjust divider thickness
+        splitPane.setResizeWeight(0.5); // Equal weight for both panels
+        splitPane.setContinuousLayout(true); // Continuous layout updates
 
-// Wrap the postsPanel in a JScrollPane
-        JScrollPane scrollPane = new JScrollPane(postsPanel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-// Add scrollPane to the main JPanel
+// Set up the main panel and add the split pane
         jPanel1.setLayout(new BorderLayout());
-        jPanel1.add(scrollPane, BorderLayout.CENTER);
+        jPanel1.add(splitPane, BorderLayout.CENTER);
+        jPanel1.revalidate();
+        jPanel1.repaint();
     }
 
     private void showStories(User user) {
@@ -824,6 +982,7 @@ public class NewsFeed extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GoToProfile;
+    private javax.swing.JButton GoToProfile1;
     private javax.swing.JButton MyFriends;
     private javax.swing.JButton Suggestions;
     private javax.swing.JButton addpost;

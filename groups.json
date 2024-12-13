@@ -1,14 +1,31 @@
-{"Java Enthusiasts": {
-    "photoPath": "path/to/new_photo.jpg",
-    "primaryAdmin": "1000",
-    "name": "Java Enthusiasts",
-    "description": "A group for saraand yhnjuyjukmu enthusiasts and advanced learners.",
-    "posts": [],
-    "otherAdmins": ["1001"],
-    "users": [
-        "12345",
-        "1001",
-        "1000"
-    ],
-    "numMembers": 4
-}}
+{
+    "Java Enthusiasts": {
+        "photoPath": "path/to/new_photo.jpg",
+        "primaryAdmin": "1000",
+        "name": "Java Enthusiasts",
+        "description": "A group for saraand yhnjuyjukmu enthusiasts and advanced learners.",
+        "posts": [],
+        "otherAdmins": ["1001"],
+        "users": [
+            "12345",
+            "1001",
+            "1000"
+        ],
+        "numMembers": 3
+    },
+    "KWWW": {
+        "photoPath": "path/to/new_photo.jpg",
+        "primaryAdmin": "1000",
+        "name": "KWWW",
+        "description": "A group for saraand yhnjuyjukmu enthusiasts and advanced learners.",
+        "posts": [],
+        "otherAdmins": ["1001"],
+        "users": [
+            "12345",
+            "1001",
+            "1000",
+            "1222"
+        ],
+        "numMembers": 4
+    }
+}
