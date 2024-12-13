@@ -4,11 +4,11 @@ import java.util.ArrayList;
 public class Group {
     private String name;
     private int numMembers;
-    private ArrayList<User> users;
+    private ArrayList<String> users;
     private String photoPath;
     private String description;
-    private User primaryAdmin;
-    private ArrayList<User> otherAdmins;
+    private String primaryAdmin;
+    private ArrayList<String> otherAdmins;
     private ArrayList<posts> posts;
 
     // Private constructor to enforce the use of the builder
@@ -32,7 +32,7 @@ public class Group {
         return numMembers;
     }
 
-    public ArrayList<User> getUsers() {
+    public ArrayList<String> getUsers() {
         return users;
     }
 
@@ -44,14 +44,14 @@ public class Group {
         return description;
     }
 
-    public User getPrimaryAdmin() {
+    public String getPrimaryAdmin() {
         return primaryAdmin;
     }
  public void addPost(posts post) {
             this.posts.add(post);
            
         }
-    public ArrayList<User> getOtherAdmins() {
+    public ArrayList<String> getOtherAdmins() {
         return otherAdmins;
     }
 
@@ -63,11 +63,11 @@ public class Group {
     public static class GroupBuilder {
         private String name;
         private int numMembers;
-        private ArrayList<User> users = new ArrayList<>();
+        private ArrayList<String> users = new ArrayList<>();
         private String photoPath;
         private String description;
-        private User primaryAdmin;
-        private ArrayList<User> otherAdmins = new ArrayList<>();
+        private String primaryAdmin;
+        private ArrayList<String> otherAdmins = new ArrayList<>();
         private ArrayList<posts> posts = new ArrayList<>();
 
         // Setter methods in the builder
@@ -81,12 +81,12 @@ public class Group {
             return this;
         }
 
-        public GroupBuilder users(ArrayList<User> users) {
+        public GroupBuilder users(ArrayList<String> users) {
             this.users = users;
             return this;
         }
 
-        public GroupBuilder addUser(User user) {
+        public GroupBuilder addUser(String user) {
             this.users.add(user);
             this.numMembers = this.users.size();
             return this;
@@ -102,17 +102,17 @@ public class Group {
             return this;
         }
 
-        public GroupBuilder primaryAdmin(User primaryAdmin) {
+        public GroupBuilder primaryAdmin(String primaryAdmin) {
             this.primaryAdmin = primaryAdmin;
             return this;
         }
 
-        public GroupBuilder otherAdmins(ArrayList<User> otherAdmins) {
+        public GroupBuilder otherAdmins(ArrayList<String> otherAdmins) {
             this.otherAdmins = otherAdmins;
             return this;
         }
 
-        public GroupBuilder addOtherAdmin(User admin) {
+        public GroupBuilder addOtherAdmin(String admin) {
             this.otherAdmins.add(admin);
             return this;
         }

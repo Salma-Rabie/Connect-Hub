@@ -1,4 +1,3 @@
-
 package Frontend;
 
 import Backend.*;
@@ -31,8 +30,9 @@ public class NewsFeed extends javax.swing.JFrame {
     private final Map<String, List<String>> friendsMap = new HashMap<>();
     private List<String> currentUserFriends = new ArrayList();
     private GroupDataBase groupDatabase;
-   private GroupManagement groupManager;
-private ArrayList<String>userGroups;
+    private GroupManagement groupManager;
+    private ArrayList<String> userGroups;
+
     /**
      * Creates new form NewsFeed
      */
@@ -41,10 +41,10 @@ private ArrayList<String>userGroups;
         this.user = user;
         this.userManager = userManager;
         this.profileManager = profileManager;
-        this.groupDatabase=GroupDataBase.getInstance("groups.json"); 
-        this.userGroups=user.getGroups();
-        this.groupManager=new GroupManagement(userManager.getDatabase(),groupDatabase);
-         String filePath = "friend_requests.json";
+        this.groupDatabase = GroupDataBase.getInstance("groups.json");
+        this.userGroups = user.getGroups();
+        this.groupManager = new GroupManagement(userManager.getDatabase(), groupDatabase);
+        String filePath = "friend_requests.json";
         friendRequestsDatabase = FriendRequestDataBase.getInstance(filePath);
         initComponents();
         user.removeExpiredStories();
@@ -53,21 +53,27 @@ private ArrayList<String>userGroups;
         loadFriends(user.getUserId());
         showPosts(user);
         showStories(user);
-       mygroups.removeAllItems();
-         mygroups.addItem("My Groups");
+        mygroups.removeAllItems();
+        mygroups.addItem("My Groups");
         mygroups.setSelectedIndex(0);
-        for(int i=0;i<userGroups.size();i++){
+        for (int i = 0; i < userGroups.size(); i++) {
             mygroups.addItem(userGroups.get(i));
         }
     }
 
     public void updateUser(User user) {
         this.user = user;
+        this.userGroups = user.getGroups();
         loadFriends(user.getUserId());
         showPosts(user);
         showStories(user);
         user.removeExpiredStories();
-        
+        mygroups.removeAllItems();
+        mygroups.addItem("My Groups");
+        mygroups.setSelectedIndex(0);
+        for (int i = 0; i < userGroups.size(); i++) {
+            mygroups.addItem(userGroups.get(i));
+        }
     }
 
     /**
@@ -307,16 +313,16 @@ private ArrayList<String>userGroups;
 
     private void friendrequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendrequestsActionPerformed
         // TODO add your handling code here:
-        friendRequest friend = new friendRequest(this, user, userManager,friendRequestsDatabase);
+        friendRequest friend = new friendRequest(this, user, userManager, friendRequestsDatabase);
         this.setVisible(false);
         friend.setVisible(true);
     }//GEN-LAST:event_friendrequestsActionPerformed
 
     private void MyFriendsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MyFriendsActionPerformed
         // TODO add your handling code here:
-  FriendsList flist = new FriendsList(this, user);
+        FriendsList flist = new FriendsList(this, user);
         flist.setVisible(true);
-        this.setVisible(false);  
+        this.setVisible(false);
     }//GEN-LAST:event_MyFriendsActionPerformed
 
     private void SuggestionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SuggestionsActionPerformed
@@ -328,18 +334,26 @@ private ArrayList<String>userGroups;
 
     private void mygroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mygroupsActionPerformed
         // TODO add your handling code here:
-      
+
     }//GEN-LAST:event_mygroupsActionPerformed
 
     private void choosegroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choosegroupActionPerformed
         // TODO add your handling code here:
-        String groupName=(String) mygroups.getSelectedItem();
-        if (groupName != null && !groupName.equals("Select Friend Request")){
-            Group group= groupDatabase.getGroupByName(groupName);
-            this.setVisible(false);
-            GroupWindow groupWindow=new GroupWindow(this,user,group,groupDatabase,groupManager);
-            groupWindow.setVisible(true);
+        String groupName = (String) mygroups.getSelectedItem();
+        if (groupName != null && !groupName.equals("Select Friend Request")) {
+            Group group = groupDatabase.getGroupByName(groupName);
+            if (!group.getPrimaryAdmin().equals(user.getUserId()) && !group.getOtherAdmins().equals(user.getUserId())) {
+                this.setVisible(false);
+                UserGroupWindow groupWindow = new UserGroupWindow(this, user, group, groupDatabase, groupManager);
+                groupWindow.setVisible(true);
+            }
+            if (group.getPrimaryAdmin().equals(user.getUserId())) {
+                 this.setVisible(false);
+                PrimaryAdminGroupWindow groupWindow = new PrimaryAdminGroupWindow(this, user, group, groupDatabase, groupManager);
+                groupWindow.setVisible(true);
+            }
         }
+
     }//GEN-LAST:event_choosegroupActionPerformed
 
     private void loadFriends(String currentUserId) {
@@ -527,9 +541,6 @@ private ArrayList<String>userGroups;
         }
     }
 
-    
-  
-    
     /**
      * @param args the command line arguments
      */

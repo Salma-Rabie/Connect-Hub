@@ -35,7 +35,7 @@
         "posts": [],
         "email": "johndoe@example.com",
         "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
-        "username": "JohnDoe",
+        "username": "sohila",
         "status": "online"
     },
     "1222": {
@@ -48,14 +48,14 @@
         "posts": [],
         "email": "johndoe@example.com",
         "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
-        "username": "JohnDoe",
+        "username": "mohamed",
         "status": "offline"
     },
     "1001": {
         "profilePhotoPath": "user_data/profile_photos/1001_profile.jpg",
         "stories": [],
         "bio": "",
-        "groups": ["Java Enthusiasts"],
+        "groups": [],
         "dateOfBirth": "2024-12-18",
         "coverPhotoPath": "user_data/cover_photos/1001_cover.jpg",
         "posts": [],
@@ -68,7 +68,7 @@
         "profilePhotoPath": "user_data/profile_photos/1001_profile.jpg",
         "stories": [],
         "bio": "",
-        "groups": ["Java Enthusiasts"],
+        "groups": [],
         "dateOfBirth": "2024-12-10",
         "coverPhotoPath": "user_data/cover_photos/1001_cover.jpg",
         "posts": [],
@@ -81,21 +81,21 @@
         "profilePhotoPath": "user_data/profile_photos/12345_profile.jpg",
         "stories": [],
         "bio": "fdbvrgbr",
-        "groups": ["Java Enthusiasts"],
+        "groups": [],
         "dateOfBirth": "1990-05-15",
         "coverPhotoPath": "user_data/cover_photos/12345_cover.jpg",
         "posts": [
             {
                 "date": "2024-12-13T10:20:17.340565",
                 "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
-                "contentId": "ffdb93",
+                "contentId": "1ebde2",
                 "text": "wfrewgetg",
                 "userId": "12345"
             },
             {
                 "date": "2024-12-13T10:20:27.335478700",
                 "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\desktop-wallpaper-engineering-engineering-minimalist.jpg",
-                "contentId": "0d9a3f",
+                "contentId": "802362",
                 "text": "wfwrfwrgf",
                 "userId": "12345"
             }
@@ -109,13 +109,13 @@
         "profilePhotoPath": "ss.jpg",
         "stories": [],
         "bio": "sjfxsghgxdwkwdhew",
-        "groups": ["Java Enthusiasts"],
+        "groups": [],
         "dateOfBirth": "1990-05-15",
         "coverPhotoPath": "ss.jpg",
         "posts": [],
         "email": "johndoe@example.com",
         "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
-        "username": "JohnDoe",
+        "username": "sami",
         "status": "online"
     }
 }

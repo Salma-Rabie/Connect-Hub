@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,31 +44,33 @@ public class GroupDataBase {
                     Group.GroupBuilder builder = new Group.GroupBuilder()
                         .name(groupJson.getString("name"))
                         .description(groupJson.getString("description"))
-                        .photoPath(groupJson.getString("photoPath"));
+                        .photoPath(groupJson.getString("photoPath"))
+                            .numMembers(groupJson.getInt("numMembers"));
+                    
 
                     // Add users
                     JSONArray usersArray = groupJson.getJSONArray("users");
-                    UserDataBase userDB = UserDataBase.getInstance("user_data.json");
+                    //UserDataBase userDB = UserDataBase.getInstance("users.json");
                     for (int i = 0; i < usersArray.length(); i++) {
                         String userId = usersArray.getString(i);
-                        User user = userDB.getUserById(userId);
-                        if (user != null) {
-                            builder.addUser(user);
+                        //User user = userDB.getUserById(userId);
+                        if (userId!= null) {
+                            builder.addUser(userId);
                         }
                     }
 
                     // Set primary admin
                     String primaryAdminId = groupJson.getString("primaryAdmin");
-                    User primaryAdmin = userDB.getUserById(primaryAdminId);
-                    builder.primaryAdmin(primaryAdmin);
+                    //User primaryAdmin = userDB.getUserById(primaryAdminId);
+                    builder.primaryAdmin(primaryAdminId);
 
                     // Add other admins
                     JSONArray otherAdminsArray = groupJson.getJSONArray("otherAdmins");
                     for (int i = 0; i < otherAdminsArray.length(); i++) {
                         String adminId = otherAdminsArray.getString(i);
-                        User admin = userDB.getUserById(adminId);
-                        if (admin != null) {
-                            builder.addOtherAdmin(admin);
+                        //User admin = userDB.getUserById(adminId);
+                        if (adminId != null) {
+                            builder.addOtherAdmin(adminId);
                         }
                     }
 
@@ -126,20 +126,20 @@ public class GroupDataBase {
 
             // Primary admin
             if (group.getPrimaryAdmin() != null) {
-                groupJson.put("primaryAdmin", group.getPrimaryAdmin().getUserId());
+                groupJson.put("primaryAdmin", group.getPrimaryAdmin());
             }
 
             // Other admins
             JSONArray otherAdminsArray = new JSONArray();
-            for (User admin : group.getOtherAdmins()) {
-                otherAdminsArray.put(admin.getUserId());
+            for (String admin : group.getOtherAdmins()) {
+                otherAdminsArray.put(admin);
             }
             groupJson.put("otherAdmins", otherAdminsArray);
 
             // Users
             JSONArray usersArray = new JSONArray();
-            for (User user : group.getUsers()) {
-                usersArray.put(user.getUserId());
+            for (String user : group.getUsers()) {
+                usersArray.put(user);
             }
             groupJson.put("users", usersArray);
 
@@ -194,20 +194,20 @@ public class GroupDataBase {
 
             // Primary admin
             if (updatedGroup.getPrimaryAdmin() != null) {
-                groupJson.put("primaryAdmin", updatedGroup.getPrimaryAdmin().getUserId());
+                groupJson.put("primaryAdmin", updatedGroup.getPrimaryAdmin());
             }
 
             // Other admins
             JSONArray otherAdminsArray = new JSONArray();
-            for (User admin : updatedGroup.getOtherAdmins()) {
-                otherAdminsArray.put(admin.getUserId());
+            for (String admin : updatedGroup.getOtherAdmins()) {
+                otherAdminsArray.put(admin);
             }
             groupJson.put("otherAdmins", otherAdminsArray);
 
             // Users
             JSONArray usersArray = new JSONArray();
-            for (User user : updatedGroup.getUsers()) {
-                usersArray.put(user.getUserId());
+            for (String user : updatedGroup.getUsers()) {
+                usersArray.put(user);
             }
             groupJson.put("users", usersArray);
 
@@ -265,27 +265,27 @@ public class GroupDataBase {
 
                 // Add users
                 JSONArray usersArray = groupJson.getJSONArray("users");
-                UserDataBase userDB = UserDataBase.getInstance("user_data.json");
+                //UserDataBase userDB = UserDataBase.getInstance("user_data.json");
                 for (int i = 0; i < usersArray.length(); i++) {
                     String userId = usersArray.getString(i);
-                    User user = userDB.getUserById(userId);
-                    if (user != null) {
-                        builder.addUser(user);
+                    //User user = userDB.getUserById(userId);
+                    if (userId!= null) {
+                        builder.addUser(userId);
                     }
                 }
 
                 // Set primary admin
                 String primaryAdminId = groupJson.getString("primaryAdmin");
-                User primaryAdmin = userDB.getUserById(primaryAdminId);
-                builder.primaryAdmin(primaryAdmin);
+               // User primaryAdmin = userDB.getUserById(primaryAdminId);
+                builder.primaryAdmin(primaryAdminId);
 
                 // Add other admins
                 JSONArray otherAdminsArray = groupJson.getJSONArray("otherAdmins");
                 for (int i = 0; i < otherAdminsArray.length(); i++) {
                     String adminId = otherAdminsArray.getString(i);
-                    User admin = userDB.getUserById(adminId);
-                    if (admin != null) {
-                        builder.addOtherAdmin(admin);
+                   // User admin = userDB.getUserById(adminId);
+                    if (adminId != null) {
+                        builder.addOtherAdmin(adminId);
                     }
                 }
 
@@ -331,7 +331,7 @@ public class GroupDataBase {
     public ArrayList<Group> getAllGroups() {
         return new ArrayList<>(allGroups); // Return a copy to prevent direct modification
     }
-    public boolean deleteGroup(Group group, User primaryAdmin) {
+    public boolean deleteGroup(Group group, String primaryAdmin) {
     // Check if the user is the primary admin
     if (!group.getPrimaryAdmin().equals(primaryAdmin)) {
         return false;

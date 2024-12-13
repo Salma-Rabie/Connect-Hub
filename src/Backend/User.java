@@ -183,6 +183,9 @@ public List<stories> getStories() {
   public void addGroup(String group){
       groups.add(group);
   }
+   public void removeGroup(String group){
+      groups.remove(group);
+  }
     public void removeExpiredStories() {
     this.stories.removeIf( user_stories -> user_stories.isExpired());}
 

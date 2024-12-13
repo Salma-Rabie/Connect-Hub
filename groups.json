@@ -1,23 +1,23 @@
 {"Java Enthusiasts": {
     "photoPath": "ss.jpg",
-    "primaryAdmin": "12346",
+    "primaryAdmin": "1222",
     "name": "Java Enthusiasts",
     "description": "A group for saraand yhnjuyjukmu enthusiasts and advanced learners.",
-   "posts": [
-            {
-                "date": "2024-12-13T10:20:17.340565",
-                "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
-                "contentId": "16e6b9",
-                "text": "wfrewgetg",
-                "userId": "12345"
-            }  
+    "posts": [{
+        "date": "2024-12-13T10:20:17.340565",
+        "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
+        "contentId": "b0a9e8",
+        "text": "wfrewgetg",
+        "userId": "12345"
+    }],
+    "otherAdmins": [  "1233",
+            "1005"
         ],
-    "otherAdmins": ["12346"],
     "users": [
-        "12345",
-        "12348",
-        "12346",
-        "12347"
+        "1222",
+        "1233",
+        "1005",
+        "1006"
     ],
     "numMembers": 4
 }}
