@@ -23,9 +23,11 @@ public class UserDataBase {
         }
         return instance;
     }
-      public void saveUser(User user) {
+
+    public void saveUser(User user) {
         // Check if the user already exists in the database (assuming getUserById is defined elsewhere)
         if (getUserById(user.getUserId()) != null) {
+            System.out.println("user already exist");
             return;  // User already exists, no need to save again
         }
 
@@ -87,6 +89,11 @@ public class UserDataBase {
             postsArray.put(postJson);
         }
         userJson.put("posts", postsArray);
+        JSONArray groupsArray = new JSONArray();
+        for (int i = 0; i < user.getGroups().size(); i++) {
+            groupsArray.put(user.getGroups().get(i));
+        }
+        userJson.put("groups", groupsArray);
 
         // Now, the user data is directly under their userId key (e.g., "12345")
         JSONObject finalJson = new JSONObject();
@@ -119,27 +126,203 @@ public class UserDataBase {
             // Write the updated database back to the file
             try (FileWriter writer = new FileWriter(filePath)) {
                 writer.write(database.toString(4));  // Indented JSON output for better readability
-                System.out.println("User saved successfully.");
+                //System.out.println("User saved successfully.");
             }
 
         } catch (IOException e) {
             System.err.println("Error saving user: " + e.getMessage());
         }
     }
-    
-
 
     public User getUserById(String userId) {
         try {
-
             File file = new File(filePath);
             if (file.exists()) {
                 String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
-                if (!content.trim().isEmpty()) {//if file is not empty ignoring white spaces 
-                    JSONObject database = new JSONObject(content);    //parse content of file to a json object 
-                    if (database.has(userId)) {
-                        // Get the user's JSON object by userid
+
+                // Check if the file is empty
+                if (content.trim().isEmpty()) {
+                    System.err.println("File is empty.");
+                    return null;
+                }
+
+                // Parse JSON content
+                JSONObject database = new JSONObject(content);
+
+                // Check if user exists
+                if (database.has(userId)) {
+                    // Extract and return the user
+                    JSONObject jsonObject = database.getJSONObject(userId);
+
+                    // Extract stories
+                    JSONArray storiesArray = jsonObject.optJSONArray("stories");
+                    ArrayList<stories> userStories = new ArrayList<>();
+                    if (storiesArray != null) {
+                        for (int i = 0; i < storiesArray.length(); i++) {
+                            JSONObject storyJson = storiesArray.getJSONObject(i);
+                            LocalDateTime date = LocalDateTime.parse(storyJson.getString("date"));
+                            String text = storyJson.getString("text");
+                            String img = storyJson.getString("img");
+                            String userIdForStory = storyJson.getString("userId");
+                            stories userStory = new stories(date, text, img, userIdForStory);
+                            userStories.add(userStory);
+                        }
+                    }
+
+                    // Extract posts
+                    JSONArray postsArray = jsonObject.optJSONArray("posts");
+                    ArrayList<posts> userPosts = new ArrayList<>();
+                    if (postsArray != null) {
+                        for (int i = 0; i < postsArray.length(); i++) {
+                            JSONObject postJson = postsArray.getJSONObject(i);
+                            LocalDateTime date = LocalDateTime.parse(postJson.getString("date"));
+                            String text = postJson.getString("text");
+                            String img = postJson.getString("img");
+                            String userIdForPost = postJson.getString("userId");
+                            posts userPost = new posts(date, text, img, userIdForPost);
+                            userPosts.add(userPost);
+                        }
+                    }
+
+
+
+                    // Extract groups
+                    JSONArray groupsArray = jsonObject.optJSONArray("groups");
+                    ArrayList<String> groupNames = new ArrayList<>();
+                    if (groupsArray != null) {
+                        for (int i = 0; i < groupsArray.length(); i++) {
+                            String groupName = groupsArray.getString(i);
+                            //System.out.println("Found group: " + groupName); // Debug
+                            groupNames.add(groupName);
+                        }
+                    } 
+                    // Build and return the user
+                    return new User.UserBuilder()
+                            .userId(userId)
+                            .email(jsonObject.getString("email"))
+                            .username(jsonObject.getString("username"))
+                            .passwordHash(jsonObject.getString("passwordHash"))
+                            .status(jsonObject.getString("status"))
+                            .dateOfBirth(LocalDate.parse(jsonObject.getString("dateOfBirth")))
+                            .bio(jsonObject.getString("bio"))
+                            .profilePhotoPath(jsonObject.getString("profilePhotoPath"))
+                            .coverPhotoPath(jsonObject.getString("coverPhotoPath"))
+                            .setstories(userStories)
+                            .setposts(userPosts)
+                            .groups(groupNames)
+                            .build();
+                }
+            } else {
+                System.err.println("File does not exist.");
+            }
+        } catch (IOException | JSONException e) {
+            System.err.println("Error retrieving user: " + e.getMessage());
+        }
+        // Return null if the user is not found
+        return null;
+    }
+
+    public void updateUser(User updatedUser) {
+        try {
+            // Load the existing JSON file or create a new one if it doesn't exist
+            JSONObject database;
+            File file = new File(filePath);
+
+            if (file.exists()) {
+                String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+                if (content.trim().isEmpty()) {
+                    database = new JSONObject();  // Empty file, start fresh
+                } else {
+                    try {
+                        database = new JSONObject(content);  // Parse existing content
+                    } catch (JSONException e) {
+                        System.err.println("Invalid JSON format, creating a new JSON object.");
+                        database = new JSONObject();  // Reset to empty if parsing fails
+                    }
+                }
+            } else {
+                database = new JSONObject();  // File does not exist, create a new JSON object
+            }
+
+            // Check if the user exists in the database (if not, we don't update)
+            if (database.has(String.valueOf(updatedUser.getUserId()))) {
+                JSONObject userJson = new JSONObject();
+
+                // Add/update user-specific fields
+                userJson.put("username", updatedUser.getUsername());
+                userJson.put("email", updatedUser.getEmail());
+                userJson.put("passwordHash", updatedUser.getPasswordHash());
+                userJson.put("dateOfBirth", updatedUser.getDateOfBirth().toString());
+                userJson.put("status", updatedUser.getStatus());
+                userJson.put("bio", updatedUser.getBio() != null ? updatedUser.getBio() : "");
+                userJson.put("profilePhotoPath", updatedUser.getProfilePhotoPath() != null ? updatedUser.getProfilePhotoPath() : "ss.jpg");
+                userJson.put("coverPhotoPath", updatedUser.getCoverPhotoPath() != null ? updatedUser.getCoverPhotoPath() : "ss.jpg");
+
+                // Add/update stories
+                JSONArray storiesArray = new JSONArray();
+                for (stories story : updatedUser.getStories()) {
+                    JSONObject storyJson = new JSONObject();
+                    storyJson.put("contentId", story.getContentId());
+                    storyJson.put("date", story.getDate().toString());
+                    storyJson.put("text", story.getText());
+                    storyJson.put("img", story.getImg());
+                    storyJson.put("userId", story.getUserId());
+                    storiesArray.put(storyJson);
+                }
+                userJson.put("stories", storiesArray);
+
+                // Add/update posts
+                JSONArray postsArray = new JSONArray();
+                for (posts post : updatedUser.getPosts()) {
+                    JSONObject postJson = new JSONObject();
+                    postJson.put("contentId", post.getContentId());
+                    postJson.put("date", post.getDate().toString());
+                    postJson.put("text", post.getText());
+                    postJson.put("img", post.getImg());
+                    postJson.put("userId", post.getUserId());
+                    postsArray.put(postJson);
+                }
+                userJson.put("posts", postsArray);
+//                JSONArray groupsArray = new JSONArray();
+//                for (int i = 0; i < updatedUser.getGroups().size(); i++) {
+//                    groupsArray.put(updatedUser.getGroups().get(i));
+//                }
+//                userJson.put("groups", groupsArray);
+                JSONArray groupsArray = new JSONArray();
+                for (String groupName : updatedUser.getGroups()) {
+                    groupsArray.put(groupName); // Add each group name to the JSON array
+                }
+                userJson.put("groups", groupsArray); // Attach the groups array to the user JSON
+                // Update the user in the database
+                database.put(String.valueOf(updatedUser.getUserId()), userJson);
+
+                // Write the updated database back to the file
+                try (FileWriter writer = new FileWriter(filePath)) {
+                    writer.write(database.toString(4));  // Indented JSON output
+                    System.out.println("User updated successfully.");
+                }
+
+            } else {
+                System.err.println("User with ID " + updatedUser.getUserId() + " not found in the database.");
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error updating user: " + e.getMessage());
+        }
+    }
+
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> userList = new ArrayList<>();
+        try {
+            File file = new File(filePath);
+            if (file.exists()) {
+                String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+                if (!content.trim().isEmpty()) {
+                    JSONObject database = new JSONObject(content);
+                    for (String userId : database.keySet()) {
                         JSONObject jsonObject = database.getJSONObject(userId);
+
+                        // Load stories
                         JSONArray storiesArray = jsonObject.optJSONArray("stories");
                         ArrayList<stories> userStories = new ArrayList<>();
                         if (storiesArray != null) {
@@ -154,7 +337,7 @@ public class UserDataBase {
                             }
                         }
 
-                        // Extracting posts
+                        // Load posts
                         JSONArray postsArray = jsonObject.optJSONArray("posts");
                         ArrayList<posts> userPosts = new ArrayList<>();
                         if (postsArray != null) {
@@ -168,133 +351,28 @@ public class UserDataBase {
                                 userPosts.add(userPost);
                             }
                         }
-                        // Use the builder to create and return a User object
-                        //System.out.println("sdsc"+userStories.size());
+                        // Extracting groups
+                        JSONArray groupsArray = jsonObject.optJSONArray("groups");
+                        ArrayList<String> groupNames = new ArrayList<>();
+                        if (groupsArray != null) {
+                            for (int i = 0; i < groupsArray.length(); i++) {
+                                groupNames.add(groupsArray.getString(i));
+                            }
+                        }
+                        // Build user with posts and stories
                         User user = new User.UserBuilder()
                                 .userId(userId)
                                 .email(jsonObject.getString("email"))
                                 .username(jsonObject.getString("username"))
                                 .passwordHash(jsonObject.getString("passwordHash"))
                                 .status(jsonObject.getString("status"))
-                                .dateOfBirth(LocalDate.parse(jsonObject.getString("dateOfBirth")))
                                 .bio(jsonObject.getString("bio"))
+                                .dateOfBirth(LocalDate.parse(jsonObject.getString("dateOfBirth")))
                                 .profilePhotoPath(jsonObject.getString("profilePhotoPath"))
                                 .coverPhotoPath(jsonObject.getString("coverPhotoPath"))
                                 .setstories(userStories)
                                 .setposts(userPosts)
-                                .build();
-                        //System.out.println(user.getStories().size());
-                       // System.out.println(user.getPosts().size());
-                        return user;
-                    }
-                }
-            }
-        } catch (IOException | JSONException e) {
-            System.err.println("Error retrieving user: " + e.getMessage());
-        }
-        // Return null if user not found or error occurs
-        return null;
-    }
-
-public void updateUser(User updatedUser) {
-    try {
-        // Load the existing JSON file or create a new one if it doesn't exist
-        JSONObject database;
-        File file = new File(filePath);
-
-        if (file.exists()) {
-            String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
-            if (content.trim().isEmpty()) {
-                database = new JSONObject();  // Empty file, start fresh
-            } else {
-                try {
-                    database = new JSONObject(content);  // Parse existing content
-                } catch (JSONException e) {
-                    System.err.println("Invalid JSON format, creating a new JSON object.");
-                    database = new JSONObject();  // Reset to empty if parsing fails
-                }
-            }
-        } else {
-            database = new JSONObject();  // File does not exist, create a new JSON object
-        }
-
-        // Check if the user exists in the database (if not, we don't update)
-        if (database.has(String.valueOf(updatedUser.getUserId()))) {
-            JSONObject userJson = new JSONObject();
-
-            // Add/update user-specific fields
-            userJson.put("username", updatedUser.getUsername());
-            userJson.put("email", updatedUser.getEmail());
-            userJson.put("passwordHash", updatedUser.getPasswordHash());
-            userJson.put("dateOfBirth", updatedUser.getDateOfBirth().toString());
-            userJson.put("status", updatedUser.getStatus());
-            userJson.put("bio", updatedUser.getBio() != null ? updatedUser.getBio() : "");
-            userJson.put("profilePhotoPath", updatedUser.getProfilePhotoPath() != null ? updatedUser.getProfilePhotoPath() : "ss.jpg");
-            userJson.put("coverPhotoPath", updatedUser.getCoverPhotoPath() != null ? updatedUser.getCoverPhotoPath() : "ss.jpg");
-
-            // Add/update stories
-            JSONArray storiesArray = new JSONArray();
-            for (stories story : updatedUser.getStories()) {
-                JSONObject storyJson = new JSONObject();
-                storyJson.put("contentId", story.getContentId());
-                storyJson.put("date", story.getDate().toString());
-                storyJson.put("text", story.getText());
-                storyJson.put("img", story.getImg());
-                storyJson.put("userId", story.getUserId());
-                storiesArray.put(storyJson);
-            }
-            userJson.put("stories", storiesArray);
-
-            // Add/update posts
-            JSONArray postsArray = new JSONArray();
-            for (posts post : updatedUser.getPosts()) {
-                JSONObject postJson = new JSONObject();
-                postJson.put("contentId", post.getContentId());
-                postJson.put("date", post.getDate().toString());
-                postJson.put("text", post.getText());
-                postJson.put("img", post.getImg());
-                postJson.put("userId", post.getUserId());
-                postsArray.put(postJson);
-            }
-            userJson.put("posts", postsArray);
-
-            // Update the user in the database
-            database.put(String.valueOf(updatedUser.getUserId()), userJson);
-
-            // Write the updated database back to the file
-            try (FileWriter writer = new FileWriter(filePath)) {
-                writer.write(database.toString(4));  // Indented JSON output
-                System.out.println("User updated successfully.");
-            }
-
-        } else {
-            System.err.println("User with ID " + updatedUser.getUserId() + " not found in the database.");
-        }
-
-    } catch (IOException e) {
-        System.err.println("Error updating user: " + e.getMessage());
-    }
-}
-    public ArrayList<User> getAllUsers() {
-        ArrayList<User> userList = new ArrayList<>();
-        try {
-            File file = new File(filePath);
-            if (file.exists()) {
-                String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
-                if (!content.trim().isEmpty()) {
-                    JSONObject database = new JSONObject(content);
-                    for (String userId : database.keySet()) {
-                        JSONObject jsonObject = database.getJSONObject(userId);
-                        User user = new User.UserBuilder()
-                                .userId(userId)
-                                .email(jsonObject.getString("email"))
-                                .username(jsonObject.getString("username"))
-                                .passwordHash(jsonObject.getString("passwordHash"))
-                                .status(jsonObject.getString("status"))
-                                .bio(jsonObject.getString("bio"))
-                                .dateOfBirth(LocalDate.parse(jsonObject.getString("dateOfBirth")))
-                                .profilePhotoPath(jsonObject.getString("profilePhotoPath"))
-                                .coverPhotoPath(jsonObject.getString("coverPhotoPath"))
+                                .groups(groupNames)
                                 .build();
 
                         userList.add(user);
@@ -307,4 +385,36 @@ public void updateUser(User updatedUser) {
         return userList;
     }
 
+//    public ArrayList<User> getAllUsers() {
+//        ArrayList<User> userList = new ArrayList<>();
+//        try {
+//            File file = new File(filePath);
+//            if (file.exists()) {
+//                String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+//                if (!content.trim().isEmpty()) {
+//                    JSONObject database = new JSONObject(content);
+//                    for (String userId : database.keySet()) {
+//                        JSONObject jsonObject = database.getJSONObject(userId);
+//                        User user = new User.UserBuilder()
+//                                .userId(userId)
+//                                .email(jsonObject.getString("email"))
+//                                .username(jsonObject.getString("username"))
+//                                .passwordHash(jsonObject.getString("passwordHash"))
+//                                .status(jsonObject.getString("status"))
+//                                .bio(jsonObject.getString("bio"))
+//                                .dateOfBirth(LocalDate.parse(jsonObject.getString("dateOfBirth")))
+//                                .profilePhotoPath(jsonObject.getString("profilePhotoPath"))
+//                                .coverPhotoPath(jsonObject.getString("coverPhotoPath"))
+//                                .build();
+//
+//                        userList.add(user);
+//                    }
+//                }
+//            }
+//        } catch (IOException | JSONException e) {
+//            System.err.println("Error retrieving users: " + e.getMessage());
+//        }
+//        return userList;
+//    }
+// //public User addGroup(String userId,Group group);
 }

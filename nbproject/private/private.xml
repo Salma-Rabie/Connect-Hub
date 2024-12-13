@@ -3,20 +3,44 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Backend/UserDataBase.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/users.json</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Backend/UserManager.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Frontend/friendRequest.form</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Backend/content.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/ss.jpg</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Frontend/ProfileWindow.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Frontend/friendRequest.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Frontend/NewsFeed.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Frontend/MainWindow.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Frontend/Signup.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Backend/FriendManagerFactory.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Backend/ConnectHub.java</file>
-            <file>file:/C:/Users/King%20Technology/Desktop/Prog.%20Assignments/Lab%209/Connect-Hub/src/Backend/FriendManager.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/ProfileWindow.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/NotificationManager.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/glasspopup/GlassPanePopup.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/User.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/FriendsList.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/posts.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/UserDataBase.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/UserManager.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/FriendRequestHandler.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/glasspopup/Popup.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/FriendRequestManager.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/FriendManager.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/GroupManagement.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/NewsFeed.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/friendRequest.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/ss.jpg</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/FriendRequestDataBase.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/ProfileEdit.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/ConnectHub.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/ChoosePhotos.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/notifications.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/glasspopup/DefaultOption.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/SuggestedFriends.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/BlockedUserDataBase.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/GroupActivityHandler.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/users.json</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/glasspopup/Option.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/NotificationListener.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/NotificationService.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/SuggestionsList.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/FriendDataBase.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/Login.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/Notification.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/content.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Backend/FriendManagerFactory.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/notifications.json</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/src/Frontend/Signup.java</file>
+            <file>file:/C:/Users/sarar/OneDrive/Desktop/new%20proooject/Connect-Hub/groups.json</file>
         </group>
     </open-files>
 </project-private>

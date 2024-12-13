@@ -1,5 +1,6 @@
 [{
     "senderId": "1000",
     "receiverId": "12345",
-    "requestId": "REQ1"
+    "requestId": "REQ2",
+    "status": "Pending"
 }]

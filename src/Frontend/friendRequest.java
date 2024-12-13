@@ -5,15 +5,17 @@
 package Frontend;
 
 import Backend.FriendDataBase;
-import Backend.FriendRequest;
+import Backend.FriendRequestClass;
 import Backend.FriendRequestDataBase;
 import Backend.User;
 import Backend.UserDataBase;
 import Backend.UserManager;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,21 +27,21 @@ public class friendRequest extends javax.swing.JFrame {
      * Creates new form friendRequest
      */
     private User currentUser;
-    private FriendRequestDataBase frienddatabase;
+    private FriendRequestDataBase friendRequestsDatabase;
     private JFrame previousWindow;
     private ArrayList<String> Requests ;
     private  UserManager userManager;
-     List<FriendRequest> result;
-     ArrayList<User> all;
-     UserDataBase db;
-     FriendDataBase friendDb;
-    public friendRequest(JFrame previousWindow,User user,FriendRequestDataBase frienddatabase, UserManager userManager) {
+     private List<FriendRequestClass> result;
+    private ArrayList<User> allusers;
+    private UserDataBase userDatabase;
+     private FriendDataBase friendDatabase;
+    public friendRequest(JFrame previousWindow,User user, UserManager userManager,FriendRequestDataBase friendRequestsDatabase) {
         this.previousWindow = previousWindow;
         this.currentUser = user;
-        this.frienddatabase = frienddatabase;
+        this.friendRequestsDatabase =friendRequestsDatabase ;
         this.userManager=userManager;
-         db=userManager.getDatabase();
-         this.friendDb = FriendDataBase.getInstance("friends.json");
+         userDatabase=userManager.getDatabase();
+         this.friendDatabase = FriendDataBase.getInstance("friends.json");
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Friend Requests for " + user.getUsername());
@@ -50,11 +52,11 @@ public class friendRequest extends javax.swing.JFrame {
        friends.removeAllItems();
          friends.addItem("Friend Requests");
         friends.setSelectedIndex(0);
-        result =frienddatabase.getRequestsReceivedByUserId(user.getUserId());
-         all=  db.getAllUsers();
-         for (FriendRequest request : result) {
+        result =friendRequestsDatabase.getRequestsReceivedByUserId(currentUser.getUserId());
+         allusers=  userDatabase.getAllUsers();
+         for (FriendRequestClass request : result) {
     // Find the user whose ID matches the sender ID in the request
-    for (User userInList : all) {
+    for (User userInList : allusers) {
         if (userInList.getUserId().equals(request.getSenderId())) {
             // Add the username to the ComboBox
             friends.addItem(userInList.getUsername());
@@ -62,13 +64,7 @@ public class friendRequest extends javax.swing.JFrame {
         }
     }
 }
-        // Set title as default
-              // Prevent selection of the title
-
-        // Populate ComboBox with pending requests
        
-     
-                
     }
  
 
@@ -153,40 +149,48 @@ public class friendRequest extends javax.swing.JFrame {
         // TODO add your handling code here:
         String selectedUserName = (String) friends.getSelectedItem();
     
-    // You need to retrieve the actual FriendRequest object for the selected user
+    // You need to retrieve the actual FriendRequestClass object for the selected user
     if (selectedUserName != null && !selectedUserName.equals("Select Friend Request")) {
-        // Find the corresponding FriendRequest from the list
-        for (FriendRequest request : result) {
+        // Find the corresponding FriendRequestClass from the list
+        for (FriendRequestClass request : result) {
             if (request.getSenderId()!=null) {
-                // Accept the friend request and add the user to the friends list
-                frienddatabase.acceptFriendRequest(request.getRequestId());
+                try {
+                    // Accept the friend request and add the user to the friends list
+                    friendRequestsDatabase.declineFriendRequest(request.getRequestId());
+                } catch (IOException ex) {
+                    Logger.getLogger(friendRequest.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 // Optionally, update the ComboBox or UI here (e.g., clear the ComboBox or reload it)
                 friends.removeItem(selectedUserName);  // Remove from ComboBox
                 break;
             }
         }
-    } System.out.println("No valid selection or default option selected.");
+    } //System.out.println("No valid selection or default option selected.");
         
     }//GEN-LAST:event_declineActionPerformed
 
     private void acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptActionPerformed
        String selectedUserName = (String) friends.getSelectedItem();
     
-    // You need to retrieve the actual FriendRequest object for the selected user
+    // You need to retrieve the actual FriendRequestClass object for the selected user
     if (selectedUserName != null && !selectedUserName.equals("Select Friend Request")) {
-        // Find the corresponding FriendRequest from the list
-        for (FriendRequest request : result) {
+        // Find the corresponding FriendRequestClass from the list
+        for (FriendRequestClass request : result) {
             // Assume 'getSenderId()' is a method to retrieve the sender's ID
             if (request.getSenderId()!=null) {
-                // Accept the friend request and add the user to the friends list
-                frienddatabase.acceptFriendRequest(request.getRequestId());
+                try {
+                    // Accept the friend request and add the user to the friends list
+                    friendRequestsDatabase.acceptFriendRequest(request.getRequestId());
+                } catch (IOException ex) {
+                    Logger.getLogger(friendRequest.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 // Optionally, update the ComboBox or UI here (e.g., clear the ComboBox or reload it)
                 friends.removeItem(selectedUserName);  // Remove from ComboBox
-                friendDb.addFriend(currentUser.getUserId(),request.getSenderId() );
+                friendDatabase.addFriend(currentUser.getUserId(),request.getSenderId() );
                 break;
             }
         }
-    } System.out.println("No valid selection or default option selected.");
+    } //System.out.println("No valid selection or default option selected.");
             
     }//GEN-LAST:event_acceptActionPerformed
 

@@ -96,31 +96,115 @@ private boolean arrayContains(JSONArray array, String value) {
     return false;
 }
 
-    public void removeFriend(String userId, String friendId) {
-    FriendDataBase.getInstance("friends.json").removeFriend(userId, friendId);
-    
+   public void removeFriend(String userId, String friendId) {
+    try {
+        // Load the existing friends data
+        File file = new File(filePath);
+        if (file.exists()) {
+            String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+            if (!content.trim().isEmpty()) {
+                JSONObject database = new JSONObject(content);
+
+                // Check if the user exists in the database
+                if (database.has(userId)) {
+                    JSONObject userFriends = database.getJSONObject(userId);
+                    // Check if the user has a "friends" key
+                    if (userFriends.has("friends")) {
+                        JSONArray friendsArray = userFriends.getJSONArray("friends");
+
+                        // Remove the friendId from the array
+                        for (int i = 0; i < friendsArray.length(); i++) {
+                            if (friendsArray.getString(i).equals(friendId)) {
+                                friendsArray.remove(i);
+                                break;
+                            }
+                        }
+
+                        // Save the updated friends list back to the database
+                        userFriends.put("friends", friendsArray);
+                        database.put(userId, userFriends);
+                    }
+                }
+
+                // Do the same for the friend (remove userId from their friends list)
+                if (database.has(friendId)) {
+                    JSONObject friendFriends = database.getJSONObject(friendId);
+                    if (friendFriends.has("friends")) {
+                        JSONArray friendFriendsArray = friendFriends.getJSONArray("friends");
+
+                        for (int i = 0; i < friendFriendsArray.length(); i++) {
+                            if (friendFriendsArray.getString(i).equals(userId)) {
+                                friendFriendsArray.remove(i);
+                                break;
+                            }
+                        }
+
+                        friendFriends.put("friends", friendFriendsArray);
+                        database.put(friendId, friendFriends);
+                    }
+                }
+
+                // Save the updated database
+                try (FileWriter writer = new FileWriter(filePath)) {
+                    writer.write(database.toString(4));  // Write the updated JSON data
+                }
+                System.out.println("Friend removed successfully.");
+            }
+        }
+    } catch (IOException | JSONException e) {
+        System.err.println("Error removing friend: " + e.getMessage());
+    }
 }
+
 // Retrieve friends for a given userId
+//    public Set<String> getFriends(String userId) {
+//        Set<String> friends = new HashSet<>();
+//        try {
+//            File file = new File(filePath);
+//            if (file.exists()) {
+//                String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+//                if (!content.trim().isEmpty()) {
+//                    JSONObject database = new JSONObject(content);
+//                    if (database.has(userId)) {
+//                        JSONObject userFriends = database.getJSONObject(userId);
+//                        for (String friendId : userFriends.keySet()) {
+//                            friends.add(friendId);
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (IOException | JSONException e) {
+//            System.err.println("Error retrieving friends: " + e.getMessage());
+//        }
+//        return friends;
+//    } 
     public Set<String> getFriends(String userId) {
-        Set<String> friends = new HashSet<>();
-        try {
-            File file = new File(filePath);
-            if (file.exists()) {
-                String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
-                if (!content.trim().isEmpty()) {
-                    JSONObject database = new JSONObject(content);
-                    if (database.has(userId)) {
-                        JSONObject userFriends = database.getJSONObject(userId);
-                        for (String friendId : userFriends.keySet()) {
-                            friends.add(friendId);
+    Set<String> friends = new HashSet<>();
+    try {
+        File file = new File(filePath);
+        if (file.exists()) {
+            String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+            if (!content.trim().isEmpty()) {
+                JSONObject database = new JSONObject(content);
+                
+                // Check if userId exists in the database
+                if (database.has(userId)) {
+                    JSONObject userFriends = database.getJSONObject(userId);
+                    // Get the friends array for the user
+                    if (userFriends.has("friends")) {
+                        JSONArray friendsArray = userFriends.getJSONArray("friends");
+                        for (int i = 0; i < friendsArray.length(); i++) {
+                            friends.add(friendsArray.getString(i));
                         }
                     }
                 }
             }
-        } catch (IOException | JSONException e) {
-            System.err.println("Error retrieving friends: " + e.getMessage());
         }
-        return friends;
+    } catch (IOException | JSONException e) {
+        System.err.println("Error retrieving friends: " + e.getMessage());
     }
+    return friends;
+}
+
 }
 

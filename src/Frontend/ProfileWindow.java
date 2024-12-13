@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Frontend;
 
 import Backend.*;
@@ -30,17 +27,18 @@ private User user;
 private UserManager userManager;
 private ProfileManagement profileManager;
 private JFrame previousWindow;
-
-    public ProfileWindow(JFrame previousWindow ,User user, UserManager userManager, ProfileManagement profileManager) {
+private JFrame mainWindow;
+    public ProfileWindow(JFrame previousWindow ,User user, UserManager userManager, ProfileManagement profileManager,JFrame mainWindow) {
          this.previousWindow = previousWindow;
         this.user = user;
         this.userManager = userManager;
         this.profileManager = profileManager;
+        this.mainWindow=mainWindow;
         initComponents();
         setLocationRelativeTo(null);
         setTitle(user.getUsername() + "'s Profile");
         Bio.setText(user.getBio());
-        System.out.println("User Bio: " + user.getBio());
+       // System.out.println("User Bio: " + user.getBio());
    ID.setText(user.getUserId());
    status.setText(user.getStatus());
      ImageIcon icon  = new ImageIcon(user.getProfilePhotoPath());
@@ -230,7 +228,7 @@ jPanel1.repaint();
 
         jLabel4.setText("Cover Photo");
 
-        jLabel5.setText("profile photo ");
+        jLabel5.setText("Profile photo ");
 
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -262,11 +260,11 @@ jPanel1.repaint();
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGap(0, 779, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         back.setBackground(new java.awt.Color(0, 0, 0));
@@ -292,22 +290,21 @@ jPanel1.repaint();
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 604, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Bio, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 351, Short.MAX_VALUE))))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Bio, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5)
+                            .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                            .addComponent(EditProfile, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                            .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -316,47 +313,40 @@ jPanel1.repaint();
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel5)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(114, 114, 114)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel5)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Bio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7)))
+                        .addGap(51, 51, 51)
+                        .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(EditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84))
+                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))
@@ -364,15 +354,10 @@ jPanel1.repaint();
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(72, 72, 72)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Bio, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(12, 12, 12)))
+                .addContainerGap())
         );
 
         pack();
@@ -380,9 +365,9 @@ jPanel1.repaint();
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         // TODO add your handling code here:
-        userManager.logout(user.getUserId(), "offline");
+       userManager.logout(user.getUserId());
         this.setVisible(false);
-        previousWindow.setVisible(true);
+        mainWindow.setVisible(true);
     }//GEN-LAST:event_LogoutActionPerformed
 
     private void EditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProfileActionPerformed
@@ -397,7 +382,8 @@ jPanel1.repaint();
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+       this.setVisible(false);
+        ((NewsFeed)previousWindow).updateUser(user);
         previousWindow.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
@@ -406,55 +392,55 @@ jPanel1.repaint();
      */
     public static void main(String args[]) {
          
-java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
- 
- 
- JFrame previousWindow;
- String rawPassword = "securePassword123";
-        String hashedPassword = PasswordHashing.hashPassword(rawPassword);
-
-        // Step 2: Build a User object
-        User user = new User.UserBuilder()
-                .userId("1000")
-                .username("john-doe")
-                .email("johndoe@example.com")
-                .passwordHash(hashedPassword)
-                .dateOfBirth(LocalDate.of(1990, 5, 15))
-                .status("online")
-                .build();
-              stories story1 = new stories(LocalDateTime.now(), "Story 1: My first story!", "ss.jpg", "1000");
-        stories story2 = new stories(LocalDateTime.now().minusHours(1), "Story 2: Another day, another story", "ss.jpg", "1000");
-
-        // Add stories to the user
-        user.addStory(story1);
-        user.addStory(story2);
-
-        // Create some posts for the user
-        posts post1 = new posts(LocalDateTime.now(), "Post 1: This is my first post!", "ss.jpg", "1000");
-        posts post2 = new posts(LocalDateTime.now().minusHours(2), "Post 2: Here is another post", "ss.jpg", "1000");
-
-        // Add posts to the user
-        user.addPost(post1);
-        user.addPost(post2);
-
-        // Save the user to the database
-        UserDataBase userDataBase = UserDataBase.getInstance("output.json");
-        userDataBase.saveUser(user);
-       
-        // Step 3: Specify the JSON file path
-        String filePath = "output.json";
-
-        // Step 4: Save the user to the JSON file
-       // UserDataBase userDataBase = UserDataBase.getInstance("output.json");
-        ProfileManagement profileManager=new ProfileManagement(userDataBase);
-        UserManager userManager= new UserManager(userDataBase);
-        userDataBase.saveUser(user);
-ProfileWindow profile=new ProfileWindow(new MainWindow(userDataBase),user,userManager,profileManager);
-                profile.setVisible(true);
-            }
-        });
+//java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                
+// 
+// 
+// JFrame previousWindow;
+// String rawPassword = "securePassword123";
+//        String hashedPassword = PasswordHashing.hashPassword(rawPassword);
+//
+//        // Step 2: Build a User object
+//        User user = new User.UserBuilder()
+//                .userId("1000")
+//                .username("john-doe")
+//                .email("johndoe@example.com")
+//                .passwordHash(hashedPassword)
+//                .dateOfBirth(LocalDate.of(1990, 5, 15))
+//                .status("online")
+//                .build();
+//              stories story1 = new stories(LocalDateTime.now(), "Story 1: My first story!", "ss.jpg", "1000");
+//        stories story2 = new stories(LocalDateTime.now().minusHours(1), "Story 2: Another day, another story", "ss.jpg", "1000");
+//
+//        // Add stories to the user
+//        user.addStory(story1);
+//        user.addStory(story2);
+//
+//        // Create some posts for the user
+//        posts post1 = new posts(LocalDateTime.now(), "Post 1: This is my first post!", "ss.jpg", "1000");
+//        posts post2 = new posts(LocalDateTime.now().minusHours(2), "Post 2: Here is another post", "ss.jpg", "1000");
+//
+//        // Add posts to the user
+//        user.addPost(post1);
+//        user.addPost(post2);
+//
+//        // Save the user to the database
+//        UserDataBase userDataBase = UserDataBase.getInstance("output.json");
+//        userDataBase.saveUser(user);
+//       
+//        // Step 3: Specify the JSON file path
+//        String filePath = "output.json";
+//
+//        // Step 4: Save the user to the JSON file
+//       // UserDataBase userDataBase = UserDataBase.getInstance("output.json");
+//        ProfileManagement profileManager=new ProfileManagement(userDataBase);
+//        UserManager userManager= new UserManager(userDataBase);
+//        userDataBase.saveUser(user);
+//ProfileWindow profile=new ProfileWindow(new MainWindow(userDataBase),user,userManager,profileManager);
+//                profile.setVisible(true);
+//            }
+//        });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bio;
