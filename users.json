@@ -1,18 +1,18 @@
 {
     "1000": {
         "profilePhotoPath": "ss.jpg",
-        "email": "malak@example.com",
         "bio": "malak waled",
         "dateOfBirth": "1990-09-15",
         "coverPhotoPath": "ss.jpg",
+        "email": "malak@example.com",
         "passwordHash": "fd5f56b40a79a385708428e7b32ab996a681080a166a2206e750eb4819186145",
         "username": "malak",
         "status": "online"
     },
     "12345": {
-        "profilePhotoPath": "ss.jpg",
+        "profilePhotoPath": "user_data/profile_photos/12345_profile.jpg",
         "stories": [],
-        "bio": "sjfxsghgxdwkwdhew",
+        "bio": "ew5er",
         "dateOfBirth": "1990-05-15",
         "coverPhotoPath": "ss.jpg",
         "posts": [],

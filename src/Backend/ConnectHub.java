@@ -25,7 +25,21 @@ File def=new File("ss.jpg");
                 .coverPhotoPath(def.getPath())
                 .profilePhotoPath(def.getPath())
                 .build();
-
+        String rawPassword2 = "1010";
+        String hashedPassword2 = PasswordHashing.hashPassword(rawPassword2);
+         User user2 = new User.UserBuilder()
+                .userId("56789")
+                .username("sara")
+                .email("sara@example.com")
+                .passwordHash(hashedPassword2)
+                .dateOfBirth(LocalDate.of(1990, 5, 15))
+                .status("online")
+                .bio("sara's profile")
+                .coverPhotoPath(def.getPath())
+                .profilePhotoPath(def.getPath())
+                .build();
+        
+        
         // Step 3: Specify the JSON file path
         String filePath = "users.json";
 
