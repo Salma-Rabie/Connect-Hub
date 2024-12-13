@@ -14,7 +14,7 @@ public class User implements Cloneable {
     private String profilePhotoPath;
     private String coverPhotoPath;
     private String bio;
- private List<stories> stories; 
+   private List<stories> stories; 
     private List<posts> posts; 
     private ArrayList<String> groups;
     private User(UserBuilder builder) {
@@ -165,7 +165,7 @@ public UserBuilder setstories(List<stories>u)
     public void setStatus(String status) {
         this.status = status;
     }
-   public List<stories> getStories() {
+public List<stories> getStories() {
         return stories;
     }
 

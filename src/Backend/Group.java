@@ -1,7 +1,9 @@
 package Backend;
+
 import java.util.ArrayList;
 
 public class Group {
+
     private String name;
     private int numMembers;
     private ArrayList<User> users;
@@ -10,6 +12,7 @@ public class Group {
     private User primaryAdmin;
     private ArrayList<User> otherAdmins;
     private ArrayList<posts> posts;
+    private ArrayList<String> joinRequests;
 
     // Private constructor to enforce the use of the builder
     private Group(GroupBuilder builder) {
@@ -21,6 +24,7 @@ public class Group {
         this.primaryAdmin = builder.primaryAdmin;
         this.otherAdmins = builder.otherAdmins;
         this.posts = builder.posts;
+        this.joinRequests = builder.joinRequests;
     }
 
     // Getter methods for all fields (optional for usage)
@@ -56,8 +60,21 @@ public class Group {
         return posts;
     }
 
+    public ArrayList<String> getJoinRequests() {
+        return joinRequests;
+    }
+
+    public void addJoinRequest(String userName) {
+        this.joinRequests.add(userName);
+    }
+
+    public void removeJoinRequest(String userName) {
+        this.joinRequests.remove(userName);
+    }
+
     // Builder class
     public static class GroupBuilder {
+
         private String name;
         private int numMembers;
         private ArrayList<User> users = new ArrayList<>();
@@ -66,6 +83,7 @@ public class Group {
         private User primaryAdmin;
         private ArrayList<User> otherAdmins = new ArrayList<>();
         private ArrayList<posts> posts = new ArrayList<>();
+        private ArrayList<String> joinRequests = new ArrayList<>();
 
         // Setter methods in the builder
         public GroupBuilder name(String name) {
@@ -114,7 +132,7 @@ public class Group {
             return this;
         }
 
-        public GroupBuilder posts(ArrayList<posts>posts) {
+        public GroupBuilder posts(ArrayList<posts> posts) {
             this.posts = posts;
             return this;
         }
@@ -124,10 +142,21 @@ public class Group {
             return this;
         }
 
+        public GroupBuilder joinRequests(ArrayList<String> joinRequests) {
+            this.joinRequests = joinRequests;
+            return this;
+        }
+
+        public GroupBuilder addJoinRequest(String userName) {
+            this.joinRequests.add(userName);
+            return this;
+        }
+
         // Build method to create the Group object
         public Group build() {
             return new Group(this);
         }
+
     }
-    
+
 }

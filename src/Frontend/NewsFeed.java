@@ -32,7 +32,7 @@ public class NewsFeed extends javax.swing.JFrame {
     private List<String> currentUserFriends = new ArrayList();
     private GroupDataBase groupDatabase;
    private GroupManagement groupManager;
-private ArrayList<String>userGroups;
+    private ArrayList<String>userGroups;
     /**
      * Creates new form NewsFeed
      */
@@ -366,119 +366,191 @@ private ArrayList<String>userGroups;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         JDialog searchDialog = new JDialog(this, "Search Results", true);;
-        String text = jTextField1.getText().trim();
+        String text = jTextField1.getText();
         JPanel panel2 = new JPanel();
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS)); // Vertical stacking
+if (text.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Empty search text field", "Error", JOptionPane.INFORMATION_MESSAGE);
+} else {
+    List<User> users = userManager.getDatabase().getAllUsers();
+    List<Group> groups = groupDatabase.getAllGroups(); // Corrected: renamed 'group' to 'groups'
+    boolean userFound = false;
+    boolean groupFound = false;
 
-        if (text.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Empty search text field", "Error", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            List<User> users = userManager.getDatabase().getAllUsers();
-            boolean userFound = false;
+    // Search through users
+    for (User userr : users) {
+        if (userr.getUsername().equalsIgnoreCase(user.getUsername())) {
+            continue;
+        }
+        // Check if the username contains the input text (case-insensitive)
+        if (userr.getUsername().toLowerCase().contains(text.toLowerCase())) {
+            userFound = true;
 
-            for (User userr : users) {
-                if (userr.getUsername().equalsIgnoreCase(user.getUsername())) {
-                    continue;
-                }
-                // Check if the username contains the input text (case-insensitive)
-                if (userr.getUsername().toLowerCase().contains(text.toLowerCase())) {
-                    userFound = true;
+            // Create a panel for each user entry
+            JPanel userPanel = new JPanel();
+            userPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Horizontal layout for components
+            userPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-                    // Create a panel for each user entry
-                    JPanel userPanel = new JPanel();
-                    userPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Horizontal layout for components
-                    userPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            // Add username as a label
+            JLabel userLabel = new JLabel(userr.getUsername());
+            userLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+            userPanel.add(userLabel);
 
-                    // Add username as a label
-                    JLabel userLabel = new JLabel(userr.getUsername());
-                    userLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-                    userPanel.add(userLabel);
+            boolean[] isFriend = {false}; // Use an array or a reference to keep the state
 
-                    boolean[] isFriend = {false}; // Use an array or a reference to keep the state
-
-                    for (String friend : currentUserFriends) {
-                        if (friend.equals(userr.getUserId())) {
-                            isFriend[0] = true; // Mark as friend
-                            break;
-                        }
-                    }
-
-                    // Create "Add Friend" or "Remove" button
-                    JButton addFriendButton = new JButton(isFriend[0] ? "Remove" : "Add Friend");
-
-                    addFriendButton.addActionListener(e -> {
-                        if (isFriend[0]) {
-                            // If the user is a friend, clicking "Remove"
-                            JOptionPane.showMessageDialog(null, "You are now removing " + userr.getUsername() + " from your friends.");
-                            currentUserFriends.remove(userr.getUserId()); // Remove from the friends list
-                            addFriendButton.setText("Add Friend"); // Change the button text back to "Add Friend"
-                            isFriend[0] = false; // Update the status
-                        } else {
-                            // If the user is not a friend, clicking "Add Friend"
-                            JOptionPane.showMessageDialog(null, "Friend request sent to " + userr.getUsername());
-                            currentUserFriends.add(userr.getUserId()); // Add to the friends list
-                            addFriendButton.setText("Remove"); // Change the button text to "Remove"
-                            isFriend[0] = true; // Update the status
-                        }
-                    });
-                    userPanel.add(addFriendButton);
-
-                    // Add "Block" button
-                    JButton blockButton = new JButton("Block");
-                    blockButton.addActionListener(e -> {
-                        // Action to block user
-                        JOptionPane.showMessageDialog(null, userr.getUsername() + " has been blocked.");
-                    });
-                    userPanel.add(blockButton);
-                    // Add "View Profile" button
-                    JButton viewProfileButton = new JButton("View Profile");
-                    viewProfileButton.addActionListener(e -> {
-
-                        searchDialog.setVisible(false);
-                        // Action to view profile
-
-                        ViewProfile profile = new ViewProfile(userr, this, userManager);
-                        profile.setVisible(true);
-                    });
-                    userPanel.add(viewProfileButton);
-
-                    // Add "Remove User" button
-//                    if(isFriend){
-//                    JButton removeUserButton = new JButton("Remove User");
-//                    removeUserButton.addActionListener(e -> {
-//                        // Action to remove user
-//                        JOptionPane.showMessageDialog(null, userr.getUsername() + " has been removed.");
-//                    });
-//                    userPanel.add(removeUserButton);}
-                    // Add the user panel to the main panel
-                    panel2.add(userPanel);
+            for (String friend : currentUserFriends) {
+                if (friend.equals(userr.getUserId())) {
+                    isFriend[0] = true; // Mark as friend
+                    break;
                 }
             }
 
-            if (!userFound) {
-                JLabel noResultsLabel = new JLabel("No users found with matching text.");
-                noResultsLabel.setFont(new Font("Arial", Font.ITALIC, 14));
-                noResultsLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-                panel2.add(noResultsLabel);
-            }
+            // Create "Add Friend" or "Remove" button
+            JButton addFriendButton = new JButton(isFriend[0] ? "Remove" : "Add Friend");
 
-            // Refresh the panel and display it
-            panel2.revalidate();
-            panel2.repaint();
+            addFriendButton.addActionListener(e -> {
+                if (isFriend[0]) {
+                    // If the user is a friend, clicking "Remove"
+                    JOptionPane.showMessageDialog(null, "You are now removing " + userr.getUsername() + " from your friends.");
+                    currentUserFriends.remove(userr.getUserId()); // Remove from the friends list
+                    addFriendButton.setText("Add Friend"); // Change the button text back to "Add Friend"
+                    isFriend[0] = false; // Update the status
+                } else {
+                    // If the user is not a friend, clicking "Add Friend"
+                    JOptionPane.showMessageDialog(null, "Friend request sent to " + userr.getUsername());
+                    currentUserFriends.add(userr.getUserId()); // Add to the friends list
+                    addFriendButton.setText("Remove"); // Change the button text to "Remove"
+                    isFriend[0] = true; // Update the status
+                }
+            });
+            userPanel.add(addFriendButton);
+
+            // Add "Block" button
+            JButton blockButton = new JButton("Block");
+            blockButton.addActionListener(e -> {
+                // Action to block user
+                JOptionPane.showMessageDialog(null, userr.getUsername() + " has been blocked.");
+            });
+            userPanel.add(blockButton);
+
+            // Add "View Profile" button
+            JButton viewProfileButton = new JButton("View Profile");
+            viewProfileButton.addActionListener(e -> {
+                searchDialog.setVisible(false);
+                // Action to view profile
+                ViewProfile profile = new ViewProfile(userr, this, userManager);
+                profile.setVisible(true);
+            });
+
+            userPanel.add(viewProfileButton);
+            panel2.add(userPanel); // Add user panel to the main panel
+        }
+    }
+
+    // Search through groups (should be independent of user search)
+    for (Group group : groups) {
+    // Check if the group name contains the input text (case-insensitive)
+    if (group.getName().toLowerCase().contains(text.toLowerCase())) {
+        groupFound = true;
+
+        // Create a panel for each group entry
+        JPanel groupPanel = new JPanel();
+        groupPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        groupPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        // Add group name as a label
+        JLabel groupLabel = new JLabel(group.getName());
+        groupLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        groupPanel.add(groupLabel);
+
+        // "Join" or "Leave" button for groups
+        
+        JButton joinLeaveButton = new JButton();
+         boolean[] isMember ={false};
+          isMember[0]= user.getGroups().contains(group.getName());
+    boolean hasJoinRequest = group.getJoinRequests().contains(user.getUserId());  // Track join requests
+
+    if (isMember[0]) {
+        joinLeaveButton.setText("Leave");
+    } else if (hasJoinRequest) {
+        joinLeaveButton.setText("Cancel Request");
+    } else  {
+        joinLeaveButton.setText("Join");
+    }
+joinLeaveButton.addActionListener(e -> {
+   
+
+    if (isMember[0]) {
+        // If user is a member, allow them to leave the group
+        JOptionPane.showMessageDialog(null, "You left the group: " + group.getName());
+        user.getGroups().remove(group.getName()); // Remove user from the group
+        joinLeaveButton.setText("Join"); // Change button text to "Join"
+        joinLeaveButton.setEnabled(true); // Enable button again for joining
+        isMember[0] = false;
+        // groupManager.leaveGroup(group , user);
+        mygroups.removeItem(group.getName());
+    } else if (group.getJoinRequests().contains(user.getUserId())) {
+        // If the user has a pending join request, cancel the request
+        JOptionPane.showMessageDialog(null, "Join request cancelled for: " + group.getName());
+        group.getJoinRequests().remove(user.getUserId()); // Remove join request
+        joinLeaveButton.setText("Join"); // Change button text back to "Join"
+    } else {
+        // If the user has not yet requested to join, send a join request
+        JOptionPane.showMessageDialog(null, "Join request sent to admin for: " + group.getName());
+        group.getJoinRequests().add(user.getUserId()); // Send join request
+        joinLeaveButton.setText("Cancel Request"); // Change button text to "Cancel Request"
+    }
+
+    // Revalidate and repaint the button itself to ensure it updates correctly
+    joinLeaveButton.revalidate();
+    joinLeaveButton.repaint();
+
+    // If you're still experiencing layout issues, revalidate the panel too
+    groupPanel.revalidate();
+    groupPanel.repaint();
+});
+
+
+
+        // "View Group" button for members
+         
+        if (isMember[0]) {
+            JButton viewGroupButton = new JButton("View Group");
+            viewGroupButton.addActionListener(e -> {
+                // Action to view the group
+                JOptionPane.showMessageDialog(null, "Viewing the group: " + group.getName());
+            });
+            groupPanel.add(viewGroupButton);
         }
 
-// Wrap the panel in a JScrollPane
-        // Wrap the panel in a JScrollPane
-        JScrollPane scrollPane = new JScrollPane(panel2);
-        scrollPane.setPreferredSize(new Dimension(500, 400)); // Adjust size as needed
+        groupPanel.add(joinLeaveButton);
 
-        // Add the scrollPane to the JDialog
-        searchDialog.add(scrollPane);
-        searchDialog.pack(); // Adjust size of the dialog
-        searchDialog.setLocationRelativeTo(this); // Center the dialog
+        // Add the group panel to the main panel
+        panel2.add(groupPanel);
+    }
+}
 
-        // Show the dialog (this is a blocking call, so the dialog will stay open until closed)
-        searchDialog.setVisible(true);
+    // If no user or group is found
+    if (!userFound && !groupFound) {
+        JLabel noResultsLabel = new JLabel("No users or groups found with matching text.");
+        noResultsLabel.setFont(new Font("Arial", Font.ITALIC, 14));
+        noResultsLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel2.add(noResultsLabel);
+    }
+
+    // Wrap the panel in a JScrollPane
+    JScrollPane scrollPane = new JScrollPane(panel2);
+    scrollPane.setPreferredSize(new Dimension(500, 400)); // Adjust size as needed
+
+    // Add the scrollPane to the JDialog
+    searchDialog.add(scrollPane);
+    searchDialog.pack(); // Adjust size of the dialog
+    searchDialog.setLocationRelativeTo(this); // Center the dialog
+
+    // Show the dialog
+    searchDialog.setVisible(true);
+}
+
    
     }//GEN-LAST:event_jButton1ActionPerformed
 
