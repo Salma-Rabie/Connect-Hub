@@ -1,10 +1,10 @@
 {
-     "user1:user3": {
-          "blockedUserId": "user3",
-          "userId": "user1"
+     "1000:1004": {
+          "blockedUserId": "1004",
+          "userId": "1000"
      },
-     "user123:user789": {
-          "blockedUserId": "user789",
-          "userId": "user123"
+     "1004:12345": {
+          "blockedUserId": "12345",
+          "userId": "1004"
      }
 }

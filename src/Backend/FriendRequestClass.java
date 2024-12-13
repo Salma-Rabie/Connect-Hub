@@ -5,11 +5,17 @@ public class FriendRequestClass {
     private final String requestId;
     private final String senderId;
     private final String receiverId;
+    private final String status;
 
-    public FriendRequestClass(String requestId, String senderId, String receiverId) {
+    public FriendRequestClass(String requestId, String senderId, String receiverId,String status) {
         this.requestId = requestId;
         this.senderId = senderId;
         this.receiverId = receiverId;
+        this.status=status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public String getRequestId() {
