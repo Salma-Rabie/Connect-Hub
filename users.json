@@ -68,7 +68,7 @@
         "profilePhotoPath": "user_data/profile_photos/1001_profile.jpg",
         "stories": [],
         "bio": "",
-        "groups": [],
+        "groups": ["Java Enthusiasts"],
         "dateOfBirth": "2024-12-10",
         "coverPhotoPath": "user_data/cover_photos/1001_cover.jpg",
         "posts": [],
@@ -81,21 +81,24 @@
         "profilePhotoPath": "user_data/profile_photos/12345_profile.jpg",
         "stories": [],
         "bio": "fdbvrgbr",
-        "groups": [],
+        "groups": [
+            "salmaaa",
+            "saraaa"
+        ],
         "dateOfBirth": "1990-05-15",
         "coverPhotoPath": "user_data/cover_photos/12345_cover.jpg",
         "posts": [
             {
                 "date": "2024-12-13T10:20:17.340565",
                 "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
-                "contentId": "1ebde2",
+                "contentId": "cad3da",
                 "text": "wfrewgetg",
                 "userId": "12345"
             },
             {
                 "date": "2024-12-13T10:20:27.335478700",
                 "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\desktop-wallpaper-engineering-engineering-minimalist.jpg",
-                "contentId": "802362",
+                "contentId": "8586e9",
                 "text": "wfwrfwrgf",
                 "userId": "12345"
             }

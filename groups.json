@@ -1,20 +1,67 @@
-{"Java Enthusiasts": {
-    "photoPath": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
-    "primaryAdmin": "1222",
-    "name": "Java Enthusiasts",
-    "description": "A group for saraand yhnjuyjukmu enthusiasts and advanced learners.",
-    "posts": [{
-        "date": "2024-12-13T10:20:17.340565",
-        "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
-        "contentId": "671834",
-        "text": "wfrewgetg",
-        "userId": "12345"
-    }],
-    "otherAdmins": ["1233"],
-    "users": [
-        "1222",
-        "1233",
-             "1001"
-    ],
-    "numMembers": 2
-}}
+{
+    "saraaa": {
+        "photoPath": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
+        "primaryAdmin": "12345",
+        "name": "saraaa",
+        "description": "",
+        "posts": [
+            {
+                "date": "2024-12-13T22:10:30.818714",
+                "img": "",
+                "contentId": "de1ced",
+                "text": "35g46h5",
+                "userId": "12345"
+            },
+            {
+                "date": "2024-12-13T22:10:30.818714",
+                "img": "",
+                "contentId": "de1ced",
+                "text": "35g46h5",
+                "userId": "12345"
+            }
+        ],
+        "otherAdmins": [],
+        "users": ["12345"],
+        "numMembers": 1
+    },
+    "salmaaa": {
+        "photoPath": "ss.jpg",
+        "primaryAdmin": "12345",
+        "name": "salmaaa",
+        "description": "",
+        "posts": [],
+        "otherAdmins": [],
+        "users": ["12345"],
+        "numMembers": 1
+    },
+    "Java Enthusiasts": {
+        "photoPath": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
+        "primaryAdmin": "1222",
+        "name": "Java Enthusiasts",
+        "description": "A group for saraand yhnjuyjukmu enthusiasts and advanced learners.",
+        "posts": [
+            {
+                "date": "2024-12-13T20:33:59.500286400",
+                "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
+                "contentId": "92e049",
+                "text": "3w5hy57ik",
+                "userId": "1233"
+            },
+            {
+                "date": "2024-12-13T10:20:17.340565",
+                "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
+                "contentId": "cb08eb",
+                "text": "wfrewgetg",
+                "userId": "12345"
+            }
+        ],
+        "otherAdmins": ["1233"],
+        "users": [
+            "1222",
+            "1233",
+            "1001",
+            "1000"
+        ],
+        "numMembers": 4
+    }
+}

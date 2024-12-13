@@ -95,6 +95,7 @@ public class NewsFeed extends javax.swing.JFrame {
         GoToProfile = new javax.swing.JButton();
         mygroups = new javax.swing.JComboBox<>();
         choosegroup = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -196,6 +197,15 @@ public class NewsFeed extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Create Group");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,18 +223,21 @@ public class NewsFeed extends javax.swing.JFrame {
                             .addComponent(mygroups, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(addpost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(addstory, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(friendrequests, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(friendrequests, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(choosegroup)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Suggestions, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(MyFriends, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(GoToProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(choosegroup))))
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Suggestions, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(MyFriends, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(GoToProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
@@ -241,7 +254,8 @@ public class NewsFeed extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mygroups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(choosegroup))
+                    .addComponent(choosegroup)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -334,7 +348,7 @@ public class NewsFeed extends javax.swing.JFrame {
 
     private void mygroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mygroupsActionPerformed
         // TODO add your handling code here:
-
+        
     }//GEN-LAST:event_mygroupsActionPerformed
 
     private void choosegroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choosegroupActionPerformed
@@ -342,22 +356,33 @@ public class NewsFeed extends javax.swing.JFrame {
         String groupName = (String) mygroups.getSelectedItem();
         if (groupName != null && !groupName.equals("Select Friend Request")) {
             Group group = groupDatabase.getGroupByName(groupName);
-            if (!group.getPrimaryAdmin().equals(user.getUserId()) && !group.getOtherAdmins().equals(user.getUserId())) {
+            if(group.getOtherAdmins().contains(user.getUserId()))
+           {
+               this.setVisible(false);
+                OtherAdminsGroupWindow groupWindow = new OtherAdminsGroupWindow(this, user, group, groupDatabase, groupManager);
+                groupWindow.setVisible(true);
+            }
+            else if (!group.getPrimaryAdmin().equals(user.getUserId()) && !group.getOtherAdmins().contains(user.getUserId())) {
                 this.setVisible(false);
                 UserGroupWindow groupWindow = new UserGroupWindow(this, user, group, groupDatabase, groupManager);
                 groupWindow.setVisible(true);
             }
-            if (group.getPrimaryAdmin().equals(user.getUserId())) {
+            else if (group.getPrimaryAdmin().equals(user.getUserId())) {
                  this.setVisible(false);
                 PrimaryAdminGroupWindow groupWindow = new PrimaryAdminGroupWindow(this, user, group, groupDatabase, groupManager);
                 groupWindow.setVisible(true);
             }
-           else if(group.getOtherAdmins().equals(user.getUserId()))
-           {
-            }
+          
         }
 
     }//GEN-LAST:event_choosegroupActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        CreateGroup creatgroup= new CreateGroup(this,user,groupManager);
+        creatgroup.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void loadFriends(String currentUserId) {
         try {
@@ -582,6 +607,7 @@ public class NewsFeed extends javax.swing.JFrame {
     private javax.swing.JButton addstory;
     private javax.swing.JButton choosegroup;
     private javax.swing.JButton friendrequests;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JComboBox<String> mygroups;
