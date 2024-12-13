@@ -84,7 +84,13 @@ public class BlockedUserDataBase {
 
                     // Check if the block relationship exists
                     String key = userId + ":" + blockedUserId;
-                    return database.has(key);
+            
+                    
+                    if (database.has(key)) {
+                    return true;
+                } else {
+                    System.out.println("No block relationship found for key: " + key);
+                }
                 }
             }
         } catch (IOException | JSONException e) {
@@ -92,6 +98,10 @@ public class BlockedUserDataBase {
         }
         return false; // Return false if no block exists
     }
+//    public boolean Blocked(String userId, String blockedUserId)
+//    {
+//        
+//    }
 
     // Get all blocked users for a given user
     public Set<String> getBlockedUsers(String userId) {

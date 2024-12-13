@@ -3,6 +3,7 @@
         "profilePhotoPath": "user_data/profile_photos/1000_profile.jpg",
         "stories": [],
         "bio": "malak waled",
+        "groups": ["Java Enthusiasts"],
         "dateOfBirth": "1990-09-15",
         "coverPhotoPath": "user_data/cover_photos/1000_cover.jpg",
         "posts": [],
@@ -15,6 +16,7 @@
         "profilePhotoPath": "user_data/profile_photos/1000_profile.jpg",
         "stories": [],
         "bio": "",
+        "groups": ["Java Enthusiasts"],
         "dateOfBirth": "2024-12-10",
         "coverPhotoPath": "user_data/cover_photos/1000_cover.jpg",
         "posts": [],
@@ -23,22 +25,11 @@
         "username": "salma",
         "status": "offline"
     },
-    "1004": {
-        "profilePhotoPath": "user_data/profile_photos/1001_profile.jpg",
-        "stories": [],
-        "bio": "",
-        "dateOfBirth": "2024-12-10",
-        "coverPhotoPath": "user_data/cover_photos/1001_cover.jpg",
-        "posts": [],
-        "email": "sara@gamil.com",
-        "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
-        "username": "sara",
-        "status": "offline"
-    },
     "1233": {
         "profilePhotoPath": "ss.jpg",
         "stories": [],
         "bio": "sjfxsghgxdwkwdhew",
+        "groups": ["Java Enthusiasts"],
         "dateOfBirth": "1990-05-15",
         "coverPhotoPath": "ss.jpg",
         "posts": [],
@@ -64,6 +55,7 @@
         "profilePhotoPath": "user_data/profile_photos/1001_profile.jpg",
         "stories": [],
         "bio": "",
+        "groups": ["Java Enthusiasts"],
         "dateOfBirth": "2024-12-18",
         "coverPhotoPath": "user_data/cover_photos/1001_cover.jpg",
         "posts": [],
@@ -73,42 +65,65 @@
         "status": "online"
     },
     "1000": {
-        "profilePhotoPath": "user_data/profile_photos/1000_profile.jpg",
-        "stories": [],
+        "profilePhotoPath": "user_data/profile_photos/1001_profile.jpg",
+        "stories": [
+            {
+                "date": "2024-12-13T16:54:39.008918500",
+                "img": "C:\\Users\\alaae\\OneDrive\\Pictures\\Screenshots\\Screenshot (127).png",
+                "contentId": "8836ad",
+                "text": "tryyyiinggg posttsss",
+                "userId": "1000"
+            },
+            {
+                "date": "2024-12-13T16:55:56.810739100",
+                "img": "",
+                "contentId": "80ba51",
+                "text": "hhhhhhhhhhhhhh",
+                "userId": "1000"
+            }
+        ],
         "bio": "",
-        "groups": [],
-        "dateOfBirth": "2024-12-26",
-        "coverPhotoPath": "user_data/cover_photos/1000_cover.jpg",
-        "posts": [],
-        "email": "ryht@egh.ehgt",
+        "groups": ["Java Enthusiasts"],
+        "dateOfBirth": "2024-12-10",
+        "coverPhotoPath": "user_data/cover_photos/1001_cover.jpg",
+        "posts": [{
+            "date": "2024-12-13T16:54:15.585588600",
+            "img": "C:\\Users\\alaae\\OneDrive\\Pictures\\Screenshots\\Screenshot (123).png",
+            "contentId": "dccf73",
+            "text": "hellloooo",
+            "userId": "1000"
+        }],
+        "email": "sara@gamil.com",
         "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
-        "username": "hryh",
+        "username": "sara",
         "status": "online"
     },
     "12345": {
-        "profilePhotoPath": "ss.jpg",
+        "profilePhotoPath": "user_data/profile_photos/12345_profile.jpg",
         "stories": [],
-        "bio": "sjfxsghgxdwkwdhew",
+        "bio": "fdbvrgbr",
         "groups": ["Java Enthusiasts"],
         "dateOfBirth": "1990-05-15",
-        "coverPhotoPath": "ss.jpg",
-        "posts": [],
+        "coverPhotoPath": "user_data/cover_photos/12345_cover.jpg",
+        "posts": [
+            {
+                "date": "2024-12-13T10:20:17.340565",
+                "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\Aesthetic-Wallpaper-For-Laptop-Wallpaper-High-Quality.jpg",
+                "contentId": "945cac",
+                "text": "wfrewgetg",
+                "userId": "12345"
+            },
+            {
+                "date": "2024-12-13T10:20:27.335478700",
+                "img": "C:\\Users\\King Technology\\Pictures\\Backgrounds\\desktop-wallpaper-engineering-engineering-minimalist.jpg",
+                "contentId": "250e54",
+                "text": "wfwrfwrgf",
+                "userId": "12345"
+            }
+        ],
         "email": "johndoe@example.com",
         "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
         "username": "JohnDoe",
         "status": "offline"
-    },
-    "1230": {
-        "profilePhotoPath": "ss.jpg",
-        "stories": [],
-        "bio": "sjfxsghgxdwkwdhew",
-        "groups": ["Java Enthusiasts"],
-        "dateOfBirth": "1990-05-15",
-        "coverPhotoPath": "ss.jpg",
-        "posts": [],
-        "email": "johndoe@example.com",
-        "passwordHash": "f76043a74ec33b6aefbb289050faf7aa8d482095477397e3e63345125d49f527",
-        "username": "JohnDoe",
-        "status": "online"
     }
 }

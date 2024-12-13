@@ -14,7 +14,7 @@ public class User implements Cloneable {
     private String profilePhotoPath;
     private String coverPhotoPath;
     private String bio;
-   private List<stories> stories; 
+ private List<stories> stories; 
     private List<posts> posts; 
     private ArrayList<String> groups;
     private User(UserBuilder builder) {

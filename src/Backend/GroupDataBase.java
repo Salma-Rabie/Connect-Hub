@@ -50,7 +50,7 @@ public class GroupDataBase {
 
                     // Add users
                     JSONArray usersArray = groupJson.getJSONArray("users");
-                    UserDataBase userDB = UserDataBase.getInstance("user_data.json");
+                    UserDataBase userDB = UserDataBase.getInstance("users.json");
                     for (int i = 0; i < usersArray.length(); i++) {
                         String userId = usersArray.getString(i);
                         User user = userDB.getUserById(userId);
